@@ -2,7 +2,7 @@
 #include <vector>
 
 public:
-	std::deque<Card*> m_deck;
+	std::vector<Card*> m_deck;
 	void InitializeSet();
 	void Shuffle();
 	Card* DealCard();
