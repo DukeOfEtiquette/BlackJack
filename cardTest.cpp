@@ -1,20 +1,49 @@
 #include <iostream>
+#include <vector>
 #include "Card.h"
 
 class Card;
 
 int main()
 {
-	Card::Suit suit = Card::Heart;
-	Card* c = new Card(2, suit);
-	Card* c2 = new Card(10, suit);
+	std::vector<Card*> cards;
+	Card* c;
 
-	std::cout << "Card: ";
-	c->PrintCard();
-	std::cout << std::endl;
-	std::cout << "Card2: ";
-	c2->PrintCard();
-	std::cout << std::endl;
+	Card::Suit heart = Card::Heart;
+	Card::Suit diamond = Card::Diamond;
+	Card::Suit club = Card::Club;
+	Card::Suit spade = Card::Spade;
 
-	return 0;
+	for(int i = 2; i < 14; i++)
+	{
+		c = new Card(i, heart);
+		cards.push_back(c);
+	}
+
+	for(int i = 2; i < 14; i++)
+	{
+		c = new Card(i, diamond);
+		cards.push_back(c);
+	}
+	for(int i = 2; i < 14; i++)
+	{
+		c = new Card(i, club);
+		cards.push_back(c);
+	}
+	for(int i = 2; i < 14; i++)
+	{
+		c = new Card(i, spade);
+		cards.push_back(c);
+	}
+	
+	int val;
+
+	for(int i = 0; i < cards.size(); i++)
+	{
+		std::cout << "Card: ";
+		cards[i]->PrintCard();
+		val = cards[i]->GetValue();
+		std::cout << " Value: " << val;
+		std::cout << std::endl;
+	}
 }
