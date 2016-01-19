@@ -18,7 +18,7 @@ public:
 	Card(int, Suit);
 
 	int m_value;
-	Suit suit;
+	Suit m_suit;
 
 	void PrintCard();
 	int GetValue();

@@ -6,12 +6,12 @@
 Card::Card(int val, Suit s)
 {
 	m_value = val;
-	suit = s;
+	m_suit = s;
 }
 
 int Card::GetValue()
 {
-	if(m_value > 10)
+	if(m_value > 9)
 		return 10;
 	else
 		return m_value;
@@ -22,7 +22,7 @@ void Card::PrintCard()
 	char s;
 	std::string v;
 
-	switch(suit)
+	switch(m_suit)
 	{
 		case Club:
 			s = 'C';
@@ -44,8 +44,6 @@ void Card::PrintCard()
 	switch(m_value)
 	{
 		case 2:
-			v = std::to_string(m_value);
-			break;
 		case 3:
 		case 4:
 		case 5:
@@ -54,7 +52,7 @@ void Card::PrintCard()
 		case 8:
 		case 9:
 		case 10:
-			v = static_cast<char>(m_value);
+			v = std::to_string(m_value);
 			break;
 		case 11:
 			v = 'J';
@@ -70,6 +68,5 @@ void Card::PrintCard()
 			break;
 	}
 
-	//printf("%s %s", v, s);
 	std::cout << v << s;
 }
