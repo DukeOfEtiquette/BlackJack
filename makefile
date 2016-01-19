@@ -6,14 +6,14 @@ BlackJack: Board.o Deck.o Player.o Hand.o Card.o
 Board.o: Board.cpp
 	g++ -c Board.cpp
 
-Deck.o: Deck.o
+Deck.o: Deck.cpp
 	g++ -c Deck.cpp
 
-Player.o: Player.o
+Player.o: Player.cpp
 	g++ -c Player.cpp
 
-Hand.o: Hand.o
+Hand.o: Hand.cpp
 	g++ -c Hand.cpp
 
-Card.o: Card.o
+Card.o: Card.cpp
 	g++ -c Card.cpp
