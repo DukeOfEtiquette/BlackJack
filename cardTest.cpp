@@ -14,27 +14,30 @@ int main()
 	Card::Suit club = Card::Club;
 	Card::Suit spade = Card::Spade;
 
-	for(int i = 2; i < 14; i++)
+	for(int i = 0; i < 4; i++)
 	{
-		c = new Card(i, heart);
-		cards.push_back(c);
+		for(int j = 2; j < 14; j++)
+		{
+			c = new Card(j, (Card::Suit)i);
+			cards.push_back(c);
+		}
 	}
 
-	for(int i = 2; i < 14; i++)
-	{
-		c = new Card(i, diamond);
-		cards.push_back(c);
-	}
-	for(int i = 2; i < 14; i++)
-	{
-		c = new Card(i, club);
-		cards.push_back(c);
-	}
-	for(int i = 2; i < 14; i++)
-	{
-		c = new Card(i, spade);
-		cards.push_back(c);
-	}
+	//for(int i = 2; i < 14; i++)
+	//{
+	//	c = new Card(i, diamond);
+	//	cards.push_back(c);
+	//}
+	//for(int i = 2; i < 14; i++)
+	//{
+	//	c = new Card(i, club);
+	//	cards.push_back(c);
+	//}
+	//for(int i = 2; i < 14; i++)
+	//{
+	//	c = new Card(i, spade);
+	//	cards.push_back(c);
+	//}
 	
 	int val;
 
