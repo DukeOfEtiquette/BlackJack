@@ -1,22 +1,27 @@
-all: BlackJack
+OBJS = Board.o Deck.o Player.o Hand.o Card.o
+EXES = BlackJack
+FLAGS = -c
+CC = g++
 
-BlackJack: Board.o Deck.o Player.o Hand.o Card.o cardTest.o
-	g++ Board.o Deck.o Player.o Hand.o Card.o cardTest.o -o BlackJack
+all: $(EXES)
+
+clean:
+	rm $(OBJS)
+
+Blackjack: $(OBJS)
+	$(CC) $(OBJS) -o BlackJack
 
 Board.o: Board.cpp
-	g++ -c Board.cpp
+	$(CC) $(FLAGS) Board.cpp
 
 Deck.o: Deck.cpp
-	g++ -c Deck.cpp
+	$(CC) $(FLAGS) Deck.cpp
 
 Player.o: Player.cpp
-	g++ -c Player.cpp
+	$(CC) $(FLAGS) Player.cpp
 
 Hand.o: Hand.cpp
-	g++ -c Hand.cpp
+	$(CC) $(FLAGS) Hand.cpp
 
 Card.o: Card.cpp
-	g++ -c Card.cpp
-
-cardTest.o: cardTest.cpp
-	g++ -c cardTest.cpp
+	$(CC) $(FLAGS) Card.cpp
