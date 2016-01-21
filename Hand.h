@@ -9,7 +9,8 @@ class Hand
 {
 public:
     Hand(int size);
-    std::vector<Card*> handy;
+    ~Hand();
+    std::vector<Card*> m_hand;
     int SumHand();
     void PrintHand();
     void DumpHand();
@@ -17,8 +18,14 @@ private:
     int m_handID;
 };
 
-Hand::Hand(int id) {
+Hand::Hand(int id)
+{
     m_handID = id;
+}
+
+Hand::~Hand(void)
+{
+    
 }
 
 #endif
