@@ -1,8 +1,11 @@
-# include <iostream>
-# include "Card.h"
-# include "Hand.h" 
+#include <iostream>
+#include "Card.h"
+#include "Hand.h" 
 
-std::vector<Card*> m_hand;
+Hand::Hand(int id)
+{
+    m_handID = id;
+}
 
 int Hand::SumHand() { 
 		int sum = 0;
@@ -21,5 +24,3 @@ void Hand::PrintHand() {
 void Hand::DumpHand() {
 		m_hand.clear();
 }
-
-

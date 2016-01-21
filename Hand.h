@@ -1,6 +1,5 @@
-
-#ifndef Hand_cpp
-#define Hand_cpp
+#ifndef Hand_H
+#define Hand_H
 
 #include "Card.h"
 #include <vector>
@@ -14,18 +13,7 @@ public:
     int SumHand();
     void PrintHand();
     void DumpHand();
-private:
     int m_handID;
 };
-
-Hand::Hand(int id)
-{
-    m_handID = id;
-}
-
-Hand::~Hand(void)
-{
-    
-}
 
 #endif
