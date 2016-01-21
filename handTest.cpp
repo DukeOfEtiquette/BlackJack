@@ -2,12 +2,16 @@
 #include <vector>
 #include "Card.h"
 #include "Hand.h"
-#include "assert.h"
+//#include "assert.h"
 
 
 int main()
 {
-    Hand* hand = new Hand(1);   // handID id 1
+		std::cout << "Test";
+    
+
+
+    Hand* hand = new Hand(0);   // handID id 0
     
     Card* c;
     
@@ -39,21 +43,22 @@ int main()
     }
     
     int val;
-    
-    for(int i = 0; i < hand->m_hand.size(); i++)
-    {
-        std::cout << "Card: ";
-        hand->m_hand[i]->PrintCard();
-        val = hand->m_hand[i]->GetValue();
-        std::cout << " Value: " << val;
-        std::cout << std::endl;
-    }
+		std::cout << "Tseafsd: ";    
+    //for(int i = 0; i < hand->m_hand.size(); i++)
+    //{
+	//	std::cout << "I: " << i << " ";
+      //  std::cout << "Card: ";
+     //   hand->m_hand[i]->PrintCard();
+    //    val = hand->m_hand[i]->GetValue();
+   //     std::cout << " Value: " << val;
+  //      std::cout << std::endl;
+ //   }
     val = hand->SumHand();
     std::cout << "SumHand(): " << val << std::endl;
     hand->PrintHand();
     
     hand->DumpHand();
-    assert(hand->m_hand[0] == 0);
+//    assert(hand->m_hand[0] == 0);
     
 }
 
