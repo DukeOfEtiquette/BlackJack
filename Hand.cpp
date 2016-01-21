@@ -1,5 +1,4 @@
 # include <iostream>
-# include "Card.cpp"
 # include "Card.h"
 # include "Hand.h" 
 
