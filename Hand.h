@@ -7,7 +7,7 @@
 class Hand
 {
 public:
-    Hand(int size);
+    Hand(int);
     ~Hand();
     std::vector<Card*> m_hand;
     int SumHand();
