@@ -1,5 +1,5 @@
-OBJS = Board.o Deck.o Player.o Hand.o Card.o
-EXES = BlackJack
+OBJS = Board.o Deck.o Player.o Hand.o Card.o deckTest.o
+EXES = Blackjack
 FLAGS = -c
 CC = g++
 
@@ -9,7 +9,7 @@ clean:
 	rm $(OBJS)
 
 Blackjack: $(OBJS)
-	$(CC) $(OBJS) -o BlackJack
+	$(CC) $(OBJS) -o Blackjack
 
 Board.o: Board.cpp
 	$(CC) $(FLAGS) Board.cpp
@@ -25,3 +25,6 @@ Hand.o: Hand.cpp
 
 Card.o: Card.cpp
 	$(CC) $(FLAGS) Card.cpp
+
+deckTest.o: deckTest.cpp
+	$(CC) $(FLAGS) deckTest.cpp
