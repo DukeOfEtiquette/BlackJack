@@ -63,9 +63,9 @@ void Card::PrintCard()
 		case 13:
 			v = 'K';
 			break;
-		default:
-			v = 'X';
-			break;
+		//default:
+		//	v = 'X';
+		//	break;
 	}
 
 	std::cout << v << s;
