@@ -9,9 +9,8 @@ Hand::Hand(int id)
 
 int Hand::SumHand() 
 { 
-		std::cout << "Here I am";
 		int sum = 0;
-		for (int i = 0; m_hand.size(); i++) 
+		for (int i = 0; i < m_hand.size(); i++) 
 		{
 				sum += m_hand[i]->GetValue();		
 		}
