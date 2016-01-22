@@ -15,8 +15,8 @@ int main()
 	Card::Suit club = Card::Club;
 	Card::Suit spade = Card::Spade; 
 
-    c = new Card(1, heart);
-    h->m_hand.push_back(c);
+    //c = new Card(1, heart);
+    //h->m_hand.push_back(c);
 	//h->m_hand.push_back(c);
 	//c = new Card(3, diamond);
 	//h->m_hand.push_back(c);
