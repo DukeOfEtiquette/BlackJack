@@ -23,22 +23,6 @@ int main()
 		}
 	}
 
-	//for(int i = 2; i < 14; i++)
-	//{
-	//	c = new Card(i, diamond);
-	//	cards.push_back(c);
-	//}
-	//for(int i = 2; i < 14; i++)
-	//{
-	//	c = new Card(i, club);
-	//	cards.push_back(c);
-	//}
-	//for(int i = 2; i < 14; i++)
-	//{
-	//	c = new Card(i, spade);
-	//	cards.push_back(c);
-	//}
-	
 	int val;
 
 	for(int i = 0; i < cards.size(); i++)
@@ -49,4 +33,6 @@ int main()
 		std::cout << " Value: " << val;
 		std::cout << std::endl;
 	}
+	c = new Card(2, (Card::Suit)4);
+
 }
