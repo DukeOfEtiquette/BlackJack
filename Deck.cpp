@@ -48,6 +48,8 @@ void Deck::Shuffle()
 
 	//This will shuffle everything in the vector using our custom random	
 	std::random_shuffle(m_deck.begin(), m_deck.end(), shuffleRandom);
+
+	std::srand(unsigned(std::time(0)));
 }
 
 Card* Deck::DealCard()
