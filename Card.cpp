@@ -5,6 +5,17 @@
 
 Card::Card(int val, Suit s)
 {
+	if(val > 13)
+	{
+		std::cout << "Value of card too high - " << val << std::endl;
+		return;
+	}
+
+	if((int)s > 3)
+	{
+		std::cout << "Invalid suit trying to be created\n";
+	}
+
 	m_value = val;
 	m_suit = s;
 }

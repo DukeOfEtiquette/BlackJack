@@ -14,36 +14,38 @@ int main()
 	Card::Suit club = Card::Club;
 	Card::Suit spade = Card::Spade;
 
-	for(int i = 2; i < 14; i++)
-	{
-		c = new Card(i, heart);
-		cards.push_back(c);
-	}
+	c = new Card(2, (Card::Suit)4);
 
-	for(int i = 2; i < 14; i++)
-	{
-		c = new Card(i, diamond);
-		cards.push_back(c);
-	}
-	for(int i = 2; i < 14; i++)
-	{
-		c = new Card(i, club);
-		cards.push_back(c);
-	}
-	for(int i = 2; i < 14; i++)
-	{
-		c = new Card(i, spade);
-		cards.push_back(c);
-	}
-	
-	int val;
-
-	for(int i = 0; i < cards.size(); i++)
-	{
-		std::cout << "Card: ";
-		cards[i]->PrintCard();
-		val = cards[i]->GetValue();
-		std::cout << " Value: " << val;
-		std::cout << std::endl;
-	}
+//	for(int i = 2; i < 14; i++)
+//	{
+//		c = new Card(i, heart);
+//		cards.push_back(c);
+//	}
+//
+//	for(int i = 2; i < 14; i++)
+//	{
+//		c = new Card(i, diamond);
+//		cards.push_back(c);
+//	}
+//	for(int i = 2; i < 14; i++)
+//	{
+//		c = new Card(i, club);
+//		cards.push_back(c);
+//	}
+//	for(int i = 2; i < 14; i++)
+//	{
+//		c = new Card(i, spade);
+//		cards.push_back(c);
+//	}
+//	
+//	int val;
+//
+//	for(int i = 0; i < cards.size(); i++)
+//	{
+//		std::cout << "Card: ";
+//		cards[i]->PrintCard();
+//		val = cards[i]->GetValue();
+//		std::cout << " Value: " << val;
+//		std::cout << std::endl;
+//	}
 }
