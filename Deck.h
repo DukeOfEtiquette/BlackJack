@@ -12,6 +12,7 @@ public:
 	void Shuffle();
 	Card* DealCard();
 	Deck(int);
+	~Deck();
 	int m_nSets;
 
 };

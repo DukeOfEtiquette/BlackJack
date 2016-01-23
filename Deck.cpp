@@ -8,16 +8,22 @@
 
 Deck::Deck(int sets)
 {
-	m_nSets = sets; //sets is passed in, m_nSets is used in InitializeSets, L26
+	m_nSets = sets; //sets is passed in, m_nSets is used in InitializeSets
 	InitializeSet();
+}
+
+Deck::~Deck()
+{
+	//Destroy all Cards still in hand
+	m_deck.clear();
 }
 
 void Deck::InitializeSet()
 {
-	//Used on line 35
+	//Pointer to a Card to be used while creating a Deck
 	Card* c;
 
-	//All 4 are used on line 35
+	//All four suits that will be used to create a Deck
 	Card::Suit heart = Card::Heart;
 	Card::Suit diamond = Card::Diamond;
 	Card::Suit club = Card::Club;
@@ -48,15 +54,13 @@ void Deck::Shuffle()
 
 	//This will shuffle everything in the vector using our custom random	
 	std::random_shuffle(m_deck.begin(), m_deck.end(), shuffleRandom);
-
-	std::srand(unsigned(std::time(0)));
 }
 
 Card* Deck::DealCard()
 {
 	//Here we set the value of c to be the card at the end of the deck
 	//We then pop that card off the deck and return c
-	Card* c = m_deck.back(); //Used on line 60
+	Card* c = m_deck.back();
 	m_deck.pop_back();
 	
 	return c;
