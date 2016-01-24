@@ -1,7 +1,7 @@
 all: BlackJack
 
-BlackJack: Board.o Deck.o Player.o Hand.o Card.o cardTest.o
-	g++ Board.o Deck.o Player.o Hand.o Card.o cardTest.o -o BlackJack
+BlackJack: Board.o Deck.o Player.o Hand.o Card.o Ace.o aceTest.o
+	g++ Board.o Deck.o Player.o Hand.o Card.o Ace.o aceTest.o -o BlackJack
 
 Board.o: Board.cpp
 	g++ -c Board.cpp
@@ -18,5 +18,8 @@ Hand.o: Hand.cpp
 Card.o: Card.cpp
 	g++ -c Card.cpp
 
-cardTest.o: cardTest.cpp
-	g++ -c cardTest.cpp
+Ace.o: Ace.cpp
+	g++ -c Ace.cpp
+
+aceTest.o: aceTest.cpp
+	g++ -c aceTest.cpp
