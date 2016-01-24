@@ -4,6 +4,7 @@
 #include <ctime>
 #include <cstdlib>
 #include "Deck.h"
+#include "Ace.h"
 
 
 Deck::Deck(int sets)
@@ -20,8 +21,9 @@ Deck::~Deck()
 
 void Deck::InitializeSet()
 {
-	//Pointer to a Card to be used while creating a Deck
+	//Pointer to a Card and Ace to be used while creating a Deck
 	Card* c;
+	Ace* a;
 
 	//The i loop will occur once for every set of cards we want to make
 	//The j loop will happen once for every suit in a set
@@ -30,6 +32,8 @@ void Deck::InitializeSet()
 	{
 		for(int j = 0; j < 4; j++)
 		{
+////			a = new Ace(1, (Card::Suit)j);
+
 			for(int k = 2; k < 14; k++)
 			{
 				c = new Card(k, (Card::Suit)j);

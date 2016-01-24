@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-OBJS = Board.o Deck.o Player.o Hand.o Card.o handTest.o
-=======
-OBJS = Board.o Deck.o Player.o Hand.o Card.o deckTest.o
->>>>>>> 77cadeb4670c6d0663ac6f5e515caede53d85f8f
+OBJS = Board.o Deck.o Player.o Hand.o Card.o deckHandTest.o
 EXES = Blackjack
 FLAGS = -c
 CC = g++
@@ -30,10 +26,5 @@ Hand.o: Hand.cpp
 Card.o: Card.cpp
 	$(CC) $(FLAGS) Card.cpp
 
-<<<<<<< HEAD
-handTest.o: handTest.cpp
-	$(CC) $(FLAGS) handTest.cpp
-=======
-deckTest.o: deckTest.cpp
-	$(CC) $(FLAGS) deckTest.cpp
->>>>>>> 77cadeb4670c6d0663ac6f5e515caede53d85f8f
+deckHandTest.o: deckHandTest.cpp
+	$(CC) $(FLAGS) deckHandTest.cpp

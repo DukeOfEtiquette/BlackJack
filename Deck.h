@@ -2,6 +2,7 @@
 #define _DECK_H_INCLUDED
 
 #include "Card.h"
+#include "Ace.h"
 #include <vector>
 
 class Deck

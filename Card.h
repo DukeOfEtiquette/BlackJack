@@ -1,9 +1,6 @@
 #ifndef _CARD_H_INCLUDED
 #define _CARD_H_INCLUDED
 
-
-//#include "Card.cpp"
-
 class Card
 {
 
