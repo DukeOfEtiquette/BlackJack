@@ -69,9 +69,20 @@ int main()
 	}
 
 	std::cout << std::endl;
- 
+	
+	Hand* h1 = new Hand(1);
+	c = new Card(2, spade);
+    h1->m_hand.push_back(c);
+	
+	std::cout << "h1 SumHand(): " << h1->SumHand() << std::endl;    
+	std::cout << "h1 PrintHand: ";
+	h1->PrintHand();
+
 	h->DumpHand();   
 	assert (h->m_hand.empty());
+	h1->DumpHand();
+	assert (h1->m_hand.empty());
+	std::cout << std::endl;
 	
 	return 0;
 }

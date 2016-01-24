@@ -3,9 +3,9 @@
 #include "Hand.h" 
 
 Hand::Hand(int id)
-{
-	//Make sure a hands id is not negative
-	if(id < 0) 
+{ 
+	//Make sure a hand id is not negative
+    if(id < 0)
 	{
 		std::cout << "Hand id is a negative number: " << id << std::endl;
 	}
@@ -13,14 +13,19 @@ Hand::Hand(int id)
     m_handID = id;
 }
 
+Hand::~Hand(void)
+{
+	m_hand.clear();
+}
+
 int Hand::SumHand() 
-{ 
+{
 	//Add up all card values in a hand
 	//Returns their sum
 	int sum = 0;
 	for(int i = 0; i < m_hand.size(); i++) 
 	{
-			sum += m_hand[i]->GetValue();		
+		sum += m_hand[i]->GetValue();		
 	}
 	return sum;
 }
