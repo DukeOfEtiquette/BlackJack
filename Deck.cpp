@@ -23,12 +23,6 @@ void Deck::InitializeSet()
 	//Pointer to a Card to be used while creating a Deck
 	Card* c;
 
-	//All four suits that will be used to create a Deck
-	Card::Suit heart = Card::Heart;
-	Card::Suit diamond = Card::Diamond;
-	Card::Suit club = Card::Club;
-	Card::Suit spade = Card::Spade;
-
 	//The i loop will occur once for every set of cards we want to make
 	//The j loop will happen once for every suit in a set
 	//The k loop will happen for values 2 through 13, or 2 through King
