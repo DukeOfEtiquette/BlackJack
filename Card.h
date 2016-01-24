@@ -20,10 +20,10 @@ public:
 	int m_value;
 	Suit m_suit;
 
-	void PrintCard();
-	int GetValue();
-
-
+	virtual void PrintCard();
+	virtual int GetValue();
+	virtual void DecValue();
+	virtual bool IsLow();
 };
 
 #endif

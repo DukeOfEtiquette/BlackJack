@@ -33,4 +33,6 @@ int main()
 		std::cout << " Value: " << val;
 		std::cout << std::endl;
 	}
+	c = new Card(2, (Card::Suit)4);
+
 }
