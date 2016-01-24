@@ -23,22 +23,22 @@ int main()
 	assert (h->m_hand[0]->GetValue() == 2);
 	assert (h->m_hand.size() > 0);	
 
-	for (int i = 2; i < 14; i++) 
+	for(int i = 2; i < 14; i++) 
 	{
 		c = new Card(i, heart);
 		h->m_hand.push_back(c);
 	}
-	for (int i = 2; i < 14; i++)
+	for(int i = 2; i < 14; i++)
 	{
 		c = new Card(i,diamond);
 		h->m_hand.push_back(c);
 	}
-	for (int i = 2; i < 14; i++) 
+	for(int i = 2; i < 14; i++) 
 	{
 		c = new Card(i, club);
 		h->m_hand.push_back(c);
 	}
-	for (int i = 2; i < 14; i++)
+	for(int i = 2; i < 14; i++)
 	{
 		c = new Card(i, spade);
 		h->m_hand.push_back(c);
