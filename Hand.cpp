@@ -4,7 +4,13 @@
 
 Hand::Hand(int id)
 {
-    m_handID = id;
+	//Make sure a hand id is not negative
+    if(id < 0)
+	{
+		std::cout << "Hand id is a negative number: " << id << std::endl;
+	}
+	//Assign a hands id the value passed by the constructor
+	m_handID = id;
 }
 
 Hand::~Hand(void)
@@ -13,14 +19,16 @@ Hand::~Hand(void)
 }
 
 int Hand::SumHand() 
-{ 
-		int sum = 0;
-		for (int i = 0; i < m_hand.size(); i++) 
-		{
-				sum += m_hand[i]->GetValue();		
-		}
+{
+	//Add up all card values in a hand
+	//Returns their sum
+	int sum = 0;
+	for (int i = 0; i < m_hand.size(); i++) 
+	{
+		sum += m_hand[i]->GetValue();		
+	}
 
-		return sum;
+	return sum;
 }
 
 void Hand::PrintHand() {
