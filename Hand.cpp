@@ -7,6 +7,11 @@ Hand::Hand(int id)
     m_handID = id;
 }
 
+Hand::~Hand(void)
+{
+
+}
+
 int Hand::SumHand() 
 { 
 		int sum = 0;
