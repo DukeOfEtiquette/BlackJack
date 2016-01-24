@@ -88,5 +88,15 @@ void Card::PrintCard()
 	}
 
 	//Print the values to stdout
-	std::cout << v << s;
+	std::cout << v << s << " ";
+}
+
+void Card::DecValue()
+{
+
+}
+
+bool Card::IsLow()
+{
+	return true;
 }

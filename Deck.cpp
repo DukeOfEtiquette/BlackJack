@@ -4,8 +4,6 @@
 #include <ctime>
 #include <cstdlib>
 #include "Deck.h"
-#include "Ace.h"
-
 
 Deck::Deck(int sets)
 {
@@ -32,7 +30,7 @@ void Deck::InitializeSet()
 	{
 		for(int j = 0; j < 4; j++)
 		{
-////			a = new Ace(1, (Card::Suit)j);
+			a = new Ace(1, (Card::Suit)j);
 
 			for(int k = 2; k < 14; k++)
 			{

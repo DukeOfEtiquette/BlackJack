@@ -1,4 +1,4 @@
-OBJS = Board.o Deck.o Player.o Hand.o Card.o deckHandTest.o
+OBJS = Board.o Deck.o Player.o Hand.o Card.o Ace.o deckHandTest.o
 EXES = Blackjack
 FLAGS = -c
 CC = g++
@@ -25,6 +25,9 @@ Hand.o: Hand.cpp
 
 Card.o: Card.cpp
 	$(CC) $(FLAGS) Card.cpp
+
+Ace.o: Ace.cpp
+	$(CC) $(FLAGS) Ace.cpp
 
 deckHandTest.o: deckHandTest.cpp
 	$(CC) $(FLAGS) deckHandTest.cpp
