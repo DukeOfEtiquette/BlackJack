@@ -88,5 +88,5 @@ void Card::PrintCard()
 	}
 
 	//Print the values to stdout
-	std::cout << v << s;
+	std::cout << v << s << " ";
 }

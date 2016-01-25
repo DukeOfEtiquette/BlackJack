@@ -3,12 +3,12 @@
 #include "Player.h"
 #include "Card.h"
 
-Player::Player()
+Player::Player(int id)
 {
-
+	m_playerID = id;
 }
 
-void Player::Split(Hand* splitHand)
+void Player::Split(int index)
 {
 	//Splits a hand that is passed to it
 	//Hand is poped off of the split hand and is added to the handList
@@ -16,23 +16,40 @@ void Player::Split(Hand* splitHand)
 	//Hand* h = new Hand(0);
 	//m_handList.push_back(splitHand->m_hand.pop_back());
 	
-	m_handList.push_back(splitHand->m_hand.back());
-	splitHand->m_hand.pop_back();
+	Hand* h = new Hand(m_handList.size());
+	h->m_hand.push_back(m_handList[index]->m_hand.back());
+	
+	m_handList.push_back(h);
+	m_handList[index]->m_hand.pop_back();
 }	
 
 void Player::AddStartingHand(Hand* hand)
 {
 	//Adds starting hands to handList
-	m_handList.push_back(hand->m_hand.back());
+	m_handList.push_back(hand);
 }
 
 void Player::PrintHands()
 {
 	//Prints hands in the handList
-	for(int i = 0; i < m_handList.size(); i++)
-	{ 
-		//std::cout << "Print Hands(): " << std::endl;
-		m_handList[i]->PrintCard();
+	if(m_playerID == 0)
+	{
+		for(int i = 0; i < m_handList.size(); i++)
+		{
+			std::cout << "Dealers ";  
+			m_handList[i]->PrintHand();
+			std::cout << " " <<std::endl;
+		}
+	}
+	else 
+	{
+		for(int i = 0; i < m_handList.size(); i++)
+		{ 
+			//std::cout << "Print Hands(): " << std::endl;
+			std::cout << "Player" << m_playerID << " ";
+			m_handList[i]->PrintHand();
+			std::cout << " " << std::endl;
+		}
 	}
 }
 

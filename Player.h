@@ -8,12 +8,13 @@
 class Player
 {
 public:
-	Player();
-	std::vector<Card*> m_handList;
-	void Split(Hand* splitHand);
+	Player(int);
+	std::vector<Hand*> m_handList;
+	void Split(int index);
 	void AddStartingHand(Hand* hand);
 	void PrintHands();
 	void DumpHands();
+	int m_playerID;
 };
 
 #endif
