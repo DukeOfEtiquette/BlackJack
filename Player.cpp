@@ -8,20 +8,22 @@ Player::Player()
 
 }
 
-void Player::Split(std::vector<Card*> splitHand)
+void Player::Split(Hand* splitHand)
 {
 	//Splits a hand that is passed to it
 	//Hand is poped off of the split hand and is added to the handList
-	Hand* h = new Hand(0);
-   	//h->m_hand.push_back(splitHand.pop_back());
-	m_handList.push_back(h);
-	splitHand.pop_back();
+	
+	//Hand* h = new Hand(0);
+	//m_handList.push_back(splitHand->m_hand.pop_back());
+	
+	m_handList.push_back(splitHand->m_hand.front());
+	splitHand->m_hand.pop_back();
 }	
 
-void Player::AddStartingHand(std::vector<Card*> hand)
+void Player::AddStartingHand(Hand* hand)
 {
 	//Adds starting hands to handList
-	m_handList.push_back(new Hand(0));
+	m_handList.push_back(hand->m_hand.front());
 }
 
 void Player::PrintHands()
@@ -30,7 +32,7 @@ void Player::PrintHands()
 	for(int i = 0; i < m_handList.size(); i++)
 	{ 
 		//std::cout << "Print Hands(): " << std::endl;
-		m_handList[i]->PrintHand();
+		m_handList[i]->PrintCard();
 	}
 }
 

@@ -28,15 +28,15 @@ int main()
 	
 	Player* p = new Player();
 	
-	p->m_handList.push_back(h1);
+	//p->m_handList.push_back(h1);
 	
-	p->AddStartingHand(h1->m_hand);
+	p->AddStartingHand(h1);
 	//m_handList.push_back(h2);
 	std::cout << "h1 PrintHands() ";
 	p->PrintHands();
 	std::cout << std::endl;
 	
-	p->Split(h1->m_hand);
+	p->Split(h1);
 
 	std::cout << "h1 PrintHands() after split ";
 	p->PrintHands();

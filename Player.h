@@ -9,9 +9,9 @@ class Player
 {
 public:
 	Player();
-	std::vector<Hand*> m_handList;
-	void Split(std::vector<Card*> splitHand);
-	void AddStartingHand(std::vector<Card*> hand);
+	std::vector<Card*> m_handList;
+	void Split(Hand* splitHand);
+	void AddStartingHand(Hand* hand);
 	void PrintHands();
 	void DumpHands();
 };
