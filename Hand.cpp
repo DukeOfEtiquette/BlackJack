@@ -33,9 +33,12 @@ int Hand::SumHand()
 void Hand::PrintHand() 
 {
 	//Prints out all cards in a hand
+	std::cout << "Hand" << m_handID+1 << ": "; 
 	for(int i = 0; i < m_hand.size(); i++) 
 	{
+		//std::cout << "Hand" << m_handID+1 << ": ";
 		m_hand[i]->PrintCard();
+		//m_handID += 1;
 	}
 }
 
