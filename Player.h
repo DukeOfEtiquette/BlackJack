@@ -9,13 +9,14 @@
 class Player
 {
 public:
+	Player(int);
 	std::vector<Hand*> m_handList;
-	void Split();
-	void AddStartingHand(Hand*);
+	int m_playerID;
+
+	void Split(int index);
+	void AddStartingHand(Hand* hand);
 	void PrintHands();
 	void DumpHands();
-
-
 };
 
 #endif
