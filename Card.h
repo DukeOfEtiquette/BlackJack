@@ -22,8 +22,8 @@ public:
 
 	virtual void PrintCard();
 	virtual int GetValue();
-	virtual void DecValue();
-	virtual bool IsLow();
+	//virtual void DecValue();
+	//virtual bool IsLow();
 };
 
 #endif
