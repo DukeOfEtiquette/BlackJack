@@ -18,14 +18,19 @@ public:
 	int m_curPlayer;
 	int m_curHand;
 	char m_option;
+	bool m_play;
 
 	Board(int, int, std::string);
+	~Board();
 
+	Deck* MakeGameDeck();
 	void DealStartingHands();
+	Hand* MakeStartingHand();
 	void DealCard(int, int);
-	void SplitHand();
+	void SplitHand(int, int);
 	void PrintAllPlayers();
 	void PrintCurPlayer(int);
+	void ClearBoard();
 	void StartGame();
 	void PauseGame();
 	void EndGame();
