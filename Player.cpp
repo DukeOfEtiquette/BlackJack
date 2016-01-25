@@ -23,7 +23,7 @@ void Player::Split(Hand* splitHand)
 void Player::AddStartingHand(Hand* hand)
 {
 	//Adds starting hands to handList
-	m_handList.push_back(hand->m_hand.front());
+	m_handList.push_back(hand->m_hand.back());
 }
 
 void Player::PrintHands()
