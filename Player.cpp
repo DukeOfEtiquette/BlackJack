@@ -16,7 +16,7 @@ void Player::Split(Hand* splitHand)
 	//Hand* h = new Hand(0);
 	//m_handList.push_back(splitHand->m_hand.pop_back());
 	
-	m_handList.push_back(splitHand->m_hand.front());
+	m_handList.push_back(splitHand->m_hand.back());
 	splitHand->m_hand.pop_back();
 }	
 
