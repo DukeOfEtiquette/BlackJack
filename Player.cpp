@@ -10,9 +10,11 @@ Player::Player(int id)
 
 void Player::Split(int index)
 {
+	//Splits a hand located at the index of m_handList apart of Player.h
 	Hand* h = new Hand(m_handList.size());
 	h->m_hand.push_back(m_handList[index]->m_hand.back());
 	
+	//Stores of the hand into the next location in m_handList
 	m_handList.push_back(h);
 	m_handList[index]->m_hand.pop_back();
 }	
@@ -30,7 +32,6 @@ void Player::PrintHands()
 	//Prints hands in the handList
 		for(int i = 0; i < m_handList.size(); i++)
 		{ 
-			//std::cout << "Print Hands(): " << std::endl;
 			std::cout << "Player" << m_playerID << ": ";
 			m_handList[i]->PrintHand();
 			sum = m_handList[i]->SumHand();
@@ -46,6 +47,7 @@ void Player::PrintHands()
 
 bool Player::HasSplit(int iHand)
 {
+	//Determines if a hand has been split by comparing their values
 	if(m_handList[iHand]->m_hand[0]->m_value == m_handList[iHand]->m_hand[1]->m_value)
 	{
 		return true;
