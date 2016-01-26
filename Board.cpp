@@ -96,7 +96,7 @@ void Board::PrintCurPlayer(int player)
 void Board::PrintDealer(bool hide)
 {
 	int sum = 0;
-	std::cout << "### TABLE ###\n\n";
+	std::cout << "\n### TABLE ###\n\n";
 
 	if(hide)
 	{
@@ -119,7 +119,7 @@ void Board::PrintDealer(bool hide)
 
 bool Board::PlayerHasSplit(int iPlayer, int iHand)
 {
-	return m_players[iPlayer]->HasSplit(iHand);
+	return m_players[iPlayer]->CanSplit(iHand);
 }
 
 void Board::ClearBoard()
@@ -138,7 +138,6 @@ void Board::StartGame()
 		ClearBoard();
 
 		//Deal out starting hands
-		//Check if dealer has Blackjack
 		//Ask Player 1 would they would like to do
 		//Move through all players
 		//Have dealer perform AI

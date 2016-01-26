@@ -17,8 +17,9 @@ public:
 	void AddStartingHand(Hand* hand);
 	void PrintHands();
 	void DumpHands();
-	bool HasSplit(int);
-	bool HasAce();
+	bool CanSplit(int);
+	bool DecAce(int);
+	void PlayHands();
 };
 
 #endif
