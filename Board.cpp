@@ -109,11 +109,6 @@ void Board::PrintDealer(bool hide)
 		m_players[0]->m_handList[0]->PrintHand();
 		sum = m_players[0]->m_handList[0]->SumHand();
 
-		if(sum > 21)
-			std::cout << " - Bust!" << std::endl;
-		else
-			std::cout << " - Total: " << sum <<  std::endl;
-
 	}
 }
 
@@ -152,4 +147,47 @@ void Board::StartGame()
 void Board::EndGame()
 {
 	m_play = false;
+}
+
+bool isValid(char option)
+{
+	if(option == 'h' || option == 'H' || option == 's' || option ==  'S')
+		return true;
+	else
+		return false;
+}
+
+void Board::PlayHands(Player* player)
+{
+	std::string option;
+	bool validOption;
+
+	for(int i = 0; i < player->m_handList.size(); i++)
+	{
+		validOption = false;
+
+		while(!validOption)
+		{
+			if(player->m_handList[i]->PrintHand())
+				return;
+
+			std::cout << "Player" << player->m_playerID << " would you like to (h)it, (s)tand?>";
+			std::getline(std::cin, option);
+
+			if(!isValid(option[0]))
+			{
+				std::cout << "Invalid choice, pleese choose again.\n";
+			}
+			else{
+				if(option[0] == 's' || option[0] == 'S')
+				{
+					validOption = true;
+				}else{
+					DealCard(player->m_playerID, i);
+					std::cout << "Option: " << option[0] << std::endl;
+				}
+			}
+		}
+	}
+
 }

@@ -36,6 +36,7 @@ public:
 	void StartGame();
 	void PauseGame();
 	void EndGame();
+	void PlayHands(Player*);
 };
 
 #endif

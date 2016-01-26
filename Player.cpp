@@ -3,11 +3,20 @@
 #include "Player.h"
 #include "Card.h"
 
+//No default constructor, this is only constructor that will be used
 Player::Player(int id)
 {
 	m_playerID = id;
 }
 
+/***********************************************************************************
+ * Purpose: This function will split a players hand into two hands.
+ *
+ * In: The index of which hand in m_handList that needs to split
+ *
+ * Out: m_handList[index] will have one card and the last element of m_handList will
+ *		have one card.
+***********************************************************************************/
 void Player::Split(int index)
 {
 	Hand* h = new Hand(m_handList.size());
@@ -25,22 +34,12 @@ void Player::AddStartingHand(Hand* hand)
 
 void Player::PrintHands()
 {
-	int sum = 0;
-
 	//Prints hands in the handList
 		for(int i = 0; i < m_handList.size(); i++)
 		{ 
 			//std::cout << "Print Hands(): " << std::endl;
 			std::cout << "Player" << m_playerID << ": ";
 			m_handList[i]->PrintHand();
-			sum = m_handList[i]->SumHand();
-
-			if(sum > 21)
-			{
-				std::cout << " - Bust!" << std::endl;
-			}else{
-				std::cout << " - Total: " << sum << std::endl;
-			}
 		}
 }
 
@@ -65,54 +64,12 @@ bool Player::DecAce(int iHand)
 			if(!m_handList[iHand]->m_hand[i]->IsLow())
 			{
 				m_handList[iHand]->m_hand[i]->DecValue();
-				break;
+				return true;
 			}
 		}
 	}
 
-	return true;
-}
-
-bool isValid(char option)
-{
-	if(option == 'h' || option == 'H' || option == 's' || option ==  'S')
-		return true;
-	else
-		return false;
-}
-
-void Player::PlayHands()
-{
-	std::string option;
-	bool validOption;
-
-	for(int i = 0; i < m_handList.size(); i++)
-	{
-		validOption = false;
-
-		while(!validOption)
-		{
-			m_handList[i]->PrintHand();
-			std::cout << "\nPlayer" << m_playerID << " would you like to (h)it, (s)tand?>";
-			std::getline(std::cin, option);
-
-			if(!isValid(option[0]))
-			{
-				std::cout << "Invalid choice, pleese choose again.\n";
-			}
-			else{
-				if(option[0] == 's' || option[0] == 'S')
-				{
-					validOption = true;
-				}else{
-
-					std::cout << "Option: " << option[0] << std::endl;
-				}
-			}
-		}
-	}
-
-	std::cout << "\n\n";
+	return false;
 }
 
 void Player::DumpHands()

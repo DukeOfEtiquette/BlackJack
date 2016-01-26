@@ -25,32 +25,54 @@ int main()
 	bool split = true;
 
 	//Check all starting hands for ability to split
-	while(split)
-	{
-		split = false;
+	//while(split)
+	//{
+	//	split = false;
+//
+//		for(int i = 1; i < gameBoard->m_players.size(); i++)
+//		{
+//			for(int j = 0; j < gameBoard->m_players[i]->m_handList.size(); j++)
+//			{
+//				if(gameBoard->PlayerHasSplit(i, j))
+//				{
+//					split = true;
+//					gameBoard->SplitHand(i, j);
+//				}
+//			}
+//		}
+//	}
 
-		for(int i = 1; i < gameBoard->m_players.size(); i++)
+	std::string option;
+
+	for(int i = 1; i < gameBoard->m_players.size(); i++)
+	{
+		while(split)
 		{
 			for(int j = 0; j < gameBoard->m_players[i]->m_handList.size(); j++)
 			{
 				if(gameBoard->PlayerHasSplit(i, j))
 				{
-					split = true;
-					gameBoard->SplitHand(i, j);
+					gameBoard->PrintCurPlayer(i);
+					std::cout << "Would you like to split this hand (y/n): ";
+					std::getline(std::cin, option);
+
+					if(option[0] == 'y' || option[0] == 'Y')
+					{
+						split = true;
+						gameBoard->SplitHand(i, j);
+					}else{
+						split = false;
+					}
 				}
+
+				split = false;
 			}
 		}
+		gameBoard->PlayHands(gameBoard->m_players[i]);
+		std::cout << "\n\n";
 	}
-
-	for(int i = 1; i < gameBoard->m_players.size(); i++)
-	{
-		gameBoard->m_players[i]->PlayHands();
-	}
-
-	gameBoard->PrintCurPlayer(1);
 
 	//Deal an additional card, aka hit, for player one
-	gameBoard->DealCard(1, 0);
 	gameBoard->PrintDealer(false);
 	gameBoard->PrintAllPlayers();
 

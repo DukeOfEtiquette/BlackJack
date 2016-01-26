@@ -19,7 +19,6 @@ public:
 	void DumpHands();
 	bool CanSplit(int);
 	bool DecAce(int);
-	void PlayHands();
 };
 
 #endif

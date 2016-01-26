@@ -31,15 +31,25 @@ int Hand::SumHand()
 	return sum;
 }
 
-void Hand::PrintHand() 
+bool Hand::PrintHand() 
 {
+	int sum = SumHand();
+
 	//Prints out all cards in a hand
 	std::cout << "Hand" << m_handID+1 << ": "; 
 	for(int i = 0; i < m_hand.size(); i++) 
 	{
-		//std::cout << "Hand" << m_handID+1 << ": ";
 		m_hand[i]->PrintCard();
-		//m_handID += 1;
+	}
+
+	if(sum > 21)
+	{
+		std::cout << " - Bust!" << std::endl;
+		return true;
+	}
+	else{
+		std::cout << " - Total: " << sum << std::endl;
+		return false;
 	}
 }
 

@@ -12,7 +12,7 @@ public:
     ~Hand();
     std::vector<Card*> m_hand;
     int SumHand();
-    void PrintHand();
+    bool PrintHand();
     void DumpHand();
     int m_handID;
 };
