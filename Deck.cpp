@@ -6,6 +6,7 @@
 #include "Deck.h"
 
 Deck::Deck(int sets)
+//Deck is a vector of cards. It comes from Card.cpp and is used in Board.cpp
 {
 	m_nSets = sets; //sets is passed in, m_nSets is used in InitializeSets
 	InitializeSet();

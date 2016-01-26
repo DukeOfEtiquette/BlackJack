@@ -3,7 +3,8 @@
 #include "Hand.h" 
 
 Hand::Hand(int id)
-{ 
+// Hand contains m_hand (vector of cards) comes from Card.cpp used in Player.cpp 
+{
 	//Make sure a hand id is not negative
     if(id < 0)
 	{

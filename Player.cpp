@@ -4,6 +4,8 @@
 #include "Card.h"
 
 Player::Player(int id)
+//Player sets passed ID and assigns it to m_playerID 
+//Player contains a m_handList which is a vector of hands comes from Hand.cpp used in Board.cpp 
 {
 	m_playerID = id;
 }

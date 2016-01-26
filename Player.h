@@ -9,11 +9,8 @@
 class Player
 {
 public:
-	//Player is constructed with int ID
 	Player(int);
-	//Vector of hand pointers is created called m_handList, used in Board.cpp
 	std::vector<Hand*> m_handList;
-	//m_playerID used to keep track of the players id from constructor, used in Board.cpp
 	int m_playerID;
 
 	void Split(int index);

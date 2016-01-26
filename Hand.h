@@ -8,11 +8,8 @@
 class Hand
 {
 public:
-    //Constructor assigns int passed to m_handID
 	Hand(int);
-	//Destructor clears the m_hand vector
     ~Hand();
-	//Hand vector m_hand will contain cards, used in Board.cpp
     std::vector<Card*> m_hand;
 
     int SumHand();
