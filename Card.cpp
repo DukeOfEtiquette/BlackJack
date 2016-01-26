@@ -4,6 +4,7 @@
 #include "Card.h"
 
 Card::Card(int val, Suit s)
+//Card is used in Hand.cpp
 {
 	//Make sure nothing about King (assuming Ace is 1) is created
 	if(val > 13)
