@@ -22,7 +22,7 @@ Board::Board(int nPlayers, int nDecks, std::string gameName)
 
 	Player* player;
 
-	for(int i = 0; i < nPlayers; i++)
+	for(int i = 0; i <= nPlayers; i++)
 	{
 		player = new Player(i);
 		m_players.insert(std::pair<int, Player*>(i, player));
@@ -61,6 +61,7 @@ Hand* Board::MakeStartingHand()
 Deck* Board::MakeGameDeck()
 {
 	Deck* d = new Deck(m_nDecks);
+	d->Shuffle();
 	return d;
 }
 
@@ -79,10 +80,13 @@ void Board::SplitHand(int player, int index)
 
 void Board::PrintAllPlayers()
 {
+	std::cout << "### TABLE ###\n\n";
 	for(int i = 0; i < m_players.size(); i++)
 	{
 		m_players[i]->PrintHands();
 	}
+
+	std::cout << std::endl;
 }
 
 void Board::PrintCurPlayer(int player)

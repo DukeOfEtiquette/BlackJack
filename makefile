@@ -1,13 +1,4 @@
-<<<<<<< HEAD
 OBJS = Board.o Deck.o Player.o Hand.o Card.o Ace.o game.o
-=======
-OBJS = Board.o Deck.o Player.o Hand.o Card.o Ace.o deckHandTest.o
-
-OBJS = Board.o Deck.o Player.o Hand.o Card.o playerTest.o
-
-OBJS = Board.o Deck.o Player.o Hand.o Card.o playerTest.o
-
->>>>>>> development
 EXES = Blackjack
 FLAGS = -c
 CC = g++
@@ -38,8 +29,5 @@ Card.o: Card.cpp
 Ace.o: Ace.cpp
 	$(CC) $(FLAGS) Ace.cpp
 
-<<<<<<< HEAD
 game.o: game.cpp
 	$(CC) $(FLAGS) game.cpp
-=======
->>>>>>> development
