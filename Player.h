@@ -17,6 +17,7 @@ public:
 	void AddStartingHand(Hand* hand);
 	void PrintHands();
 	void DumpHands();
+	bool HasSplit();
 };
 
 #endif
