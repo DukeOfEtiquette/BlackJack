@@ -25,23 +25,23 @@ void Player::AddStartingHand(Hand* hand)
 
 void Player::PrintHands()
 {
+	int sum = 0;
+
 	//Prints hands in the handList
-	if(m_playerID == 0)
-	{
-		std::cout << "Dealer : ";  
-		m_handList[0]->PrintHand();
-		std::cout << std::endl;
-	}
-	else 
-	{
 		for(int i = 0; i < m_handList.size(); i++)
 		{ 
 			//std::cout << "Print Hands(): " << std::endl;
 			std::cout << "Player" << m_playerID << ": ";
 			m_handList[i]->PrintHand();
-			std::cout << std::endl;
+			sum = m_handList[i]->SumHand();
+
+			if(sum > 21)
+			{
+				std::cout << " - Bust!" << std::endl;
+			}else{
+				std::cout << " - Total: " << sum << std::endl;
+			}
 		}
-	}
 }
 
 void Player::DumpHands()

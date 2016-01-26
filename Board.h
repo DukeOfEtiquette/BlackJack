@@ -30,6 +30,7 @@ public:
 	void SplitHand(int, int);
 	void PrintAllPlayers();
 	void PrintCurPlayer(int);
+	void PrintDealer(bool);
 	void ClearBoard();
 	void StartGame();
 	void PauseGame();

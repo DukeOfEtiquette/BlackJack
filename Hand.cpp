@@ -27,6 +27,7 @@ int Hand::SumHand()
 	{
 		sum += m_hand[i]->GetValue();		
 	}
+
 	return sum;
 }
 

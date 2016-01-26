@@ -80,8 +80,7 @@ void Board::SplitHand(int player, int index)
 
 void Board::PrintAllPlayers()
 {
-	std::cout << "### TABLE ###\n\n";
-	for(int i = 0; i < m_players.size(); i++)
+	for(int i = 1; i < m_players.size(); i++)
 	{
 		m_players[i]->PrintHands();
 	}
@@ -92,6 +91,30 @@ void Board::PrintAllPlayers()
 void Board::PrintCurPlayer(int player)
 {
 	m_players[player]->PrintHands();
+}
+
+void Board::PrintDealer(bool hide)
+{
+	int sum = 0;
+	std::cout << "### TABLE ###\n\n";
+
+	if(hide)
+	{
+		std::cout << "Dealer : ";  
+		m_players[0]->m_handList[0]->m_hand[0]->PrintCard();
+		std::cout << " *\n";
+	}else{
+
+		std::cout << "Dealer : ";  
+		m_players[0]->m_handList[0]->PrintHand();
+		sum = m_players[0]->m_handList[0]->SumHand();
+
+		if(sum > 21)
+			std::cout << " - Bust!" << std::endl;
+		else
+			std::cout << " - Total: " << sum <<  std::endl;
+
+	}
 }
 
 void Board::ClearBoard()
