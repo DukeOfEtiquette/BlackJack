@@ -44,6 +44,21 @@ void Player::PrintHands()
 		}
 }
 
+bool Player::HasSplit(int iHand)
+{
+	if(m_handList[iHand]->m_hand[0]->m_value == m_handList[iHand]->m_hand[1]->m_value)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+bool Player::HasAce()
+{
+	return true;
+}
+
 void Player::DumpHands()
 {
 	//Dumps hands in a handList

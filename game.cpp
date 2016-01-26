@@ -15,9 +15,12 @@ int main()
 	gameBoard->PrintDealer(true);
 	gameBoard->PrintAllPlayers();
 
+	std::cout << "HasSplit: " << gameBoard->PlayerHasSplit(1, 0) << std::endl;
+
 	//Deal an additional card, aka hit, for player one
 	gameBoard->DealCard(1, 0);
 	gameBoard->PrintCurPlayer(1);
+
 
 	return 0;
 }

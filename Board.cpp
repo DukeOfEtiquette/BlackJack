@@ -117,6 +117,11 @@ void Board::PrintDealer(bool hide)
 	}
 }
 
+bool Board::PlayerHasSplit(int iPlayer, int iHand)
+{
+	return m_players[iPlayer]->HasSplit(iHand);
+}
+
 void Board::ClearBoard()
 {
 	for(int i = 0; i < m_players.size(); i++)

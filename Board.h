@@ -31,6 +31,7 @@ public:
 	void PrintAllPlayers();
 	void PrintCurPlayer(int);
 	void PrintDealer(bool);
+	bool PlayerHasSplit(int, int);
 	void ClearBoard();
 	void StartGame();
 	void PauseGame();
