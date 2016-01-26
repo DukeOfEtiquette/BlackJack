@@ -15,6 +15,7 @@ Hand::Hand(int id)
 
 Hand::~Hand(void)
 {
+	//Destructor clears hand vector 
 	m_hand.clear();
 }
 
