@@ -9,43 +9,27 @@ int main()
 
 
 
-	Board* gameBoard = new Board(5, 12, "fun game");
+	Board* gameBoard = new Board(2, 2, "fun game");
 
 	//Test if a starting hand gets dealt properly
 	gameBoard->DealStartingHands();
 	gameBoard->PrintDealer(true);
 	gameBoard->PrintAllPlayers();
 
-	if(gameBoard->m_players[0]->m_handList[0]->SumHand() > 20)
+	if(gameBoard->m_players[0]->m_handList[0]->SumHand() == 21)
 	{
 		gameBoard->PrintDealer(false);
 		std::cout << "Dealer wins!\n";
 	}
 
-	bool split = true;
-
-	//Check all starting hands for ability to split
-	//while(split)
-	//{
-	//	split = false;
-//
-//		for(int i = 1; i < gameBoard->m_players.size(); i++)
-//		{
-//			for(int j = 0; j < gameBoard->m_players[i]->m_handList.size(); j++)
-//			{
-//				if(gameBoard->PlayerHasSplit(i, j))
-//				{
-//					split = true;
-//					gameBoard->SplitHand(i, j);
-//				}
-//			}
-//		}
-//	}
+	bool split;
 
 	std::string option;
 
 	for(int i = 1; i < gameBoard->m_players.size(); i++)
 	{
+		split = true;
+
 		while(split)
 		{
 			for(int j = 0; j < gameBoard->m_players[i]->m_handList.size(); j++)
@@ -72,9 +56,90 @@ int main()
 		std::cout << "\n\n";
 	}
 
+	bool dBust = false;
+	int dSum = 0;
+
+	while(!dBust)
+	{
+		dSum = gameBoard->m_players[0]->m_handList[0]->SumHand();
+
+		if(dSum < 17)
+		{
+			gameBoard->DealCard(0, 0);
+		}else{
+			dBust = true;
+		}
+	}
+
 	//Deal an additional card, aka hit, for player one
 	gameBoard->PrintDealer(false);
 	gameBoard->PrintAllPlayers();
+
+	int playerSum = 0;
+	bool dWin = true;
+	bool bPush = false;
+
+	//Display winners
+	std::cout << "Winner(s):";
+
+	for(int i = 1; i < gameBoard->m_players.size(); i++)
+	{
+		for(int j = 0; j < gameBoard->m_players[i]->m_handList.size(); j++)
+		{
+			playerSum = gameBoard->m_players[i]->m_handList[j]->SumHand();
+
+			if(dSum == playerSum)
+				bPush = true;
+			else if(playerSum > dSum)
+				bPush = false;
+		}
+	}
+
+	if(!bPush)
+	{
+		for(int i = 1; i < gameBoard->m_players.size(); i++)
+		{
+			for(int j = 0; j < gameBoard->m_players[i]->m_handList.size(); j++)
+			{
+				playerSum = gameBoard->m_players[i]->m_handList[j]->SumHand();
+				if(dSum > 21)
+				{
+					if(playerSum < 22)
+					{
+						std::cout << " Player" << gameBoard->m_players[i]->m_playerID;
+						dWin = false;
+						break;
+					}
+				}else if(dSum < playerSum && playerSum < 22){
+						
+					std::cout << " Player" << gameBoard->m_players[i]->m_playerID;
+					dWin = false;
+					continue;
+				}
+			}
+		}
+
+		if(dWin && dSum < 22)
+			std::cout << " Dealer";
+	}else{
+
+		std::cout << " Dealer";
+
+		for(int i = 1; i < gameBoard->m_players.size(); i++)
+		{
+			for(int j = 0; j < gameBoard->m_players[i]->m_handList.size(); j++)
+			{
+				playerSum = gameBoard->m_players[i]->m_handList[j]->SumHand();
+				
+				if(dSum == playerSum)
+					std::cout << " Player" << gameBoard->m_players[i]->m_playerID;
+			}
+		}
+	}
+
+	std::cout << "\nPush: " << bPush;
+
+	std::cout << "\n\n";
 
 	return 0;
 }

@@ -31,6 +31,7 @@ void Deck::InitializeSet()
 		for(int j = 0; j < 4; j++)
 		{
 			a = new Ace(1, (Card::Suit)j);
+			m_deck.push_back(a);
 
 			for(int k = 2; k < 14; k++)
 			{

@@ -36,7 +36,7 @@ bool Hand::PrintHand()
 	int sum = SumHand();
 
 	//Prints out all cards in a hand
-	std::cout << "Hand" << m_handID+1 << ": "; 
+	std::cout << "Hand " << m_handID+1 << ": "; 
 	for(int i = 0; i < m_hand.size(); i++) 
 	{
 		m_hand[i]->PrintCard();
@@ -44,11 +44,21 @@ bool Hand::PrintHand()
 
 	if(sum > 21)
 	{
-		std::cout << " - Bust!" << std::endl;
+		if(DecAce())
+		{
+			sum = SumHand();
+			std::cout << "- Total: " << sum << std::endl;
+			return false;
+		}else{
+			std::cout << "- Total: " << sum << " - Bust!" << std::endl;
+			return true;
+		}
+	}else if(sum == 21){
+		std::cout << "- Blackjack!" << std::endl;
 		return true;
 	}
 	else{
-		std::cout << " - Total: " << sum << std::endl;
+		std::cout << "- Total: " << sum << std::endl;
 		return false;
 	}
 }
@@ -58,4 +68,38 @@ void Hand::DumpHand()
 	//Removes all elements from a vector
 	//Leaves the container with a size of 0
 	m_hand.clear();
+}
+
+bool Hand::CanSplit()
+{
+	Ace* a1 = dynamic_cast<Ace*>(m_hand[0]);//jack
+	Ace* a2 = dynamic_cast<Ace*>(m_hand[1]);//ace
+	if((a1 != 0 && a2 == 0) || (a2 != 0 && a1 == 0))
+		return false;
+
+	if(m_hand[0]->m_value == m_hand[1]->m_value)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+bool Hand::DecAce()
+{
+	//Find the first Ace that hasn't been decremented yet, and
+	//decrement the Ace, then break out of the for loop
+	for(int i = 0; i < m_hand.size(); i++)
+	{
+		if(dynamic_cast<Ace*>(m_hand[i]))
+		{
+			if(!m_hand[i]->IsLow())
+			{
+				m_hand[i]->DecValue();
+				return true;
+			}
+		}
+	}
+
+	return false;
 }

@@ -18,7 +18,6 @@ public:
 	void PrintHands();
 	void DumpHands();
 	bool CanSplit(int);
-	bool DecAce(int);
 };
 
 #endif

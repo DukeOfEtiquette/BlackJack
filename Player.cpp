@@ -38,38 +38,14 @@ void Player::PrintHands()
 		for(int i = 0; i < m_handList.size(); i++)
 		{ 
 			//std::cout << "Print Hands(): " << std::endl;
-			std::cout << "Player" << m_playerID << ": ";
+			std::cout << "Player " << m_playerID << ": ";
 			m_handList[i]->PrintHand();
 		}
 }
 
 bool Player::CanSplit(int iHand)
 {
-	if(m_handList[iHand]->m_hand[0]->m_value == m_handList[iHand]->m_hand[1]->m_value)
-	{
-		return true;
-	}
-
-	return false;
-}
-
-bool Player::DecAce(int iHand)
-{
-	//Find the first Ace that hasn't been decremented yet, and
-	//decrement the hand, then break out of the for loop
-	for(int i = 0; i < m_handList[iHand]->m_hand.size(); i++)
-	{
-		if(dynamic_cast<Ace*>(m_handList[iHand]->m_hand[i]))
-		{
-			if(!m_handList[iHand]->m_hand[i]->IsLow())
-			{
-				m_handList[iHand]->m_hand[i]->DecValue();
-				return true;
-			}
-		}
-	}
-
-	return false;
+	return m_handList[iHand]->CanSplit();
 }
 
 void Player::DumpHands()

@@ -169,9 +169,9 @@ void Board::PlayHands(Player* player)
 		while(!validOption)
 		{
 			if(player->m_handList[i]->PrintHand())
-				return;
+				break;
 
-			std::cout << "Player" << player->m_playerID << " would you like to (h)it, (s)tand?>";
+			std::cout << "Player " << player->m_playerID << " would you like to (h)it, (s)tand for Hand " << i + 1 << "?>";
 			std::getline(std::cin, option);
 
 			if(!isValid(option[0]))
@@ -184,7 +184,6 @@ void Board::PlayHands(Player* player)
 					validOption = true;
 				}else{
 					DealCard(player->m_playerID, i);
-					std::cout << "Option: " << option[0] << std::endl;
 				}
 			}
 		}

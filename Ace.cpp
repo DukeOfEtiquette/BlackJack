@@ -49,7 +49,7 @@ void Ace::PrintCard()
 
 	val = 'A';
 
-	std::cout << val << s;
+	std::cout << val << s << " ";
 }
 
 

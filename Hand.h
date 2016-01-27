@@ -15,6 +15,8 @@ public:
     bool PrintHand();
     void DumpHand();
     int m_handID;
+	bool DecAce();
+	bool CanSplit();
 };
 
 #endif
