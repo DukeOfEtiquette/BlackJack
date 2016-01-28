@@ -96,17 +96,14 @@ void Board::DealCard(int player, int hand)
 	m_players[player]->m_handList[hand]->m_hand.push_back(m_gameDeck->DealCard());
 }
 
-<<<<<<< HEAD
-void Board::SplitHand(Player* player, int index)
-=======
 /***********************************************************************************
 * Purpose: Will split a players hand
 * In: A player and the index of the handList will be passed
 * Out: A players hand at a particular index will be split into different hands in 
 *		the handList
 ***********************************************************************************/
-void Board::SplitHand(int player, int index)
->>>>>>> commentsBoard
+//void Board::SplitHand(int player, int index)
+void Board::SplitHand(Player* player, int index)
 {
 	player->Split(index);
 
@@ -128,19 +125,16 @@ void Board::PrintAllPlayers()
 	std::cout << std::endl;
 }
 
-<<<<<<< HEAD
 void Board::PrintPlayerHand(int player, int iHand)
 {
 	m_players[player]->PrintHand(iHand);
 }
 
-=======
 /***********************************************************************************
  * Purpose: Prints the current plays
  * In: The current player 
  * Out: Will print the current players hand
 ***********************************************************************************/
->>>>>>> commentsBoard
 void Board::PrintCurPlayer(int player)
 {
 	m_players[player]->PrintHands();
@@ -171,16 +165,13 @@ void Board::PrintDealer(bool hide)
 	}
 }
 
-<<<<<<< HEAD
-bool Board::PlayerHasSplit(Player* player, int iHand)
-=======
 /***********************************************************************************
  * Purpose: Determines if a player has split their hand
  * In: A player and the players hand
  * Out: Will return true or false if a player has split their hand
 ***********************************************************************************/
-bool Board::PlayerHasSplit(int iPlayer, int iHand)
->>>>>>> commentsBoard
+//bool Board::PlayerHasSplit(int iPlayer, int iHand)
+bool Board::PlayerHasSplit(Player* player, int iHand)
 {
 	return player->CanSplit(iHand);
 }
