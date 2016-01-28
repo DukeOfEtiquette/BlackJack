@@ -5,33 +5,46 @@
 
 //No default constructor, this is only constructor that will be used
 Player::Player(int id)
+//Player contains a m_handList which is a vector of hands comes from Hand.cpp used in Board.cpp 
+//No default constructor, this is the only constructor that will be used
 {
+	//Passes ID and assing it to m_playerID
 	m_playerID = id;
 }
 
 /***********************************************************************************
  * Purpose: This function will split a players hand into two hands.
- *
  * In: The index of which hand in m_handList that needs to split
- *
  * Out: m_handList[index] will have one card and the last element of m_handList will
  *		have one card.
 ***********************************************************************************/
 void Player::Split(int index)
 {
+	//Splits a hand located at the index of m_handList apart of Player.h
 	Hand* h = new Hand(m_handList.size());
 	h->m_hand.push_back(m_handList[index]->m_hand.back());
 	
+	//Stores of the hand into the next location in m_handList
 	m_handList.push_back(h);
 	m_handList[index]->m_hand.pop_back();
 }	
 
+/***********************************************************************************
+ * Purpose: This function will add the starting hands to the handList of player
+ * In: The Hand* that will be added to the handList of player
+ * Out: handList of the player will now contains a pointer to a hand 
+ ***********************************************************************************/
 void Player::AddStartingHand(Hand* hand)
 {
 	//Adds starting hands to handList
 	m_handList.push_back(hand);
 }
 
+/***********************************************************************************
+ * Purpose: This function will print all of the hands in the handList.
+ * Out: The Players and Hands are printed and the sum of the cards is printed if the 
+ * sum is less than 21 and prints Bust if their sum is greater than 21
+ ***********************************************************************************/
 void Player::PrintHands()
 {
 	//Prints hands in the handList
@@ -43,7 +56,29 @@ void Player::PrintHands()
 		}
 }
 
-bool Player::CanSplit(int iHand)
+/***********************************************************************************
+ * Purpose: This function will determin if a hand has been split by conpairing their 
+ *		values
+ * In: The index of the handList
+ * Out: Will return true or false if the handList has been split or not
+ ***********************************************************************************/
+bool Player::HasSplit(int iHand)
+{
+	//Determines if a hand has been split by comparing their values
+	if(m_handList[iHand]->m_hand[0]->m_value == m_handList[iHand]->m_hand[1]->m_value)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+/***********************************************************************************
+ * Purpose: Will derement the Ace to a value of 1 if the sum of the hand is greater
+ *		than 21
+ * Out: Will change the value of an Ace to 1 if the hand has busted
+ ***********************************************************************************/
+bool Player::DecAce()
 {
 	return m_handList[iHand]->CanSplit();
 }

@@ -8,9 +8,10 @@
 class Hand
 {
 public:
-    Hand(int);
+	Hand(int);
     ~Hand();
     std::vector<Card*> m_hand;
+
     int SumHand();
     bool PrintHand();
     void DumpHand();

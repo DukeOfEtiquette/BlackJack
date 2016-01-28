@@ -3,7 +3,14 @@
 #include <string>
 #include "Card.h"
 
+/***********************************************************************************
+ * Purpose: Constructor for card
+ * In: A value and a suit for the card is passed
+ * Out: Assigns the member value and the member suit to the value and suit passed
+ ***********************************************************************************/
+
 Card::Card(int val, Suit s)
+//Card is used in Hand.cpp
 {
 	//Make sure nothing about King (assuming Ace is 1) is created
 	if(val > 13)
@@ -23,6 +30,11 @@ Card::Card(int val, Suit s)
 	m_suit = s;
 }
 
+/***********************************************************************************
+ * Purpose: Gets the value for a card 
+ * Out: Returns the value 10 if if the cards member value is less than 9 
+ ***********************************************************************************/
+
 int Card::GetValue()
 {
 	//Any card value 10 or more is only returned as a 10
@@ -32,6 +44,11 @@ int Card::GetValue()
 	else
 		return m_value;
 }
+
+/***********************************************************************************
+ * Purpose: PrintCard() will print the character suit and the value of the card
+ * Out: The value and suit of the card will be printed
+ ***********************************************************************************/
 
 void Card::PrintCard()
 {
