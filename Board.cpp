@@ -15,8 +15,6 @@ Board::Board(int nPlayers, int nDecks, std::string gameName)
 	m_nPlayers = nPlayers;
 	m_nDecks = nDecks;
 	m_gameName = gameName;
-	//m_curPlayer = 1;
-	//m_curHand = 1;
 	m_play = true;
 
 	m_gameDeck = MakeGameDeck();
@@ -134,12 +132,6 @@ void Board::ClearBoard()
 void Board::StartGame()
 {
 	int option, ch;
-
-/* Present user with menu of options:
- *		- Start round
- *		- Pause game
- *		- Exit game
- * */
 
 	while(m_play)
 	{
@@ -337,7 +329,7 @@ void Board::PauseGame()
 
 void Board::EndGame()
 {
-	std::cout << "The game is ending......\n\n\n\n";
+	std::cout << "Ending game......\n\n\n\n";
 	m_play = false;
 }
 
