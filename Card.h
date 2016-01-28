@@ -14,7 +14,6 @@ public:
 
 	Card(int, Suit);
 	virtual ~Card(){};
-
 	int m_value;
 	Suit m_suit;
 
