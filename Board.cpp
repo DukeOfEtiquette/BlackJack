@@ -279,7 +279,7 @@ void Board::PrintWinners()
 	}
 
 	//If no push, else push
-	if(!bPush)
+	if(!bPush || dSum > 21)
 	{
 		for(int i = 1; i < m_players.size(); i++)
 		{
