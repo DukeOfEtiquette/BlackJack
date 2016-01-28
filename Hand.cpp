@@ -55,14 +55,14 @@ bool Hand::PrintHand()
 
 	if(sum > 21)
 	{
-		std::cout << "- Total: " << sum << " - Bust!" << std::endl;
+		std::cout << "- Total: " << sum << " - Bust!\n\n";
 		return true;
 	}else if(sum == 21){
-		std::cout << "- Blackjack!" << std::endl;
+		std::cout << "- Blackjack!\n";
 		return true;
 	}
 	else{
-		std::cout << "- Total: " << sum << std::endl;
+		std::cout << "- Total: " << sum << "\n";
 		return false;
 	}
 }

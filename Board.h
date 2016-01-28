@@ -27,17 +27,22 @@ public:
 	void DealStartingHands();
 	Hand* MakeStartingHand();
 	void DealCard(int, int);
-	void SplitHand(int, int);
+	void SplitHand(Player*, int);
 	void PrintAllPlayers();
 	void PrintPlayerHand(int, int);
 	void PrintCurPlayer(int);
 	void PrintDealer(bool);
-	bool PlayerHasSplit(int, int);
+	bool PlayerHasSplit(Player*, int);
+	void PlayHands(Player*);
+	void CheckSplit(Player*);
 	void ClearBoard();
 	void StartGame();
 	void PauseGame();
 	void EndGame();
-	void PlayHands(Player*);
+	void StartRound();
+	void PlayDealer();
+	void PrintWinners();
+	void CheckDeck();
 };
 
 #endif
