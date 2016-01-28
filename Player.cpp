@@ -62,7 +62,7 @@ void Player::PrintHands()
  * In: The index of the handList
  * Out: Will return true or false if the handList has been split or not
  ***********************************************************************************/
-bool Player::HasSplit(int iHand)
+bool Player::CanSplit(int iHand)
 {
 	//Determines if a hand has been split by comparing their values
 	if(m_handList[iHand]->m_hand[0]->m_value == m_handList[iHand]->m_hand[1]->m_value)
@@ -78,10 +78,6 @@ bool Player::HasSplit(int iHand)
  *		than 21
  * Out: Will change the value of an Ace to 1 if the hand has busted
  ***********************************************************************************/
-bool Player::DecAce()
-{
-	return m_handList[iHand]->CanSplit();
-}
 
 void Player::DumpHands()
 {
