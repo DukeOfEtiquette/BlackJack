@@ -15,6 +15,7 @@ public:
 
 	void Split(int index);
 	void AddStartingHand(Hand* hand);
+	bool PrintHand(int);
 	void PrintHands();
 	void DumpHands();
 	bool CanSplit(int);

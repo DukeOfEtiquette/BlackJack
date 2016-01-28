@@ -14,6 +14,7 @@ public:
 	void PrintCard();
 	int GetValue();
 	void DecValue();
+	void IncValue();
 	bool IsLow();
 };
 #endif

@@ -9,7 +9,7 @@ int main()
 
 
 
-	Board* gameBoard = new Board(2, 2, "fun game");
+	Board* gameBoard = new Board(5, 12, "fun game");
 
 	//Test if a starting hand gets dealt properly
 	gameBoard->DealStartingHands();
@@ -23,29 +23,33 @@ int main()
 	}
 
 	bool split;
-
 	std::string option;
 
 	for(int i = 1; i < gameBoard->m_players.size(); i++)
 	{
 		split = true;
-
 		while(split)
 		{
 			for(int j = 0; j < gameBoard->m_players[i]->m_handList.size(); j++)
 			{
 				if(gameBoard->PlayerHasSplit(i, j))
 				{
-					gameBoard->PrintCurPlayer(i);
+					gameBoard->PrintPlayerHand(i, j);
 					std::cout << "Would you like to split this hand (y/n): ";
 					std::getline(std::cin, option);
 
-					if(option[0] == 'y' || option[0] == 'Y')
+					std::cout << std::endl;
+
+					if(tolower(option[0]) == 'y')
 					{
-						split = true;
-						gameBoard->SplitHand(i, j);
-					}else{
+						gameBoard->SplitHand(i, j);//Split hand and deal two cards
+						split = false;//We want to exit while loop and j for loop
+						j--;//Restart split check at current hand
+					}else if(tolower(option[0]) == 'n'){
 						split = false;
+					}else{
+						std::cout << "Not a valid option, try again.\n";
+						j--;
 					}
 				}
 
@@ -56,14 +60,30 @@ int main()
 		std::cout << "\n\n";
 	}
 
-	bool dBust = false;
+	bool dBust = true;
 	int dSum = 0;
+	int sum = 0;
+	int maxHand = 0;
+
+	for(int i = 0; i < gameBoard->m_players.size(); i++)
+	{
+		for(int j = 0; j < gameBoard->m_players[i]->m_handList.size(); j++)
+		{
+			sum = gameBoard->m_players[i]->m_handList[j]->SumHand();
+
+			if(maxHand < sum && sum < 22)
+			{
+				maxHand = sum;
+				dBust = false;
+			}
+		}
+	}
 
 	while(!dBust)
 	{
 		dSum = gameBoard->m_players[0]->m_handList[0]->SumHand();
 
-		if(dSum < 17)
+		if(dSum < 17 || dSum < sum)
 		{
 			gameBoard->DealCard(0, 0);
 		}else{
@@ -95,6 +115,7 @@ int main()
 		}
 	}
 
+	//If no push, else push
 	if(!bPush)
 	{
 		for(int i = 1; i < gameBoard->m_players.size(); i++)
@@ -136,8 +157,6 @@ int main()
 			}
 		}
 	}
-
-	std::cout << "\nPush: " << bPush;
 
 	std::cout << "\n\n";
 

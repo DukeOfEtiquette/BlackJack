@@ -21,6 +21,12 @@ void Player::Split(int index)
 {
 	Hand* h = new Hand(m_handList.size());
 	h->m_hand.push_back(m_handList[index]->m_hand.back());
+
+	//If splitting a double Ace then Inc first Ace back up to value of 11
+	if(dynamic_cast<Ace*>(m_handList[index]->m_hand[0]))
+	{
+		dynamic_cast<Ace*>(m_handList[index]->m_hand[0])->IncValue();;
+	}
 	
 	m_handList.push_back(h);
 	m_handList[index]->m_hand.pop_back();
@@ -30,6 +36,12 @@ void Player::AddStartingHand(Hand* hand)
 {
 	//Adds starting hands to handList
 	m_handList.push_back(hand);
+}
+
+bool Player::PrintHand(int iHand)
+{
+	std::cout << "Player " << m_playerID << ": ";
+	return m_handList[iHand]->PrintHand();
 }
 
 void Player::PrintHands()

@@ -52,6 +52,15 @@ void Ace::PrintCard()
 	std::cout << val << s << " ";
 }
 
+void Ace::IncValue()
+{
+	if(m_bLowVal)
+	{
+		m_value += 10;
+		m_bLowVal = false;
+	}
+}
+
 
 void Ace::DecValue()
 {

@@ -23,9 +23,20 @@ int Hand::SumHand()
 	//Add up all card values in a hand
 	//Returns their sum
 	int sum = 0;
+
 	for(int i = 0; i < m_hand.size(); i++) 
 	{
 		sum += m_hand[i]->GetValue();		
+	}
+
+	while(sum > 21 && DecAce())
+	{
+		sum = 0;
+
+		for(int i = 0; i < m_hand.size(); i++) 
+		{
+			sum += m_hand[i]->GetValue();		
+		}
 	}
 
 	return sum;
@@ -36,7 +47,7 @@ bool Hand::PrintHand()
 	int sum = SumHand();
 
 	//Prints out all cards in a hand
-	std::cout << "Hand " << m_handID+1 << ": "; 
+	std::cout << "Hand " << m_handID + 1 << ": "; 
 	for(int i = 0; i < m_hand.size(); i++) 
 	{
 		m_hand[i]->PrintCard();
@@ -44,15 +55,8 @@ bool Hand::PrintHand()
 
 	if(sum > 21)
 	{
-		if(DecAce())
-		{
-			sum = SumHand();
-			std::cout << "- Total: " << sum << std::endl;
-			return false;
-		}else{
-			std::cout << "- Total: " << sum << " - Bust!" << std::endl;
-			return true;
-		}
+		std::cout << "- Total: " << sum << " - Bust!" << std::endl;
+		return true;
 	}else if(sum == 21){
 		std::cout << "- Blackjack!" << std::endl;
 		return true;
@@ -72,16 +76,27 @@ void Hand::DumpHand()
 
 bool Hand::CanSplit()
 {
-	Ace* a1 = dynamic_cast<Ace*>(m_hand[0]);//jack
-	Ace* a2 = dynamic_cast<Ace*>(m_hand[1]);//ace
+	Ace* a1 = dynamic_cast<Ace*>(m_hand[0]);
+	Ace* a2 = dynamic_cast<Ace*>(m_hand[1]);
+
+	//If one card is an ace and the other is not, return false
 	if((a1 != 0 && a2 == 0) || (a2 != 0 && a1 == 0))
 		return false;
 
+	//If both are Ace, restore original value of 11 to first Ace and return true
+	if(a1 != 0 && a2 != 0)
+	{
+		a1->m_value = 11;
+		return true;
+	}
+
+	//If both are not Ace, but have the same value, return true
 	if(m_hand[0]->m_value == m_hand[1]->m_value)
 	{
 		return true;
 	}
 
+	//Otherwise return false
 	return false;
 }
 

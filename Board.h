@@ -29,6 +29,7 @@ public:
 	void DealCard(int, int);
 	void SplitHand(int, int);
 	void PrintAllPlayers();
+	void PrintPlayerHand(int, int);
 	void PrintCurPlayer(int);
 	void PrintDealer(bool);
 	bool PlayerHasSplit(int, int);

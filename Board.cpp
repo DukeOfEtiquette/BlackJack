@@ -88,6 +88,11 @@ void Board::PrintAllPlayers()
 	std::cout << std::endl;
 }
 
+void Board::PrintPlayerHand(int player, int iHand)
+{
+	m_players[player]->PrintHand(iHand);
+}
+
 void Board::PrintCurPlayer(int player)
 {
 	m_players[player]->PrintHands();
@@ -128,6 +133,11 @@ void Board::ClearBoard()
 void Board::StartGame()
 {
 
+/* Present user with menu of options:
+ *		- Start round
+ *		- Pause game
+ *		- Exit game
+ * */
 	while(m_play)
 	{
 		ClearBoard();
@@ -151,7 +161,7 @@ void Board::EndGame()
 
 bool isValid(char option)
 {
-	if(option == 'h' || option == 'H' || option == 's' || option ==  'S')
+	if(tolower(option) == 'h' || tolower(option) == 's')
 		return true;
 	else
 		return false;
@@ -168,7 +178,7 @@ void Board::PlayHands(Player* player)
 
 		while(!validOption)
 		{
-			if(player->m_handList[i]->PrintHand())
+			if(player->PrintHand(i))
 				break;
 
 			std::cout << "Player " << player->m_playerID << " would you like to (h)it, (s)tand for Hand " << i + 1 << "?>";
