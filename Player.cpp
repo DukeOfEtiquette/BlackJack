@@ -56,6 +56,15 @@ bool Player::PrintHand(int iHand)
 	return m_handList[iHand]->PrintHand();
 }
 
+void Player::PrintHands()
+{
+	for(int i = 0; i < m_handList.size(); i++)
+	{
+		std::cout << "Player " << m_playerID << ": ";
+		m_handList[i]->PrintHand();
+	}
+}
+
 /***********************************************************************************
  * Purpose: This function will determines if a hand can be split
  * In: The index of the handList

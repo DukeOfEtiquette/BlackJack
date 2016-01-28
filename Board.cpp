@@ -125,10 +125,10 @@ void Board::PrintAllPlayers()
 	std::cout << std::endl;
 }
 
-void Board::PrintPlayerHand(int player, int iHand)
-{
-	m_players[player]->PrintHand(iHand);
-}
+//void Board::PrintPlayerHand(int player, int iHand)
+//{
+//	m_players[player]->PrintHand(iHand);
+//}
 
 /***********************************************************************************
  * Purpose: Prints the current plays
