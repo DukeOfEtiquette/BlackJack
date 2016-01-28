@@ -3,12 +3,32 @@
 #include <string>
 #include "Card.h"
 
+/***********************************************************************************
+ * Purpose: Constructor for card, used in Hand.cpp
+ * In: A value and a suit for the card is passed
+ * Out: Assigns the member value and the member suit to the value and suit passed
+ ***********************************************************************************/
 Card::Card(int val, Suit s)
 {
+	if(val > 13)
+	{
+		std::cout << "Value of card too high - " << val << std::endl;
+		return;
+	}
+
+	if((int)s > 3)
+	{
+		std::cout << "Invalid suit trying to be created\n";
+	}
+
 	m_value = val;
 	m_suit = s;
 }
 
+/***********************************************************************************
+ * Purpose: Gets the value for a card 
+ * Out: Returns the value 10 if if the cards member value is less than 9 
+ ***********************************************************************************/
 int Card::GetValue()
 {
 	if(m_value > 9)
@@ -17,6 +37,10 @@ int Card::GetValue()
 		return m_value;
 }
 
+/***********************************************************************************
+ * Purpose: PrintCard() will print the character suit and the value of the card
+ * Out: The value and suit of the card will be printed. X being the default value
+ ***********************************************************************************/
 void Card::PrintCard()
 {
 	char s;
@@ -68,5 +92,15 @@ void Card::PrintCard()
 			break;
 	}
 
-	std::cout << v << s;
+	std::cout << v << s << " ";
+}
+
+void Card::DecValue()
+{
+
+}
+
+bool Card::IsLow()
+{
+	return true;
 }

@@ -1,9 +1,6 @@
 #ifndef _CARD_H_INCLUDED
 #define _CARD_H_INCLUDED
 
-
-//#include "Card.cpp"
-
 class Card
 {
 
@@ -16,14 +13,14 @@ public:
 	};
 
 	Card(int, Suit);
-
+	virtual ~Card(){};
 	int m_value;
 	Suit m_suit;
 
-	void PrintCard();
-	int GetValue();
-
-
+	virtual void PrintCard();
+	virtual int GetValue();
+	virtual void DecValue();
+	virtual bool IsLow();
 };
 
 #endif
