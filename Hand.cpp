@@ -3,19 +3,16 @@
 #include "Hand.h" 
 
 /***********************************************************************************
- * Purpose: This is the default constructor
+ * Purpose: This is the default constructor, used in Player.cpp
  * In: Takes an integer id
  * Out: Assign the value of the id passed to the hands member handID
  ***********************************************************************************/
 Hand::Hand(int id)
-// Hand contains m_hand (vector of cards) comes from Card.cpp used in Player.cpp 
 {
-	//Make sure a hand id is not negative
     if(id < 0)
 	{
 		std::cout << "Hand id is a negative number: " << id << std::endl;
 	}
-	//Assign a hands id the value passed by the constructor
     m_handID = id;
 }
 
@@ -25,12 +22,11 @@ Hand::Hand(int id)
 ***********************************************************************************/
 Hand::~Hand(void)
 {
-	//Destructor clears hand vector 
 	DumpHand();
 }
 
 /***********************************************************************************
- * Purpose: Adds up all of the card value in a hand
+ * Purpose: Adds up all of the card values in a hand
  * Out: Return the sum of all of the cards in a hand 
  ***********************************************************************************/
 int Hand::SumHand() 
@@ -52,7 +48,6 @@ bool Hand::PrintHand()
 {
 	int sum = SumHand();
 
-	//Prints out all cards in a hand
 	std::cout << "Hand " << m_handID+1 << ": "; 
 	for(int i = 0; i < m_hand.size(); i++) 
 	{
@@ -81,16 +76,18 @@ bool Hand::PrintHand()
 }
 
 /***********************************************************************************
- * Purpose: Clear the hand
+ * Purpose: Clears a hand
  * Out: Clears all elements in the hand and sets it's size to zero
  ***********************************************************************************/
 void Hand::DumpHand() 
 {
-	//Removes all elements from a vector
-	//Leaves the container with a size of 0
 	m_hand.clear();
 }
 
+/***********************************************************************************
+ * Purpose: Determines if a hand can be split
+ * Out: Returns true or false
+***********************************************************************************/
 bool Hand::CanSplit()
 {
 	Ace* a1 = dynamic_cast<Ace*>(m_hand[0]);//jack
@@ -106,10 +103,13 @@ bool Hand::CanSplit()
 	return false;
 }
 
+/***********************************************************************************
+ * Purpose: Finds the first Ace that has not be decremented and sets it's value to 
+ *		one
+ * Out: Will return true if an Ace has been decremented
+***********************************************************************************/
 bool Hand::DecAce()
 {
-	//Find the first Ace that hasn't been decremented yet, and
-	//decrement the Ace, then break out of the for loop
 	for(int i = 0; i < m_hand.size(); i++)
 	{
 		if(dynamic_cast<Ace*>(m_hand[i]))

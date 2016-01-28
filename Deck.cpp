@@ -11,7 +11,6 @@
  * Out: Sets m_nSets of Deck equal to the sets passed and Initialzes a Deck
 ***********************************************************************************/
 Deck::Deck(int sets)
-//Deck is a vector of cards. It comes from Card.cpp and is used in Board.cpp
 {
 	m_nSets = sets; //sets is passed in, m_nSets is used in InitializeSets
 	InitializeSet();
@@ -23,7 +22,6 @@ Deck::Deck(int sets)
 ***********************************************************************************/
 Deck::~Deck()
 {
-	//Destroy all Cards still in hand
 	m_deck.clear();
 }
 

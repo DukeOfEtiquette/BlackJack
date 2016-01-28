@@ -28,7 +28,6 @@ Ace::Ace(int val, Suit s) : Card(val, s)
  *		Ace's value to 1
  * Out: Sets an Ace's value to 1 if its LowVal is true
  ***********************************************************************************/
-
 int Ace::GetValue()
 {
 	//Gets the value of Ace, if boolean LowVal is true then the value will be 1 
@@ -42,7 +41,6 @@ int Ace::GetValue()
  * Purpose: Print an Ace card
  * Out: Print's an Aces's value and suit
 ***********************************************************************************/
-
 void Ace::PrintCard()
 {
 	//Prints A and the suit of Ace
@@ -76,7 +74,6 @@ void Ace::PrintCard()
  * Purpose: Decrements the value of an Ace 
  * Out: Decrements and Ace's value to one and sets LowVal to true
 ***********************************************************************************/
-
 void Ace::DecValue()
 {
 	//Decrements the value of an Ace by 10 (back to 1) and sets boolean LowVal to true
