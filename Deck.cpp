@@ -5,6 +5,11 @@
 #include <cstdlib>
 #include "Deck.h"
 
+/***********************************************************************************
+ * Purpose: Constructor for Deck, comes from Card.cpp and is used in Board.cpp
+ * In: int sets is passed and represents the number of decks that will be created
+ * Out: Sets m_nSets of Deck equal to the sets passed and Initialzes a Deck
+***********************************************************************************/
 Deck::Deck(int sets)
 //Deck is a vector of cards. It comes from Card.cpp and is used in Board.cpp
 {
@@ -12,12 +17,20 @@ Deck::Deck(int sets)
 	InitializeSet();
 }
 
+/***********************************************************************************
+ * Purpose: Destructor for Deck
+ * Out: Clears a Deck and sets its size to 0
+***********************************************************************************/
 Deck::~Deck()
 {
 	//Destroy all Cards still in hand
 	m_deck.clear();
 }
 
+/***********************************************************************************
+ * Purpose: Initializes a Deck
+ * Out: A Deck of cards is created with 52 cards. 
+***********************************************************************************/
 void Deck::InitializeSet()
 {
 	//Pointer to a Card and Ace to be used while creating a Deck
@@ -42,6 +55,10 @@ void Deck::InitializeSet()
 	}
 }
 
+/***********************************************************************************
+ * Purpose: Shuffles a Deck seeded off of a random time
+ * Out: A Deck is shuffled from the begining to the end 
+***********************************************************************************/
 int shuffleRandom(int i) {return std::rand()%i;}
 
 void Deck::Shuffle()
@@ -53,6 +70,11 @@ void Deck::Shuffle()
 	std::random_shuffle(m_deck.begin(), m_deck.end(), shuffleRandom);
 }
 
+/***********************************************************************************
+ * Purpose: Deal a Card
+ * Out: A Card will be popped off of the Deck and the method will return a pointer 
+ *		to that card
+***********************************************************************************/
 Card* Deck::DealCard()
 {
 	//Here we set the value of c to be the card at the end of the deck
