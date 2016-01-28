@@ -65,7 +65,6 @@ void Ace::PrintCard()
 	std::cout << val << s << " ";
 }
 
-<<<<<<< HEAD
 void Ace::IncValue()
 {
 	if(m_bLowVal)
@@ -76,12 +75,10 @@ void Ace::IncValue()
 }
 
 
-=======
 /***********************************************************************************
  * Purpose: Decrements the value of an Ace 
  * Out: Decrements and Ace's value to one and sets LowVal to true
 ***********************************************************************************/
->>>>>>> commentsBoard
 void Ace::DecValue()
 {
 	if(!m_bLowVal)
