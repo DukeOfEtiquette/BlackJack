@@ -10,7 +10,6 @@ class Board
 {
 public:
 	Deck* m_gameDeck;
-	Deck* m_discard;
 	std::string m_gameName;
 	int m_nPlayers;
 	int m_nDecks;

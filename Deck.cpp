@@ -22,6 +22,11 @@ Deck::Deck(int sets)
 ***********************************************************************************/
 Deck::~Deck()
 {
+	for(int i = 0; i < m_deck.size(); i++)
+	{
+		delete m_deck[i];
+	}
+
 	m_deck.clear();
 }
 

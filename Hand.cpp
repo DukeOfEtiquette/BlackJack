@@ -85,6 +85,10 @@ bool Hand::PrintHand()
  ***********************************************************************************/
 void Hand::DumpHand() 
 {
+	for(int i = 0; i < m_hand.size(); i++)
+	{
+		delete m_hand[i];
+	}
 	m_hand.clear();
 }
 
