@@ -14,6 +14,16 @@ Player::Player(int id)
 	m_playerID = id;
 }
 
+Player::~Player()
+{
+	for(int i = 0; i < m_handList.size(); i++)
+	{
+		delete m_handList[i];
+	}
+
+	m_handList.clear();
+}
+
 /***********************************************************************************
  * Purpose: This function will split a players hand into two hands located in Player.h
  * In: The index of which hand in m_handList that needs to split

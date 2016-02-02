@@ -25,5 +25,8 @@ int main()
 
 	gameBoard->StartGame();
 
+
+	delete gameBoard;
+
 	return 0;
 }

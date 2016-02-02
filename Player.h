@@ -10,6 +10,7 @@ class Player
 {
 public:
 	Player(int);
+	~Player();
 	std::vector<Hand*> m_handList;
 	int m_playerID;
 
