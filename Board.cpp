@@ -1,4 +1,5 @@
 #include <iostream>
+#include <math.h>
 #include <map>
 #include <string>
 #include "Board.h"
@@ -207,23 +208,27 @@ void Board::StartGame()
 		std::cout << "3) End Game\n";
 		std::cin >> option;
 
-		while ((ch = std::cin.get()) != '\n' && ch != EOF);
-
-		switch(option)
+		if(!isnan(option))
 		{
-			case 1:
-				StartRound();
-				break;
-			case 2:
-				PauseGame();
-				break;
-			case 3:
-				EndGame();
-				break;
-			default:
-				std::cout << "This is default.....\n\n\n\n\n";
-				break;
+			switch(option)
+			{
+				case 1:
+					StartRound();
+					break;
+				case 2:
+					PauseGame();
+					break;
+				case 3:
+					EndGame();
+					break;
+				default:
+					std::cout << "This is default.....\n\n\n\n\n";
+					break;
+			}
 		}
+
+		std::cin.clear();
+		std::cin.ignore();
 	}
 }
 
