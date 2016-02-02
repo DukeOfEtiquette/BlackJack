@@ -18,14 +18,16 @@ int main()
 	Card::Suit club = Card::Club;
 	Card::Suit spade = Card::Spade; 
 
+    /*
     c = new Card(2, heart);
     h->m_hand.push_back(c);
 	assert (h->m_hand[0]->GetValue() == 2);
 	assert (h->m_hand.size() > 0);	
+     */
 
 	for(int i = 2; i < 14; i++) 
 	{
-		c = new Card(i, heart);
+		c = new Card(i, club);
 		h->m_hand.push_back(c);
 	}
 	for(int i = 2; i < 14; i++)
@@ -35,28 +37,29 @@ int main()
 	}
 	for(int i = 2; i < 14; i++) 
 	{
-		c = new Card(i, club);
+		c = new Card(i, spade);
 		h->m_hand.push_back(c);
 	}
 	for(int i = 2; i < 14; i++)
 	{
-		c = new Card(i, spade);
+		c = new Card(i, heart);
 		h->m_hand.push_back(c);
 	}
 	
 	// test for x
-	c = new Card(400, spade); 
-	h->m_hand.push_back(c);
+	//c = new Card(400, spade);
+	//h->m_hand.push_back(c);
 	
 	assert (isnan(h->SumHand()) == false); // SumHand has a number
 	assert (h->SumHand() > 0); // SumHand > 0
 	
-    std::cout << "SumHand(): " << h->SumHand() << std::endl;    
-    std::cout << "PrintHand(): "; 
+    std::cout << "SumHand(): " << h->SumHand();
+    std::cout << "PrintHand(): " << std::endl;
 	
 	try 
 	{
-		h->PrintHand();
+        h->PrintHand();
+        std::cout << "h GetValue():";
 		std::cout << h->m_hand[0]->GetValue();
 		if (h->m_hand[0] == 0) 
 		{
@@ -67,22 +70,51 @@ int main()
 	{
 		std::cout << "GetValue was unsuccessful error:"<< e << std::endl;
 	}
-
-	std::cout << std::endl;
-	
-	Hand* h1 = new Hand(1);
-	c = new Card(2, spade);
-    h1->m_hand.push_back(c);
-	
-	std::cout << "h1 SumHand(): " << h1->SumHand() << std::endl;    
-	std::cout << "h1 PrintHand: ";
-	h1->PrintHand();
-
-	h->DumpHand();   
-	assert (h->m_hand.empty());
-	h1->DumpHand();
-	assert (h1->m_hand.empty());
-	std::cout << std::endl;
+    std::cout << std::endl;
+    
+    
+    for(int i = 0; i < h->m_hand.size(); i++)
+    {
+        if(h->m_hand[i] == 0)
+        {
+            std::cout << "error hand is pointing to null\n";
+        }
+    }
+    
+    std::cout << "\n\n";
+    
+    //Does the hand start empty?
+    std::cout << "h1 is being created..." << std::endl;
+    Hand* h1 = new Hand(1);
+   
+    std::cout << "hand starts empty? ";
+    
+    
+    for(int i = 0; i < h1->m_hand.size(); i++)
+    {
+        std::cout << h->PrintHand() << std::endl;
+        
+        /*
+        assert(h1->m_hand[0]->m_value == 'X');
+        assert(h1->m_hand[0]->m_suit == 'X');
+        
+        if(h1->m_hand[i]->m_value == 0)
+        {
+            std::cout << "pass" << std::endl;
+        }
+         */
+    }
+    
+    std::cout << "h1 SumHand(): " << h1->SumHand() << std::endl;
+    std::cout << "h1 PrintHand: ";
+    h1->PrintHand();
+    
+    // destroys the hands that were created
+    h->DumpHand();
+    assert (h->m_hand.empty());
+    h1->DumpHand();
+    assert (h1->m_hand.empty());
+    std::cout << std::endl;
 	
 	return 0;
 }

@@ -33,44 +33,42 @@ int main()
 		std::cout << " Value: " << val;
 		std::cout << std::endl;
 	}
-	c = new Card(2, (Card::Suit)4);
-
     
-    
-    /**********************************************************************************
-     * Graph Coverage
-     ***********************************************************************************/
-    if(cards == 0)
+	if(cards.size() % 48 != 0) // note 48 cards bcs Ace is not included
     {
-        std::cout << "error cards is pointing to null/n";
-    }
-    if(cards.size() != 52)
-    {
-        std::cout << "error cards vector does not have 52 cards/n";
+		std::cout << "error cards vector does not have 48 cards\n";
     }
     for(int i = 0; i < cards.size(); i++)
     {
+		if(cards[i] == 0)
+		{
+			std::cout << "error cards is pointing to null\n";
+		}
         //check that every card has a valid value
-        if(cards[i]->m_value < 1)
+        if(cards[i]->m_value < 2 || cards[i]->m_value > 13)
         {
-            std::cout << "error the cards value is less than 1" << std::endl;
+            std::cout << "error the cards value is not in range" << std::endl;
         }
-        //check that every card has a suit
-        if(cards[i]->m_suit == 'x')
+		else 
+		{
+			std::cout << "checked value at index:" << i << std::endl;
+		}
+    }
+    std::cout << "\n\n\n";
+    
+    for(int i = 0; i < 4; i++)
+    {
+        for(int j = 0; j < 13; j++)
         {
-            std::cout << "error the card at " << i << " has no suit" << std::endl;
+            if(cards[i]->m_suit % 4 == 0)
+            {
+                std::cout << "checked suit at:" << j << std::endl;
+            }
+            else
+            {
+                std::cout << "error not a suit of case:" << 0 << " at index:" << i <<std::endl;
+            }
+                
         }
-        //test if cards have mod 4 suit
-        if(cards[i]->m_suit != % 4)
-        {
-            std::cout << "error not mod 4 suit" << std::endl;
-        }
-        //test if cards have mod 11 value
-        if(card[i]->m_value != % 11)
-        {
-            std::cout << "error not mod 11 value" << std::endl;
-        }	
     }
 }
-
-
