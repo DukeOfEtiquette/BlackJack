@@ -35,4 +35,42 @@ int main()
 	}
 	c = new Card(2, (Card::Suit)4);
 
+    
+    
+    /**********************************************************************************
+     * Graph Coverage
+     ***********************************************************************************/
+    if(cards == 0)
+    {
+        std::cout << "error cards is pointing to null/n";
+    }
+    if(cards.size() != 52)
+    {
+        std::cout << "error cards vector does not have 52 cards/n";
+    }
+    for(int i = 0; i < cards.size(); i++)
+    {
+        //check that every card has a valid value
+        if(cards[i]->m_value < 1)
+        {
+            std::cout << "error the cards value is less than 1" << std::endl;
+        }
+        //check that every card has a suit
+        if(cards[i]->m_suit == 'x')
+        {
+            std::cout << "error the card at " << i << " has no suit" << std::endl;
+        }
+        //test if cards have mod 4 suit
+        if(cards[i]->m_suit != % 4)
+        {
+            std::cout << "error not mod 4 suit" << std::endl;
+        }
+        //test if cards have mod 11 value
+        if(card[i]->m_value != % 11)
+        {
+            std::cout << "error not mod 11 value" << std::endl;
+        }	
+    }
 }
+
+
