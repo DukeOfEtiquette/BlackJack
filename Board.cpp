@@ -232,6 +232,13 @@ void Board::StartGame()
 	}
 }
 
+/***********************************************************************************
+ * Purpose: Checks to see if a player can split and splits it for them if they entered
+ *		yes
+ * In: The current player
+ * Out: Will create a new hand stored in handList if a player entered yes
+***********************************************************************************/
+
 void Board::CheckSplit(Player* player)
 {
 	bool split = true;
@@ -267,6 +274,11 @@ void Board::CheckSplit(Player* player)
 	}
 }
 
+/***********************************************************************************
+ * Purpose: Starts a round by clearing the board, dealing the starting hands, and 
+ *		printing the dealer and the players.
+***********************************************************************************/
+
 void Board::StartRound()
 {
 	ClearBoard();
@@ -287,6 +299,10 @@ void Board::StartRound()
 
 	std::cout << "\n\n";
 }
+
+/***********************************************************************************
+ * Purpose: Dealers AI, will hit on 16 and will stand otherwise
+***********************************************************************************/
 
 void Board::PlayDealer()
 {
@@ -322,6 +338,11 @@ void Board::PlayDealer()
 		}
 	}
 }
+
+/***********************************************************************************
+ * Purpose: Will display the round winners by determining if there is a push and prints
+ *		push otherwise it will print the player with th largest sum who has not busted
+***********************************************************************************/
 
 void Board::PrintWinners()
 {
