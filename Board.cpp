@@ -18,16 +18,17 @@ Board::Board(int nPlayers, int nDecks, char* gameName)
 	{
 		throw "Invalid number of players or decks passed.\n";
 	}
-
+    
+    //Sets member variables
 	m_nPlayers = nPlayers;
 	m_nDecks = nDecks;
 	m_gameName = gameName;
 	m_play = true;
-
 	m_gameDeck = MakeGameDeck();
 
 	Player* player; //Used in the for loop just below to create all the players
 
+    //Creates a new player with the number passed
 	for(int i = 0; i <= m_nPlayers; i++)
 	{
 		player = new Player(i);
@@ -41,11 +42,12 @@ Board::Board(int nPlayers, int nDecks, char* gameName)
 ***********************************************************************************/
 Board::~Board()
 {
+    //Every player is deleted
 	for(int i = 0; i < m_nPlayers; i++)
 	{
 		delete m_players[i];
 	}
-
+    //Deletes the gameDeck
 	delete m_gameDeck;
 }
 
@@ -55,6 +57,7 @@ Board::~Board()
 ***********************************************************************************/
 void Board::DealStartingHands()
 {
+    //Deals each player a starting hand
 	for(int i = 0; i < m_players.size(); i++)
 	{
 		m_players[i]->AddHand(MakeStartingHand());
@@ -62,11 +65,13 @@ void Board::DealStartingHands()
 }
 
 /***********************************************************************************
- * Purpose: Creates a starting hand with two dealt cards from the deck
+ * Purpose: Creates a starting hand with two dealt cards from the deck, used in 
+ *      DealStartingHands()
  * Out: Will remove two cards off the deck and return a pointer to the hand
 ***********************************************************************************/
 Hand* Board::MakeStartingHand()
 {
+    //Deals each player two cards
 	Hand* h = new Hand(0);
 	for(int i = 0; i < 2; i++)
 	{
@@ -82,6 +87,7 @@ Hand* Board::MakeStartingHand()
 ***********************************************************************************/
 Deck* Board::MakeGameDeck()
 {
+    //Creates a deck and shuffles it
 	Deck* d = new Deck(m_nDecks);
 	d->Shuffle();
 	return d;
@@ -95,6 +101,7 @@ Deck* Board::MakeGameDeck()
 ***********************************************************************************/
 void Board::DealCard(int player, int hand)
 {
+    //Deals a card to a player from the deck
 	m_players[player]->m_handList[hand]->m_hand.push_back(m_gameDeck->DealCard());
 }
 
@@ -158,6 +165,7 @@ void Board::PrintDealer(bool hide)
 ***********************************************************************************/
 void Board::ClearBoard()
 {
+    //For all the players, dump their hands
 	for(int i = 0; i < m_players.size(); i++)
 	{
 		m_players[i]->DumpHands();
@@ -186,6 +194,8 @@ bool Board::StartGame()
 		//Clear stdin before starting loop again
 		std::cin.clear();
 		std::cin.ignore();
+
+        //Validate user input
 		if(!isnan(m_option))
 		{
 			switch(m_option)
