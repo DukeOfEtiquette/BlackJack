@@ -18,16 +18,17 @@ Board::Board(int nPlayers, int nDecks, std::string gameName)
 		std::cout << "Invalid number of players or decks passed.\n";
 		return;
 	}
-
+    
+    //Sets member variables
 	m_nPlayers = nPlayers;
 	m_nDecks = nDecks;
 	m_gameName = gameName;
 	m_play = true;
-
 	m_gameDeck = MakeGameDeck();
 
+    
 	Player* player;
-
+    //Creates a new player with the number passed
 	for(int i = 0; i <= nPlayers; i++)
 	{
 		player = new Player(i);
@@ -41,11 +42,12 @@ Board::Board(int nPlayers, int nDecks, std::string gameName)
 ***********************************************************************************/
 Board::~Board()
 {
+    //Every player is deleted
 	for(int i = 0; i < m_players.size(); i++)
 	{
 		delete m_players[i];
 	}
-
+    //Deletes the gameDeck
 	delete m_gameDeck;
 }
 
@@ -55,6 +57,7 @@ Board::~Board()
 ***********************************************************************************/
 void Board::DealStartingHands()
 {
+    //Deals each player a starting hand
 	for(int i = 0; i < m_players.size(); i++)
 	{
 		m_players[i]->AddStartingHand(MakeStartingHand());
@@ -62,11 +65,13 @@ void Board::DealStartingHands()
 }
 
 /***********************************************************************************
- * Purpose: Creates a starting hand with two dealt cards from the deck
+ * Purpose: Creates a starting hand with two dealt cards from the deck, used in 
+ *      DealStartingHands()
  * Out: Will remove two cards off the deck and return a pointer to the hand
 ***********************************************************************************/
 Hand* Board::MakeStartingHand()
 {
+    //Deals each player two cards
 	Hand* h = new Hand(0);
 	for(int i = 0; i < 2; i++)
 	{
@@ -82,6 +87,7 @@ Hand* Board::MakeStartingHand()
 ***********************************************************************************/
 Deck* Board::MakeGameDeck()
 {
+    //Creates a deck and shuffles it
 	Deck* d = new Deck(m_nDecks);
 	d->Shuffle();
 	return d;
@@ -94,6 +100,7 @@ Deck* Board::MakeGameDeck()
 ***********************************************************************************/
 void Board::DealCard(int player, int hand)
 {
+    //Deals a card to a player from the deck
 	m_players[player]->m_handList[hand]->m_hand.push_back(m_gameDeck->DealCard());
 }
 
@@ -151,7 +158,8 @@ void Board::PrintDealer(bool hide)
 {
 	int sum = 0;
 	std::cout << "\n### TABLE ###\n";
-
+    
+    //On initial deal, hide the dealers 2nd card
 	if(hide)
 	{
 		std::cout << "Dealer : ";  
@@ -183,6 +191,7 @@ bool Board::PlayerHasSplit(Player* player, int iHand)
 ***********************************************************************************/
 void Board::ClearBoard()
 {
+    //For all the players, dump their hands
 	for(int i = 0; i < m_players.size(); i++)
 	{
 		m_players[i]->DumpHands();
@@ -208,6 +217,7 @@ void Board::StartGame()
 		std::cout << "3) End Game\n";
 		std::cin >> option;
 
+        //Validate user input
 		if(!isnan(option))
 		{
 			switch(option)
@@ -227,6 +237,7 @@ void Board::StartGame()
 			}
 		}
 
+        //Clear and reset
 		std::cin.clear();
 		std::cin.ignore();
 	}
@@ -306,7 +317,7 @@ void Board::StartRound()
 
 void Board::PlayDealer()
 {
-
+    
 	bool dBust = true;
 	int dSum = 0;
 	int pSum = 0;
@@ -317,7 +328,7 @@ void Board::PlayDealer()
 		for(int j = 0; j < m_players[i]->m_handList.size(); j++)
 		{
 			pSum = m_players[i]->m_handList[j]->SumHand();
-
+            
 			if(maxHand < pSum && pSum < 22)
 			{
 				maxHand = pSum;
@@ -325,7 +336,8 @@ void Board::PlayDealer()
 			}
 		}
 	}
-
+    
+    //Dealer AI
 	while(!dBust)
 	{
 		dSum = m_players[0]->m_handList[0]->SumHand();
@@ -480,6 +492,10 @@ void Board::PlayHands(Player* player)
 	}
 }
 
+/***********************************************************************************
+ * Purpose: Creates a new deck if there are half the cards remaining
+ * Out: The old deck is destroyed and a new deck will be created
+ ***********************************************************************************/
 void Board::CheckDeck()
 {
 	if(m_gameDeck->m_deck.size() < (m_nDecks/2)*52)
