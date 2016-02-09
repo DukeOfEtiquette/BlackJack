@@ -12,7 +12,7 @@
 ***********************************************************************************/
 Deck::Deck(int sets)
 {
-	m_nSets = sets; 
+	m_nSets = sets; //sets is passed in, m_nSets is used in InitializeSets
 	InitializeSet();
 }
 
@@ -22,6 +22,11 @@ Deck::Deck(int sets)
 ***********************************************************************************/
 Deck::~Deck()
 {
+	for(int i = 0; i < m_deck.size(); i++)
+	{
+		delete m_deck[i];
+	}
+    //Destroy all Cards still in hand
 	m_deck.clear();
 }
 
@@ -34,7 +39,9 @@ Deck::~Deck()
 ***********************************************************************************/
 void Deck::InitializeSet()
 {
+    //Pointer to a Card to be used while creating a Deck
 	Card* c;
+    //Pointer to an Ace to be used while creating a Deck
 	Ace* a;
 
 	for(int i = 0; i < m_nSets; i++)
@@ -61,8 +68,10 @@ int shuffleRandom(int i) {return std::rand()%i;}
 
 void Deck::Shuffle()
 {
+    //Seed a random time
 	std::srand(unsigned(std::time(0)));
 
+    //This will shuffle everything in the vector using our custom random
 	std::random_shuffle(m_deck.begin(), m_deck.end(), shuffleRandom);
 }
 
@@ -73,6 +82,8 @@ void Deck::Shuffle()
 ***********************************************************************************/
 Card* Deck::DealCard()
 {
+    //Here we set the value of c to be the card at the end of the deck
+    //We then pop that card off the deck and return c
 	Card* c = m_deck.back();
 	m_deck.pop_back();
 	

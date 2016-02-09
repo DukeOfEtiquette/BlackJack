@@ -33,6 +33,42 @@ int main()
 		std::cout << " Value: " << val;
 		std::cout << std::endl;
 	}
-	c = new Card(2, (Card::Suit)4);
-
+    
+	if(cards.size() % 48 != 0) // note 48 cards bcs Ace is not included
+    {
+		std::cout << "error cards vector does not have 48 cards\n";
+    }
+    for(int i = 0; i < cards.size(); i++)
+    {
+		if(cards[i] == 0)
+		{
+			std::cout << "error cards is pointing to null\n";
+		}
+        //check that every card has a valid value
+        if(cards[i]->m_value < 2 || cards[i]->m_value > 13)
+        {
+            std::cout << "error the cards value is not in range" << std::endl;
+        }
+		else 
+		{
+			std::cout << "checked value at index:" << i << std::endl;
+		}
+    }
+    std::cout << "\n\n\n";
+    
+    for(int i = 0; i < 4; i++)
+    {
+        for(int j = 0; j < 13; j++)
+        {
+            if(cards[i]->m_suit % 4 == 0)
+            {
+                std::cout << "checked suit at:" << j << std::endl;
+            }
+            else
+            {
+                std::cout << "error not a suit of case:" << 0 << " at index:" << i <<std::endl;
+            }
+                
+        }
+    }
 }

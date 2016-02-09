@@ -9,7 +9,8 @@ int main()
 		std::cout << std::endl;
 
 	int nPlayers, nDecks;
-	std::string gameName;
+	char gameName[80];
+	Board* gameBoard;
 
 	std::cout << "How many players will there be?: ";
 	std::cin >> nPlayers;
@@ -17,13 +18,21 @@ int main()
 	std::cout << "How many decks will you be playing with?: ";
 	std::cin >> nDecks;
 
-	//std::cout << "What do you want to name this game?: ";
-	//std::getline(std::cin, gameName);
-	//std::cin >> gameName;
+	std::cin.ignore();
+	std::cin.clear();
 
-	Board* gameBoard = new Board(nPlayers, nDecks, "Test Game");
+	std::cout << "Enter a name for your game: ";
+	std::cin.getline(gameName, 80);
+	//fgets(gameName, 80, stdin);
 
-	gameBoard->StartGame();
+	try{
+		gameBoard = new Board(nPlayers, nDecks, gameName);
+		gameBoard->StartGame();
+
+		delete gameBoard;
+	}catch(const char* msg){
+		std::cerr << msg << std::endl;
+	}
 
 	return 0;
 }

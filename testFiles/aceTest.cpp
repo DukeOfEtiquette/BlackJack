@@ -2,6 +2,7 @@
 #include <vector>
 #include "Card.h"
 #include "Ace.h"
+#include <assert.h>
 
 int main()
 {
@@ -36,6 +37,13 @@ int main()
 
 	//Dec on of the ace cards and print them all out again
 	hand[0]->DecValue();
+    
+    //make sure DecValue() worked properly
+    if(hand[0]->m_value != 1)
+    {
+        std::cout << "error DecValue() did not decrement properly m_value: " << hand[0]->m_value << std::endl;
+    }
+        
 
 	std::cout << "\n### First Ace should be 1 ###\n";
 	for(int i = 0; i < hand.size(); i++)
@@ -52,7 +60,17 @@ int main()
 	{
 		if(dynamic_cast<Ace*>(hand[i]))
 		{
-			std::cout << "Found an Ace\n";
+            //Make sure Ace has a value of 1 or 11
+            if(hand[i]->m_value == 1 || 11)
+            {
+                std::cout << "Found an Ace\n";
+                
+            }
+            else
+            {
+                std::cout << "error DecValue() did not decrement properly m_value: " << hand[i]->m_value <<std::endl;
+            }
+            
 		}
 		else
 		{
@@ -84,6 +102,11 @@ int main()
 		hand[i]->PrintCard();
 		std::cout << " " << hand[i]->GetValue() << std::endl;
 	}
+    
+    if(hand[1]->m_value != 1)
+    {
+        std::cout << "error DecValue() did not decrement properly m_value: " << hand[0]->m_value << std::endl;
+    }
 
 	//Cycle through entire hand and decrement only the ace cards, not including the
 	//ace that has already been decremented
@@ -92,17 +115,37 @@ int main()
 		if(dynamic_cast<Ace*>(hand[i]))
 		{
 			hand[i]->DecValue();
+            assert(hand[i]->m_value == 1);
 		}
 	}
 
-	//Now print them all out again with all Aces having a value of 1
-	std::cout << "\n### All Aces are now 1 ###\n";
-	for(int i = 0; i < hand.size(); i++)
-	{
-		std::cout << "Card: ";
-		hand[i]->PrintCard();
-		std::cout << " " << hand[i]->GetValue() << std::endl;
-	}
+    
+
+    for(int i = 0; i < hand.size(); i++)
+    {
+        if(dynamic_cast<Ace*>(hand[i]))
+        {
+            //Make sure Ace has a value of 11
+            if(hand[i]->m_value == 1)
+            {
+                
+                //Now print them all out again with all Aces having a value of 1
+                std::cout << "\n### All Aces are now 1 ###\n";
+                for(int i = 0; i < hand.size(); i++)
+                {
+                    std::cout << "Card: ";
+                    hand[i]->PrintCard();
+                    std::cout << " " << hand[i]->GetValue() << std::endl;
+                }
+                
+            }
+            else
+            {
+                std::cout << "error DecValue() did not decrement properly m_value: " << hand[i]->m_value <<std::endl;
+            }
+        }
+    }
+    
 
 	return 0;
 }
