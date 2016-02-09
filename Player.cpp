@@ -11,9 +11,14 @@
 ***********************************************************************************/
 Player::Player(int id)
 {
+    //Assigns a playersID to the int passed
 	m_playerID = id;
 }
 
+/***********************************************************************************
+ * Purpose: Player destructor, uses Hand.cpp, used in Board.cpp. No default destructor
+ * Out: Deletes all hands in a handList
+ ***********************************************************************************/
 Player::~Player()
 {
 	for(int i = 0; i < m_handList.size(); i++)
@@ -21,6 +26,7 @@ Player::~Player()
 		delete m_handList[i];
 	}
 
+    //Clears the handList by setting its size to 0
 	m_handList.clear();
 }
 
@@ -52,13 +58,13 @@ void Player::Split(int index)
  ***********************************************************************************/
 void Player::AddStartingHand(Hand* hand)
 {
+    //Adds starting hands to handList
 	m_handList.push_back(hand);
 }
 
 /***********************************************************************************
- * Purpose: This function will print all of the hands in the handList.
- * Out: The Players and Hands are printed and the sum of the cards is printed if the 
- *		sum is less than 21 and prints Bust if their sum is greater than 21
+ * Purpose: This function will print a hand in the handList.
+ * Out: A Player and a hand at a particular index is printed
  ***********************************************************************************/
 bool Player::PrintHand(int iHand)
 {
@@ -66,8 +72,14 @@ bool Player::PrintHand(int iHand)
 	return m_handList[iHand]->PrintHand();
 }
 
+/***********************************************************************************
+ * Purpose: This function will print all of the hands in the handList.
+ * Out: The Players and Hands are printed and the sum of the cards is printed if the
+ *		sum is less than 21 and prints Bust if their sum is greater than 21
+ ***********************************************************************************/
 void Player::PrintHands()
 {
+    //Prints all hands in a players handList
 	for(int i = 0; i < m_handList.size(); i++)
 	{
 		std::cout << "Player " << m_playerID << ": ";
@@ -91,5 +103,6 @@ bool Player::CanSplit(int iHand)
  ***********************************************************************************/
 void Player::DumpHands()
 {
+    //Clears a players handList
 	m_handList.clear();
 }

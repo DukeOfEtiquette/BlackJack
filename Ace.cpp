@@ -8,13 +8,15 @@
 * Out: Ace is defaulted with the value of 11 and suit of spade 
 ***********************************************************************************/
 Ace::Ace(int val, Suit s) : Card(val, s)
-{	
+{
+    //Make sure that Ace doesn't have a value of 1
 	if(val != 1)
 	{
 		std::cout << "Invalid value for Ace - " << val << std::endl;
 		return;
 	}
-
+    
+    //Sets member variables
 	m_value = 11;
 	m_suit = s;
 	m_bLowVal = false;
@@ -27,6 +29,7 @@ Ace::Ace(int val, Suit s) : Card(val, s)
  ***********************************************************************************/
 int Ace::GetValue()
 {
+    //If boolean bLowVal is true an Ace has been decremented
 	if(m_bLowVal)
 		return 1;
 	else
@@ -41,6 +44,7 @@ void Ace::PrintCard()
 {
 	char val, s;
 
+    //Switch statement for each suit, with X being default to detect errors
 	switch(m_suit)
 	{
 		case Club:
@@ -65,6 +69,11 @@ void Ace::PrintCard()
 	std::cout << val << s << " ";
 }
 
+
+/***********************************************************************************
+ * Purpose: Increment an Ace card to set its value to 11
+ * Out: boolean bLowVal is set to false and the value is incremented by 10
+ ***********************************************************************************/
 void Ace::IncValue()
 {
 	if(m_bLowVal)
