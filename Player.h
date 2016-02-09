@@ -15,7 +15,7 @@ public:
 	int m_playerID;
 
 	void Split(int index);
-	void AddStartingHand(Hand* hand);
+	void AddHand(Hand* hand);
 	bool PrintHand(int);
 	void PrintHands();
 	void DumpHands();

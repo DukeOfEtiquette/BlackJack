@@ -9,17 +9,15 @@
 class Board
 {
 public:
-	Deck* m_gameDeck;
-	std::string m_gameName;
-	int m_nPlayers;
-	int m_nDecks;
-	std::map<int, Player*> m_players;
-	int m_curPlayer;
-	int m_curHand;
-	char m_option;
-	bool m_play;
+	Deck* m_gameDeck; //First used in the constructor
+	std::string m_gameName;//First used in the constructor and in StartGame
+	int m_nPlayers;//Used in constructor and destructor
+	int m_nDecks;//Used in constructor, MakeGameDeck and CheckDeck
+	std::map<int, Player*> m_players;//Used in nearly every function
+	int m_option;//Used in StartGame
+	bool m_play;//Used in StartGame and EndGame
 
-	Board(int, int, std::string);
+	Board(int, int, char*);
 	~Board();
 
 	Deck* MakeGameDeck();
@@ -28,15 +26,11 @@ public:
 	void DealCard(int, int);
 	void SplitHand(Player*, int);
 	void PrintAllPlayers();
-	void PrintPlayerHand(int, int);
-	void PrintCurPlayer(int);
 	void PrintDealer(bool);
-	bool PlayerHasSplit(Player*, int);
 	void PlayHands(Player*);
 	void CheckSplit(Player*);
 	void ClearBoard();
-	void StartGame();
-	void PauseGame();
+	bool StartGame();
 	void EndGame();
 	void StartRound();
 	void PlayDealer();
