@@ -21,6 +21,13 @@ Board::Board(int nPlayers, int nDecks, std::string gameName)
     
     //Sets member variables
 	m_nPlayers = nPlayers;
+    
+    if(nPlayers < 2 || nDecks < 1)
+    {
+        std::cout << "Invalid number of players or decks passed.\n";
+        return;
+    }
+    
 	m_nDecks = nDecks;
 	m_gameName = gameName;
 	m_play = true;
