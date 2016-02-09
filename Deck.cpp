@@ -1,4 +1,4 @@
-2#include <iostream>
+#include <iostream>
 #include <vector>
 #include <algorithm>
 #include <ctime>
