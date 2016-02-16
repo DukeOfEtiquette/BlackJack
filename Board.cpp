@@ -5,7 +5,7 @@
 #include <string>
 #include "Board.h"
 #include "Player.h"
-
+using namespace std;
 /***********************************************************************************
  * Purpose: Constructor for Board
  * In: Takes a number of players, number of Decks, and a game name
@@ -32,8 +32,9 @@ Board::Board(int nPlayers, int nDecks, char* gameName)
 	for(int i = 0; i <= m_nPlayers; i++)
 	{
 		player = new Player(i);
-		m_players.insert(std::pair<int, Player*>(i, player));
+		m_players.insert(pair<int, Player*>(i, player));
 	}
+	AssignStartingBetChips();
 }
 
 /***********************************************************************************
@@ -131,7 +132,7 @@ void Board::PrintAllPlayers()
 	}
 
 	//Formatting
-	std::cout << std::endl;
+	cout << endl;
 }
 
 /***********************************************************************************
@@ -143,17 +144,17 @@ void Board::PrintAllPlayers()
 void Board::PrintDealer(bool hide)
 {
 	//Dealer will always be printed first so this is the header for the table
-	std::cout << "\n### TABLE ###\n";
+	cout << "\n### TABLE ###\n";
 
 	//If hide then print first card and hide second, else print entire hand
 	if(hide)
 	{
-		std::cout << "Dealer : ";  
+		cout << "Dealer : ";  
 		m_players[0]->m_handList[0]->m_hand[0]->PrintCard();
-		std::cout << " *\n";
+		cout << " *\n";
 	}else{
 
-		std::cout << "Dealer : ";  
+		cout << "Dealer : ";  
 		m_players[0]->m_handList[0]->PrintHand();
 		m_players[0]->m_handList[0]->SumHand();
 	}
@@ -180,20 +181,21 @@ void Board::ClearBoard()
 ***********************************************************************************/
 bool Board::StartGame()
 {
+
 	while(m_play)//Use
 	{
 		CheckDeck();
-		std::cout << "\n#### " << m_gameName << " Menu ###\n";
-		std::cout << "\nPlease select an option below...\n";
-		std::cout << "1) Start A Round\n";
-		std::cout << "2) Pause game\n";
-		std::cout << "3) End Game\n";
-		std::cout << ">";
-		std::cin >> m_option; //Use
+		cout << "\n#### " << m_gameName << " Menu ###\n";
+		cout << "\nPlease select an option below...\n";
+		cout << "1) Start A Round\n";
+		cout << "2) Pause game\n";
+		cout << "3) End Game\n";
+		cout << ">";
+		cin >> m_option; //Use
 
 		//Clear stdin before starting loop again
-		std::cin.clear();
-		std::cin.ignore();
+		cin.clear();
+		cin.ignore();
 
         //Validate user input
 		if(!isnan(m_option))
@@ -208,14 +210,14 @@ bool Board::StartGame()
 				case 3:
 					return true;
 				default:
-					std::cout << "That option is not valid, try again...\n\n";
+					cout << "That option is not valid, try again...\n\n";
 					break;
 			}
 		}
 
 		//Clear stdin before starting loop again
-		std::cin.clear();
-		std::cin.ignore();
+		cin.clear();
+		cin.ignore();
 	}
 
 	return false;
@@ -238,12 +240,12 @@ void Board::CheckSplit(Player* player)
 		{
 			if(player->CanSplit(i))
 			{
-				std::string option;//Used right below this to record input
+				string option;//Used right below this to record input
 				player->PrintHand(i);
-				std::cout << "Would you like to split this hand (y/n): ";
-				std::getline(std::cin, option);
+				cout << "Would you like to split this hand (y/n): ";
+				getline(cin, option);
 
-				std::cout << std::endl;
+				cout << endl;
 
 				if(tolower(option[0]) == 'y')
 				{
@@ -253,7 +255,7 @@ void Board::CheckSplit(Player* player)
 				}else if(tolower(option[0]) == 'n'){
 					split = false;
 				}else{
-					std::cout << "Not a valid option, try again.\n";
+					cout << "Not a valid option, try again.\n";
 					i--;
 				}
 			}
@@ -273,6 +275,9 @@ void Board::StartRound()
 {
 	ClearBoard();
 	DealStartingHands();
+	
+	BettingSystem();
+
 	PrintDealer(true);
 	PrintAllPlayers();
 
@@ -286,6 +291,27 @@ void Board::StartRound()
 	PrintDealer(false);
 	PrintAllPlayers();
 	PrintWinners();
+}
+
+void Board::BettingSystem()
+{
+	for(int i = 1; i < m_players.size(); i++)
+	{
+		cout << "Player" << i << " current chips: " << m_players[i]->m_playerChips << endl;
+		cout << "Player" << i << " Please enter your bet" << endl;
+		cin >> m_players[i]->m_currentBet;	
+		m_players[i]->m_playerChips = m_players[i]->m_playerChips - m_players[i]->m_currentBet;
+		cin.clear();
+		cin.ignore();	
+	}
+}
+
+void Board::AssignStartingBetChips()
+{
+	for(int i = 1; i < m_players.size(); i++)
+	{
+		m_players[i]->m_playerChips = 500;
+	}
 }
 
 /***********************************************************************************
@@ -377,7 +403,7 @@ void Board::PrintWinners()
 	if(!bPush || dSum > 21)
 	{
 		//Display winners haeder
-		std::cout << "Round Winner(s):";
+		cout << "Round Winner(s):";
 
 		//Assume dealer has won
 		bool dWin = true;//Used in if/else if statement below
@@ -397,15 +423,23 @@ void Board::PrintWinners()
 					//and flip bool for dWin to false since dealer lost
 					if(playerSum < 22)
 					{
-						std::cout << " Player " << m_players[i]->m_playerID;
-						std::cout << "(" << playerSum << ")";
+						cout << " Player " << m_players[i]->m_playerID;
+						cout << "(" << playerSum << ")";
+						
+						m_players[i]->m_currentBet *= 2;
+						m_players[i]->m_playerChips += m_players[i]->m_currentBet;
+						
 						dWin = false;//dWin used either here
 						break;//Break out of checking this player
 					}
 				}else if(dSum < playerSum && playerSum < 22){
 						
-					std::cout << " Player " << m_players[i]->m_playerID;
-					std::cout << "(" << playerSum << ")";
+					cout << " Player " << m_players[i]->m_playerID;
+					cout << "(" << playerSum << ")";
+					 
+					m_players[i]->m_currentBet *= 2;
+					m_players[i]->m_playerChips += m_players[i]->m_currentBet;
+
 					dWin = false;//Or dWin used here for the first
 					break;//Break out of checking this player
 				}
@@ -414,11 +448,11 @@ void Board::PrintWinners()
 
 		//If no player has a larger hand than dealer and the dealer hasn't bust
 		if(dWin && dSum < 22)//dWin also used here
-			std::cout << " Dealer(" << dSum << ")";
+			cout << " Dealer(" << dSum << ")";
 	}else{
 
 		//Print that the dealer has pushed
-		std::cout << "Push(" << dSum << "): Dealer";
+		cout << "Push(" << dSum << "): Dealer";
 
 		//And cycle through all players' hands and print they have pushed as well
 		for(int i = 1; i < m_players.size(); i++)
@@ -428,12 +462,12 @@ void Board::PrintWinners()
 				playerSum = m_players[i]->m_handList[j]->SumHand();
 				
 				if(dSum == playerSum)
-					std::cout << " Player" << m_players[i]->m_playerID;
+					cout << " Player" << m_players[i]->m_playerID;
 			}
 		}
 	}
 
-	std::cout << "\nEnter to continue....";
+	cout << "\nEnter to continue....";
 }
 
 /***********************************************************************************
@@ -442,7 +476,7 @@ void Board::PrintWinners()
 ***********************************************************************************/
 void Board::EndGame()
 {
-	std::cout << "Ending game......\n\n\n\n";
+	cout << "Ending game......\n\n\n\n";
 	m_play = false;
 }
 
@@ -467,12 +501,12 @@ bool isValid(char option)
 ***********************************************************************************/
 void Board::PlayHands(Player* player)
 {
-	std::string option;
+	string option;
 	bool stay;
 
 	for(int i = 0; i < player->m_handList.size(); i++)
 	{
-		std::cout << std::endl;
+		cout << endl;
 		stay = false;
 
 		//While player hasn't picked stay or the player has not busted
@@ -483,13 +517,13 @@ void Board::PlayHands(Player* player)
 				break;
 
 			//Ask player if they want to hit or stay
-			std::cout << "Player " << player->m_playerID << " would you like to (h)it, (s)tand for Hand " << i + 1 << "?>";
-			std::getline(std::cin, option);//option used for first time
+			cout << "Player " << player->m_playerID << " would you like to (h)it, (s)tand for Hand " << i + 1 << "?>";
+			getline(cin, option);//option used for first time
 
 			//Verify option provided is valid
 			if(!isValid(option[0]))
 			{
-				std::cout << "Invalid choice, pleese choose again.\n";
+				cout << "Invalid choice, pleese choose again.\n";
 			}
 			else{
 				//If player wants to stay then exit while loop
@@ -513,7 +547,7 @@ void Board::CheckDeck()
 {
 	if(m_gameDeck->m_deck.size() < (m_nDecks/2)*52)
 	{
-		std::cout << "Reshuffling deck...\n";
+		cout << "Reshuffling deck...\n";
 		delete m_gameDeck;
 		m_gameDeck = 0;
 		m_gameDeck = MakeGameDeck();

@@ -13,6 +13,8 @@ public:
 	~Player();
 	std::vector<Hand*> m_handList;
 	int m_playerID;
+	int m_playerChips;
+	int m_currentBet;
 
 	void Split(int index);
 	void AddHand(Hand* hand);

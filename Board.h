@@ -36,6 +36,10 @@ public:
 	void PlayDealer();
 	void PrintWinners();
 	void CheckDeck();
+	
+	void BettingSystem();
+	void AssignStartingBetChips();
+
 };
 
 #endif
