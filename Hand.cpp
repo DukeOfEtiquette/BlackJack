@@ -47,9 +47,9 @@ int Hand::SumHand()
 	{
 		sum = 0;
 
-		for(int i = 0; i < m_hand.size(); i++) 
+		for(int j = 0; j < m_hand.size(); j++) 
 		{
-			sum += m_hand[i]->GetValue();		
+			sum += m_hand[j]->GetValue();		
 		}
 	}
 

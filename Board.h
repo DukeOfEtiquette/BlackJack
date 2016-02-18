@@ -37,6 +37,8 @@ public:
 	void PrintWinners();
 	void CheckDeck();
 	
+	void GameInterface(); 
+
 	void BettingSystem();
 	void AssignStartingBetChips();
 

@@ -173,6 +173,17 @@ void Board::ClearBoard()
 	}
 }
 
+void Board::GameInterface()
+{
+	
+	cout << "\n#### " << m_gameName << " Menu ###\n";
+	cout << "\nPlease select an option below...\n";
+	cout << "1) Start A Round\n";
+	cout << "2) Pause game\n";
+	cout << "3) End Game\n";
+	cout << ">";
+}
+
 /***********************************************************************************
  * Purpose: Creates a loop that	determines if a game is in play (boolean m_play)
  *			and takes appropriate action based on user input
@@ -185,12 +196,23 @@ bool Board::StartGame()
 	while(m_play)//Use
 	{
 		CheckDeck();
-		cout << "\n#### " << m_gameName << " Menu ###\n";
-		cout << "\nPlease select an option below...\n";
-		cout << "1) Start A Round\n";
-		cout << "2) Pause game\n";
-		cout << "3) End Game\n";
-		cout << ">";
+		GameInterface();
+
+		for(int i = 1; i < m_players.size(); i++)
+		{
+			if(m_players[i]->m_playerChips <= 100)
+			{
+				cout << "Help Menu" << endl;
+			
+					
+				cout << "Looks like a player has less than 100 chips left, here is some advice for winning";
+				cout << endl;
+				cout << "The dealers upcard threat shows the following" << endl;
+				cout << "Ace is very dangerous, a loss is likely." << endl << "10 to king Big trouble. You'll be lucky to push." << endl << "9 You're a little uptight and maybe in trouble." << endl << "7 to 8 Breath a little easier. The dealer is beatable" << endl << "4 to 6 Looking good. You are in the driver's seat." << endl << "2 to 3 Wait and see. Be cautious" << endl;
+				cout << ">";
+			}
+		}
+
 		cin >> m_option; //Use
 
 		//Clear stdin before starting loop again
@@ -428,6 +450,7 @@ void Board::PrintWinners()
 						
 						m_players[i]->m_currentBet *= 2;
 						m_players[i]->m_playerChips += m_players[i]->m_currentBet;
+						cout << " Player " << m_players[i]->m_playerID << " payout:" << m_players[i]->m_currentBet << " Chips in Hand:" << m_players[i]->m_playerChips << endl;
 						
 						dWin = false;//dWin used either here
 						break;//Break out of checking this player
@@ -439,7 +462,8 @@ void Board::PrintWinners()
 					 
 					m_players[i]->m_currentBet *= 2;
 					m_players[i]->m_playerChips += m_players[i]->m_currentBet;
-
+					cout << " Player " << m_players[i]->m_playerID << " payout:" << m_players[i]->m_currentBet << " Chips in Hand: " << m_players[i]->m_playerChips << endl;
+					
 					dWin = false;//Or dWin used here for the first
 					break;//Break out of checking this player
 				}
