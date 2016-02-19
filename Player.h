@@ -15,6 +15,7 @@ public:
 	int m_playerID;
 	int m_playerChips;
 	int m_currentBet;
+	int m_pushAmount;
 
 	void Split(int index);
 	void AddHand(Hand* hand);

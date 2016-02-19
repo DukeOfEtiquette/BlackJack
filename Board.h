@@ -16,7 +16,7 @@ public:
 	std::map<int, Player*> m_players;//Used in nearly every function
 	int m_option;//Used in StartGame
 	bool m_play;//Used in StartGame and EndGame
-
+	
 	Board(int, int, char*);
 	~Board();
 

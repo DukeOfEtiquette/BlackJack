@@ -12,6 +12,7 @@
 Player::Player(int id)
 {
 	m_playerID = id;//Use
+	m_pushAmount = 0;//Init pushAmount to 0
 }
 
 /***********************************************************************************

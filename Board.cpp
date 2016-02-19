@@ -322,6 +322,9 @@ void Board::BettingSystem()
 		cout << "Player" << i << " current chips: " << m_players[i]->m_playerChips << endl;
 		cout << "Player" << i << " Please enter your bet" << endl;
 		cin >> m_players[i]->m_currentBet;	
+		m_players[i]->m_currentBet += m_players[i]->m_pushAmount;
+		m_players[i]->m_pushAmount = 0; // after push amount is added, we need to clear it so it is not added back again	
+
 		m_players[i]->m_playerChips = m_players[i]->m_playerChips - m_players[i]->m_currentBet;
 		cin.clear();
 		cin.ignore();	
@@ -448,7 +451,8 @@ void Board::PrintWinners()
 						cout << " Player " << m_players[i]->m_playerID;
 						cout << "(" << playerSum << ")";
 						
-						m_players[i]->m_currentBet *= 2;
+						//m_players[i]->m_currentBet *= 2;
+						m_players[i]->m_currentBet = m_players[i]->m_currentBet * 3 / 2;
 						m_players[i]->m_playerChips += m_players[i]->m_currentBet;
 						cout << " Player " << m_players[i]->m_playerID << " payout:" << m_players[i]->m_currentBet << " Chips in Hand:" << m_players[i]->m_playerChips << endl;
 						
@@ -460,7 +464,7 @@ void Board::PrintWinners()
 					cout << " Player " << m_players[i]->m_playerID;
 					cout << "(" << playerSum << ")";
 					 
-					m_players[i]->m_currentBet *= 2;
+					m_players[i]->m_currentBet = m_players[i]->m_currentBet * 3 / 2;
 					m_players[i]->m_playerChips += m_players[i]->m_currentBet;
 					cout << " Player " << m_players[i]->m_playerID << " payout:" << m_players[i]->m_currentBet << " Chips in Hand: " << m_players[i]->m_playerChips << endl;
 					
@@ -488,6 +492,9 @@ void Board::PrintWinners()
 				if(dSum == playerSum)
 					cout << " Player" << m_players[i]->m_playerID;
 			}
+			m_players[i]->m_pushAmount += m_players[i]->m_currentBet * 2 / 3; 
+			cout << " players bet has been pushed to next round, next round pot: " << m_players[i]->m_pushAmount << endl;
+			
 		}
 	}
 
