@@ -420,6 +420,7 @@ void Board::PrintWinners()
 				bPush = false;
 				checkHands = false;
 			}
+            
 		}
 		i++;//Check next player
 	}
@@ -428,7 +429,7 @@ void Board::PrintWinners()
 	if(!bPush || dSum > 21)
 	{
 		//Display winners haeder
-		cout << "Round Winner(s):";
+		cout << "Round Winner(s):" << endl;
 
 		//Assume dealer has won
 		bool dWin = true;//Used in if/else if statement below
@@ -452,8 +453,11 @@ void Board::PrintWinners()
 						cout << "(" << playerSum << ")";
 						
 						//m_players[i]->m_currentBet *= 2;
-						m_players[i]->m_currentBet = m_players[i]->m_currentBet * 3 / 2;
-						m_players[i]->m_playerChips += m_players[i]->m_currentBet;
+                        m_players[i]->m_playerChips += m_players[i]->m_currentBet;
+                        m_players[i]->m_currentBet = m_players[i]->m_currentBet * 3 / 2;
+                        m_players[i]->m_playerChips += m_players[i]->m_currentBet;
+                        
+                        
 						cout << " payout:" << m_players[i]->m_currentBet << " Chips in Hand:" << m_players[i]->m_playerChips << endl;
 						
 						dWin = false;//dWin used either here
@@ -465,10 +469,13 @@ void Board::PrintWinners()
 						
 					cout << " Player " << m_players[i]->m_playerID;
 					cout << "(" << playerSum << ")";
-					 
-					m_players[i]->m_currentBet = m_players[i]->m_currentBet * 3 / 2;
-					m_players[i]->m_playerChips += m_players[i]->m_currentBet;
-					cout << " payout:" << m_players[i]->m_currentBet << " Chips in Hand: " << m_players[i]->m_playerChips << endl;
+					
+                    m_players[i]->m_playerChips += m_players[i]->m_currentBet;
+                    m_players[i]->m_currentBet = m_players[i]->m_currentBet * 3 / 2;
+                    m_players[i]->m_playerChips += m_players[i]->m_currentBet;
+                    
+                    
+                    cout << " payout:" << m_players[i]->m_currentBet << " Chips in Hand: " << m_players[i]->m_playerChips << endl;
 					
 					dWin = false;//Or dWin used here for the first
 					break;//Break out of checking this player
@@ -476,19 +483,16 @@ void Board::PrintWinners()
                     
             }
         }
-
-		//If no player has a larger hand than dealer and the dealer hasn't bust
-		if(dWin && dSum < 22)//dWin also used here
+        if(dWin && dSum < 22)//dWin also used here
         {
-			cout << " Dealer(" << dSum << ")";
-            //cout << " Player " << m_players[i]->m_playerID << " lostBet, Chips in Hand now equals: " << m_players[i]->m_playerChips << endl;
+            std::cout << " Dealer(" << dSum << ")" << endl;
         }
-	}
-    else if(playerSum >= 22)
-    {
-        //player lost, print new playerChips
-        cout << " Player " << m_players[i]->m_playerID << " lostBet, Chips in Hand now equals: " << m_players[i]->m_playerChips << endl;
+        
     }
+        
+        
+		
+    
     
     else {
 
@@ -510,6 +514,13 @@ void Board::PrintWinners()
 			
 		}
 	}
+    
+    for(int i = 1; i < m_players.size(); i++){
+        if(playerSum > 21)
+        {
+            cout << " Player" << m_players[i]->m_playerID << ": busted" << " chips: " << m_players[i]->m_playerChips << endl;
+        }
+    }
     
 	cout << "\nEnter to continue....";
 }
