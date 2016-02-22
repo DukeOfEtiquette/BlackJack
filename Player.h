@@ -1,7 +1,7 @@
 #ifndef _PLAYER_H_INCLUDED
 #define _PLAYER_H_INCLUDED
 
-
+#include "Pot.h"
 #include "Card.h"
 #include "Hand.h"
 #include <vector>
@@ -13,7 +13,7 @@ public:
 	~Player();
 	std::vector<Hand*> m_handList;
 	int m_playerID;
-	int m_pot; //This will actually be a pot class once complete
+	Pot* m_pot;
 
 	void Split(int index);
 	void AddHand(Hand* hand);

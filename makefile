@@ -1,5 +1,5 @@
-DEFO = game.o
-DEFC = game.cpp
+DEFO = potTest.o
+DEFC = potTest.cpp
 OBJS = Board.o Deck.o Player.o Hand.o Card.o Ace.o ${DEFO}
 EXES = Blackjack
 FLAGS = -c
