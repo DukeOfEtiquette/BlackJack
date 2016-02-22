@@ -13,6 +13,7 @@ public:
 	~Player();
 	std::vector<Hand*> m_handList;
 	int m_playerID;
+	int m_pot; //This will actually be a pot class once complete
 
 	void Split(int index);
 	void AddHand(Hand* hand);
@@ -20,6 +21,12 @@ public:
 	void PrintHands();
 	void DumpHands();
 	bool CanSplit(int);
+
+	void PlaceBet(int);
+	void DoubleDown();
+	void BuyInsurance(int);
+	void AddWinnings(bool);
+	void ResetBets();
 };
 
 #endif

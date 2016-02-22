@@ -105,3 +105,28 @@ void Player::DumpHands()
     //Clears a players handList
 	m_handList.clear();
 }
+
+void Player::PlaceBet(int betAmount)
+{
+	m_pot->PlaceBet(betAmount);
+}
+
+void Player::DoubleDown()
+{
+	m_pot->DoubleDown();
+}
+
+void Player::BuyInsurance(int insurAmount)
+{
+	m_pot->BuyInsurance(insurAmount);
+}
+
+void Player::AddWinnings(bool blackJack)
+{
+	m_pot->AddWinnings(blackJack);
+}
+
+void Player::ResetBets()
+{
+	m_pot->ResetBets();
+}
