@@ -2,7 +2,7 @@
 #include "Hand.h"
 #include "Player.h"
 #include "Card.h"
-
+#include "Pot.h"
 
 /***********************************************************************************
  * Purpose: Player constructor. No default constructor
@@ -12,6 +12,7 @@
 Player::Player(int id)
 {
 	m_playerID = id;//Use
+	//m_pot->m_curPot = startingPot;
 }
 
 /***********************************************************************************

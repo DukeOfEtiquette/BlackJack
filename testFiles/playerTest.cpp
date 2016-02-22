@@ -21,7 +21,7 @@ int main()
 	h1->m_hand.push_back(c);
     
     assert(h1->m_hand[0]->m_value == 2);
-    assert(h1->m_hand[01]->m_value == 3);
+    assert(h1->m_hand[1]->m_value == 3);
 
 	Hand* h2 = new Hand(0);
 	c = new Card(4,club);
