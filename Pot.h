@@ -19,6 +19,7 @@ public:
 	void DoubleDown();
 	void BuyInsurance(int);
 	void AddWinnings(bool);
+	void ResetBets();
 
 	void PrintPot();
 	void PrintBet();

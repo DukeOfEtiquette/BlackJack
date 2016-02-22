@@ -39,6 +39,21 @@ Pot::DoubleDown()
 
 }
 
+Pot::BuyInsurance(int)
+{
+
+}
+
+Pot::AddWinnings(bool)
+{
+
+}
+
+Pot::ResetBets()
+{
+
+}
+
 Pot::PrintPot()
 {
 	std::cout << "pot:" << m_curPot << std::endl; 
