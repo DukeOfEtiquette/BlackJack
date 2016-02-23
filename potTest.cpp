@@ -2,7 +2,7 @@
 #include <assert.h>
 #include "Pot.h"
 
-int main()
+int main(int argc,char *argv[])
 {
     std::cout << "Pot Test" << std::endl;
     
