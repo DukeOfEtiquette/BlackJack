@@ -4,21 +4,22 @@
 class Pot
 {
 public:
-	Pot(int);
-	~Pot();
-
-	int m_curBet; 
-	int m_curPot;
-	int m_curInsurance;
-	
-	void PlaceBet(int);
-	void DoubleDown();
-	void BuyInsurance(int);
-	void AddWinnings(bool);
-	void ResetBets();
-
-	void PrintPot();
-	void PrintBet();
+    Pot(int);
+    ~Pot();
+    
+    int m_curBet;
+    int m_curPot;
+    int m_curInsurance;
+    
+    void PlaceBet(int);
+    void DoubleDown();
+    void BuyInsurance(int);
+    void AddWinnings(bool);
+    void ResetBets();
+    
+    void PrintPot();
+    void PrintBet();
 }; 
+
 #endif
 
