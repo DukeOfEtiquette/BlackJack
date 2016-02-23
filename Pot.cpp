@@ -8,11 +8,6 @@ Pot::Pot(int initialPot)
     m_curPot = initialPot;
 }
 
-Pot::~Pot()
-{
-    
-}
-
 void Pot::PlaceBet(int betAmount)
 {
     m_curPot -= betAmount;

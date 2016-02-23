@@ -5,7 +5,6 @@ class Pot
 {
 public:
     Pot(int);
-    ~Pot();
     
     int m_curBet;
     int m_curPot;
