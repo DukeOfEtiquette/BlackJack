@@ -14,8 +14,8 @@ public:
 	std::vector<Hand*> m_handList;
 	int m_playerID;
 	
-	Pot* m_pot;
-	void PlaceBet(int);
+	//Pot* m_pot;
+	//void PlaceBet(int);
 
 	void Split(int index);
 	void AddHand(Hand* hand);

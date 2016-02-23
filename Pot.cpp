@@ -1,13 +1,10 @@
 #include <iosteam>
 #include <vector>
 #include <math.h>
-#include "Card.h"
-#include "Hand.h"
-#include "Player.h"
 
-Pot::Pot(int potNum)
+Pot::Pot(int initialPot)
 {
-	m_curPot = potNum;
+	m_curPot = initialPot;
 }
 
 Pot::~Pot()
@@ -15,43 +12,35 @@ Pot::~Pot()
 
 }
 
-Pot::PlaceBet(int)
+Pot::PlaceBet(int betAmount)
 {
-	int userInput = -1;
-
-	while(isnan(userInput))
-	{
-		std::cin.clear();
-		std::cin.ignore();
-	
-		std::cout << "Please enter a number" << endl;
-		std::cin >> userInput;
-	}
-	m_curBet = userInput;
+	m_curPot -= betAmount;
+	m+curBet += betAmount;
 }
 
 Pot::DoubleDown() 
 {
-	std::string option = "";
-	
-	if(std::getline(std::cin, option))
-	std::cout << "Would you like to double down?" << std::endl;
-
+	PlaceBet(m_curBet);	
 }
 
-Pot::BuyInsurance(int)
+Pot::BuyInsurance(int insurAmount)
 {
-
+	m_curInsurance += insurAmount;
+	m_curPot -= insurAmount;
 }
 
-Pot::AddWinnings(bool)
+Pot::AddWinnings(bool blackjack)
 {
-
+	if(blackjack)
+	{
+		m_curPot+= m_curBet * 1.5;
+		m_curBet = 0;
+	}
 }
 
 Pot::ResetBets()
 {
-
+	m_curBet = m_curInsurance = 0;
 }
 
 Pot::PrintPot()
