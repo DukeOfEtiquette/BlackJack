@@ -6,6 +6,7 @@ class Pot
 public:
     Pot(int);
     
+	int m_initialPot;
     int m_curBet;
     int m_curPot;
     int m_curInsurance;

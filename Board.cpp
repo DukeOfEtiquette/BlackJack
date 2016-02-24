@@ -535,6 +535,7 @@ void Board::PlayHands(Player* player)
     bool stay;
     
 	//Add Surrender check here
+	//Add Insurance check here
 
 	player->DoubleDown();
         

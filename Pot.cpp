@@ -3,7 +3,7 @@
 
 Pot::Pot(int initialPot)
 {
-    m_curPot = initialPot;
+    m_curPot = m_initialPot = initialPot;
 	m_curBet = m_curInsurance = 0;
 }
 
@@ -43,6 +43,9 @@ void Pot::AddWinnings(bool blackjack)
 void Pot::ResetBets()
 {
     m_curBet = m_curInsurance = 0;
+
+	if(m_curPot == 0)
+		m_curPot = m_initialPot;
 }
 
 void Pot::PrintPot()
