@@ -12,165 +12,166 @@
  * In: Takes a number of players, number of Decks, and a game name
  * Out: Assigns each variable passed to its member, creates a game deck, and creates
  *		the players in the game
-***********************************************************************************/
+ ***********************************************************************************/
 Board::Board(int nPlayers, int nDecks, char* gameName)
 {
-	if(nPlayers < 2 && nDecks < 1)
-	{
-		throw "Invalid number of players or decks passed.\n";
-	}
+    if(nPlayers < 2 && nDecks < 1)
+    {
+        throw "Invalid number of players or decks passed.\n";
+    }
     
     //Sets member variables
-	m_nPlayers = nPlayers;
-	m_nDecks = nDecks;
-	m_gameName = gameName;
-	m_play = true;
-	m_gameDeck = MakeGameDeck();
-
-	Player* player; //Used in the for loop just below to create all the players
-
+    m_nPlayers = nPlayers;
+    m_nDecks = nDecks;
+    m_gameName = gameName;
+    m_play = true;
+    m_gameDeck = MakeGameDeck();
+    
+    Player* player; //Used in the for loop just below to create all the players
+    
     //Creates a new player with the number passed
-	for(int i = 0; i <= m_nPlayers; i++)
-	{
-		player = new Player(i);
-		m_players.insert(std::pair<int, Player*>(i, player));
-	}
+    for(int i = 0; i <= m_nPlayers; i++)
+    {
+        player = new Player(i);
+        m_players.insert(std::pair<int, Player*>(i, player));
+    }
 }
 
 /***********************************************************************************
  * Purpose: Destructor for Board
  * Out: Deletes the players and the games deck
-***********************************************************************************/
+ ***********************************************************************************/
 Board::~Board()
 {
     //Every player is deleted
-	for(int i = 0; i < m_nPlayers; i++)
-	{
-		delete m_players[i];
-	}
+    for(int i = 0; i < m_nPlayers; i++)
+    {
+        delete m_players[i];
+    }
     //Deletes the gameDeck
-	delete m_gameDeck;
+    delete m_gameDeck;
 }
+
 
 /***********************************************************************************
  * Purpose: Deals the starting hands (used at the start of a round)
  * Out: All players, including dealer, have a starting hand
-***********************************************************************************/
+ ***********************************************************************************/
 void Board::DealStartingHands()
 {
     //Deals each player a starting hand
-	for(int i = 0; i < m_players.size(); i++)
-	{
-		m_players[i]->AddHand(MakeStartingHand());
-	}
+    for(int i = 0; i < m_players.size(); i++)
+    {
+        m_players[i]->AddHand(MakeStartingHand());
+    }
 }
 
 /***********************************************************************************
- * Purpose: Creates a starting hand with two dealt cards from the deck, used in 
+ * Purpose: Creates a starting hand with two dealt cards from the deck, used in
  *      DealStartingHands()
  * Out: Will remove two cards off the deck and return a pointer to the hand
-***********************************************************************************/
+ ***********************************************************************************/
 Hand* Board::MakeStartingHand()
 {
     //Deals each player two cards
-	Hand* h = new Hand(0);
-	for(int i = 0; i < 2; i++)
-	{
-		h->m_hand.push_back(m_gameDeck->DealCard());
-	}
-
-	return h;
+    Hand* h = new Hand(0);
+    for(int i = 0; i < 2; i++)
+    {
+        h->m_hand.push_back(m_gameDeck->DealCard());
+    }
+    
+    return h;
 }
 
 /***********************************************************************************
  * Purpose: Creates a deck based on the number of sets passed
- * Out: Creates a new deck with m_nDecks sets then shuffles and returns the deck 
-***********************************************************************************/
+ * Out: Creates a new deck with m_nDecks sets then shuffles and returns the deck
+ ***********************************************************************************/
 Deck* Board::MakeGameDeck()
 {
     //Creates a deck and shuffles it
-	Deck* d = new Deck(m_nDecks);
-	d->Shuffle();
-	return d;
+    Deck* d = new Deck(m_nDecks);
+    d->Shuffle();
+    return d;
 }
 
 /***********************************************************************************
  * Purpose: Deals a card to a player from the deck
- * In: The index of the player that is recieving the card and an index of the hand 
+ * In: The index of the player that is recieving the card and an index of the hand
  *		a card will be put in
  * Out: A player's hand will recieve a card from a deck of cards
-***********************************************************************************/
+ ***********************************************************************************/
 void Board::DealCard(int player, int hand)
 {
     //Deals a card to a player from the deck
-	m_players[player]->m_handList[hand]->m_hand.push_back(m_gameDeck->DealCard());
+    m_players[player]->m_handList[hand]->m_hand.push_back(m_gameDeck->DealCard());
 }
 
 /***********************************************************************************
-* Purpose: Will split a players hand
-* In: A pointer to a player player and the index of the handList
-* Out: A players hand at a particular index will be split into different hands in 
-*		it's handList
-***********************************************************************************/
+ * Purpose: Will split a players hand
+ * In: A pointer to a player player and the index of the handList
+ * Out: A players hand at a particular index will be split into different hands in
+ *		it's handList
+ ***********************************************************************************/
 void Board::SplitHand(Player* player, int index)
 {
-	player->Split(index);
-
-	player->m_handList[index]->m_hand.push_back(m_gameDeck->DealCard());
-	player->m_handList.back()->m_hand.push_back(m_gameDeck->DealCard());
+    player->Split(index);
+    
+    player->m_handList[index]->m_hand.push_back(m_gameDeck->DealCard());
+    player->m_handList.back()->m_hand.push_back(m_gameDeck->DealCard());
 }
 
 /***********************************************************************************
  * Purpose: Print all players on the board
  * Out: Prints each players hand to stdout
-***********************************************************************************/
+ ***********************************************************************************/
 void Board::PrintAllPlayers()
 {
-	for(int i = 1; i < m_players.size(); i++)
-	{
-		m_players[i]->PrintHands();
-	}
-
-	//Formatting
-	std::cout << std::endl;
+    for(int i = 1; i < m_players.size(); i++)
+    {
+        m_players[i]->PrintHands();
+    }
+    
+    //Formatting
+    std::cout << std::endl;
 }
 
 /***********************************************************************************
  * Purpose: Prints the dealers hand
  * In: A bool to determine if entire hand should be printed or just the first card
- * Out: The function will print out a dealers first card while it is called when hide 
+ * Out: The function will print out a dealers first card while it is called when hide
  *		is true. When hide is false, the dealers current hand will be printed
-***********************************************************************************/
+ ***********************************************************************************/
 void Board::PrintDealer(bool hide)
 {
-	//Dealer will always be printed first so this is the header for the table
-	std::cout << "\n### TABLE ###\n";
-
-	//If hide then print first card and hide second, else print entire hand
-	if(hide)
-	{
-		std::cout << "Dealer : ";  
-		m_players[0]->m_handList[0]->m_hand[0]->PrintCard();
-		std::cout << " *\n";
-	}else{
-
-		std::cout << "Dealer : ";  
-		m_players[0]->m_handList[0]->PrintHand();
-		m_players[0]->m_handList[0]->SumHand();
-	}
+    //Dealer will always be printed first so this is the header for the table
+    std::cout << "\n### TABLE ###\n";
+    
+    //If hide then print first card and hide second, else print entire hand
+    if(hide)
+    {
+        std::cout << "Dealer : ";
+        m_players[0]->m_handList[0]->m_hand[0]->PrintCard();
+        std::cout << " *\n";
+    }else{
+        
+        std::cout << "Dealer : ";
+        m_players[0]->m_handList[0]->PrintHand();
+        m_players[0]->m_handList[0]->SumHand();
+    }
 }
 
 /***********************************************************************************
  * Purpose: Dumps all players hands
  * Out: Sets all players hands to a size of 0
-***********************************************************************************/
+ ***********************************************************************************/
 void Board::ClearBoard()
 {
     //For all the players, dump their hands
-	for(int i = 0; i < m_players.size(); i++)
-	{
-		m_players[i]->DumpHands();
-	}
+    for(int i = 0; i < m_players.size(); i++)
+    {
+        m_players[i]->DumpHands();
+    }
 }
 
 /***********************************************************************************
@@ -178,48 +179,48 @@ void Board::ClearBoard()
  *			and takes appropriate action based on user input
  * Out: If true then main can delete the Board object, else it can hold onto it for
  *		later use
-***********************************************************************************/
+ ***********************************************************************************/
 bool Board::StartGame()
 {
-	while(m_play)//Use
-	{
-		CheckDeck();
-		std::cout << "\n#### " << m_gameName << " Menu ###\n";
-		std::cout << "\nPlease select an option below...\n";
-		std::cout << "1) Start A Round\n";
-		std::cout << "2) Pause game\n";
-		std::cout << "3) End Game\n";
-		std::cout << ">";
-		std::cin >> m_option; //Use
-
-		//Clear stdin before starting loop again
-		std::cin.clear();
-		std::cin.ignore();
-
+    while(m_play)//Use
+    {
+        CheckDeck();
+        std::cout << "\n#### " << m_gameName << " Menu ###\n";
+        std::cout << "\nPlease select an option below...\n";
+        std::cout << "1) Start A Round\n";
+        std::cout << "2) Pause game\n";
+        std::cout << "3) End Game\n";
+        std::cout << ">";
+        std::cin >> m_option; //Use
+        
+        //Clear stdin before starting loop again
+        std::cin.clear();
+        std::cin.ignore();
+        
         //Validate user input
-		if(!isnan(m_option))
-		{
-			switch(m_option)
-			{
-				case 1:
-					StartRound();
-					break;
-				case 2://Return out of StartGame to main
-					return false;
-				case 3:
-					return true;
-				default:
-					std::cout << "That option is not valid, try again...\n\n";
-					break;
-			}
-		}
-
-		//Clear stdin before starting loop again
-		std::cin.clear();
-		std::cin.ignore();
-	}
-
-	return false;
+        if(!isnan(m_option))
+        {
+            switch(m_option)
+            {
+                case 1:
+                    StartRound();
+                    break;
+                case 2://Return out of StartGame to main
+                    return false;
+                case 3:
+                    return true;
+                default:
+                    std::cout << "That option is not valid, try again...\n\n";
+                    break;
+            }
+        }
+        
+        //Clear stdin before starting loop again
+        std::cin.clear();
+        std::cin.ignore();
+    }
+    
+    return false;
 }
 
 /***********************************************************************************
@@ -228,236 +229,267 @@ bool Board::StartGame()
  * Out: No change if not split can be made. No change if player chooses not to split.
  *		Two new hands each with a card from the original hand that was split if the
  *		player chooses.
-***********************************************************************************/
+ ***********************************************************************************/
 void Board::CheckSplit(Player* player)
 {
-	bool split = true;//Controls while loop
-
-	while(split)
-	{
-		for(int i = 0; i < player->m_handList.size(); i++)
-		{
-			if(player->CanSplit(i))
-			{
-				std::string option;//Used right below this to record input
-				player->PrintHand(i);
-				std::cout << "Would you like to split this hand (y/n): ";
-				std::getline(std::cin, option);
-
-				std::cout << std::endl;
-
-				if(tolower(option[0]) == 'y')
-				{
-					SplitHand(player, i);//Split hand and deal two cards
-					split = false;//We want to exit while loop and j for loop
-					i--;//Restart split check at current hand
-				}else if(tolower(option[0]) == 'n'){
-					split = false;
-				}else{
-					std::cout << "Not a valid option, try again.\n";
-					i--;
-				}
-			}
-
-			split = false;
-		}
-	}
+    bool split = true;//Controls while loop
+    
+    while(split)
+    {
+        for(int i = 0; i < player->m_handList.size(); i++)
+        {
+            if(player->CanSplit(i))
+            {
+                std::string option;//Used right below this to record input
+                player->PrintHand(i);
+                std::cout << "Would you like to split this hand (y/n): ";
+                std::getline(std::cin, option);
+                
+                std::cout << std::endl;
+                
+                if(tolower(option[0]) == 'y')
+                {
+                    SplitHand(player, i);//Split hand and deal two cards
+                    split = false;//We want to exit while loop and j for loop
+                    i--;//Restart split check at current hand
+                }else if(tolower(option[0]) == 'n'){
+                    split = false;
+                }else{
+                    std::cout << "Not a valid option, try again.\n";
+                    i--;
+                }
+            }
+            
+            split = false;
+        }
+    }
 }
 
 /***********************************************************************************
- * Purpose: This function controls the order of a round, including clearing the 
+ * Purpose: This function controls the order of a round, including clearing the
  *			board, dealing hands, controling which players get to play and what
  *			order, and printing the table to the user
  * Out: All player's hands will have their ending state of cards
-***********************************************************************************/
+ ***********************************************************************************/
 void Board::StartRound()
 {
-	ClearBoard();
-	DealStartingHands();
-	PrintDealer(true);
-	PrintAllPlayers();
+    ClearBoard();
+    DealStartingHands();
+    
+    PlaceBet();
+    
+    PrintDealer(true);
+    PrintAllPlayers();
+    
+    for(int i = 1; i < m_players.size(); i++)
+    {
+        CheckSplit(m_players[i]);
+        PlayHands(m_players[i]);
+    }
+    
+    PlayDealer();
+    PrintDealer(false);
+    PrintAllPlayers();
+    PrintWinners();
+}
 
-	for(int i = 1; i < m_players.size(); i++)
-	{
-		CheckSplit(m_players[i]);
-		PlayHands(m_players[i]);
-	}
-
-	PlayDealer();
-	PrintDealer(false);
-	PrintAllPlayers();
-	PrintWinners();
+/***********************************************************************************
+ * Purpose: This function will set each players bet
+ * Out: All player's m_curPot's will be set
+ ***********************************************************************************/
+void Board::PlaceBet()
+{
+    for(int i = 1; i < m_players.size(); i++)
+    {
+        int userInput = 0;
+        bool bFail = false;
+        std::cout << "Player" << i << " current chips: " << m_players[i]->m_pot->m_curPot << std::endl;
+        
+        do {
+            std::cout << "Player" << i << " Please enter your bet" << std::endl;
+            std::cin >> userInput;
+            bFail = std::cin.fail();
+            std::cin.clear();
+            std::cin.ignore();
+        }
+        while (bFail == true);
+        
+        m_players[i]->m_pot->m_curBet = userInput;
+        
+        m_players[i]->m_pot->m_curPot = m_players[i]->m_pot->m_curPot - m_players[i]->m_pot->m_curBet;
+    }
 }
 
 /***********************************************************************************
  * Putpose: This is the "AI" for the dealer. The dealer only hits until it is over
  *			a hard 17 or has busted
  * Out: The dealer will have it's hand after completing it's turn
-***********************************************************************************/
+ ***********************************************************************************/
 void Board::PlayDealer()
 {
-
-	bool dBust = true;//Used in the while loop and potentially the for loop
-	int pSum = 0;//Used in for loop for storing players' hand sum
-	int maxHand = 0;//Used in for loop to store highest players' hand
-
-	//Cycle through all players' hands
-	for(int i = 0; i < m_players.size(); i++)
-	{
-		//Cycle through all hands for each player
-		for(int j = 0; j < m_players[i]->m_handList.size(); j++)
-		{
-			//Get the sum for a particular hand
-			pSum = m_players[i]->m_handList[j]->SumHand();
-
-			//Check if it is the highest checked so far and not a bust
-			if(maxHand < pSum && pSum < 22)
-			{
-				//Record current hand as the highest and flag that the dealer
-				//needs to hit until hard 17 or bust
-				maxHand = pSum;
-				dBust = false;
-			}
-		}
-	}
-
-	//While the dealer hasn't won or busted
-	while(!dBust)
-	{
-		//Get the dealers current sum
-		int dSum = m_players[0]->m_handList[0]->SumHand();
-
-		//If less than 17 and less than the max players hand deal a card
-		if(dSum < 17 || dSum < maxHand)
-		{
-			DealCard(0, 0);
-		}else{
-			dBust = true;//Otherwise exit because dealer won or busted
-		}
-	}
+    
+    bool dBust = true;//Used in the while loop and potentially the for loop
+    int pSum = 0;//Used in for loop for storing players' hand sum
+    int maxHand = 0;//Used in for loop to store highest players' hand
+    
+    //Cycle through all players' hands
+    for(int i = 0; i < m_players.size(); i++)
+    {
+        //Cycle through all hands for each player
+        for(int j = 0; j < m_players[i]->m_handList.size(); j++)
+        {
+            //Get the sum for a particular hand
+            pSum = m_players[i]->m_handList[j]->SumHand();
+            
+            //Check if it is the highest checked so far and not a bust
+            if(maxHand < pSum && pSum < 22)
+            {
+                //Record current hand as the highest and flag that the dealer
+                //needs to hit until hard 17 or bust
+                maxHand = pSum;
+                dBust = false;
+            }
+        }
+    }
+    
+    //While the dealer hasn't won or busted
+    while(!dBust)
+    {
+        //Get the dealers current sum
+        int dSum = m_players[0]->m_handList[0]->SumHand();
+        
+        //If less than 17 and less than the max players hand deal a card
+        if(dSum < 17 || dSum < maxHand)
+        {
+            DealCard(0, 0);
+        }else{
+            dBust = true;//Otherwise exit because dealer won or busted
+        }
+    }
 }
 
 /***********************************************************************************
  * Purpose: This function will determine who won the round and print that they have
  *			won
  * Out: The round winners to stdout
-***********************************************************************************/
+ ***********************************************************************************/
 void Board::PrintWinners()
 {
-	int playerSum = 0;//In each for loop
-	bool bPush = false;//Used in first nested for loop when determining push/no push
-	bool checkHands = true;//Used in while loop
-	int dSum = m_players[0]->m_handList[0]->SumHand();
-
-	int i = 1;//Used in while loop and skip dealer
-
-	//Cycle through all players to determine if there is a push
-	while(checkHands && i < m_players.size())
-	{
-		for(int j = 0; j < m_players[i]->m_handList.size(); j++)
-		{
-			//Get sum of current hand being evaluated
-			playerSum = m_players[i]->m_handList[j]->SumHand();
-
-			//If it is the same as the dealers hand then push
-			//but if any hand is greater than the dealers make push false and stop
-			//checking because a hand exists that is greated than the dealers but
-			//has not busted
-			if(dSum == playerSum)
-				bPush = true;
-			else if(playerSum > dSum && playerSum < 22)
-			{
-				bPush = false;
-				checkHands = false;
-			}
-		}
-		i++;//Check next player
-	}
-
-	//If no push, else push
-	if(!bPush || dSum > 21)
-	{
-		//Display winners haeder
-		std::cout << "Round Winner(s):";
-
-		//Assume dealer has won
-		bool dWin = true;//Used in if/else if statement below
-
-		//If there is no push or the dealer has busted, cycle through all players'
-		//hands
-		for(int i = 1; i < m_players.size(); i++)
-		{
-			for(int j = 0; j < m_players[i]->m_handList.size(); j++)
-			{
-				playerSum = m_players[i]->m_handList[j]->SumHand();
-				
-				//If dealer has busted...
-				if(dSum > 21)
-				{
-					//And the current hand has not busted, then that player has won
-					//and flip bool for dWin to false since dealer lost
-					if(playerSum < 22)
-					{
-						std::cout << " Player " << m_players[i]->m_playerID;
-						std::cout << "(" << playerSum << ")";
-						dWin = false;//dWin used either here
-						break;//Break out of checking this player
-					}
-				}else if(dSum < playerSum && playerSum < 22){
-						
-					std::cout << " Player " << m_players[i]->m_playerID;
-					std::cout << "(" << playerSum << ")";
-					dWin = false;//Or dWin used here for the first
-					break;//Break out of checking this player
-				}
-			}
-		}
-
-		//If no player has a larger hand than dealer and the dealer hasn't bust
-		if(dWin && dSum < 22)//dWin also used here
-			std::cout << " Dealer(" << dSum << ")";
-	}else{
-
-		//Print that the dealer has pushed
-		std::cout << "Push(" << dSum << "): Dealer";
-
-		//And cycle through all players' hands and print they have pushed as well
-		for(int i = 1; i < m_players.size(); i++)
-		{
-			for(int j = 0; j < m_players[i]->m_handList.size(); j++)
-			{
-				playerSum = m_players[i]->m_handList[j]->SumHand();
-				
-				if(dSum == playerSum)
-					std::cout << " Player" << m_players[i]->m_playerID;
-			}
-		}
-	}
-
-	std::cout << "\nEnter to continue....";
+    int playerSum = 0;//In each for loop
+    bool bPush = false;//Used in first nested for loop when determining push/no push
+    bool checkHands = true;//Used in while loop
+    int dSum = m_players[0]->m_handList[0]->SumHand();
+    
+    int i = 1;//Used in while loop and skip dealer
+    
+    //Cycle through all players to determine if there is a push
+    while(checkHands && i < m_players.size())
+    {
+        for(int j = 0; j < m_players[i]->m_handList.size(); j++)
+        {
+            //Get sum of current hand being evaluated
+            playerSum = m_players[i]->m_handList[j]->SumHand();
+            
+            //If it is the same as the dealers hand then push
+            //but if any hand is greater than the dealers make push false and stop
+            //checking because a hand exists that is greated than the dealers but
+            //has not busted
+            if(dSum == playerSum)
+                bPush = true;
+            else if(playerSum > dSum && playerSum < 22)
+            {
+                bPush = false;
+                checkHands = false;
+            }
+        }
+        i++;//Check next player
+    }
+    
+    //If no push, else push
+    if(!bPush || dSum > 21)
+    {
+        //Display winners haeder
+        std::cout << "Round Winner(s):";
+        
+        //Assume dealer has won
+        bool dWin = true;//Used in if/else if statement below
+        
+        //If there is no push or the dealer has busted, cycle through all players'
+        //hands
+        for(int i = 1; i < m_players.size(); i++)
+        {
+            for(int j = 0; j < m_players[i]->m_handList.size(); j++)
+            {
+                playerSum = m_players[i]->m_handList[j]->SumHand();
+                
+                //If dealer has busted...
+                if(dSum > 21)
+                {
+                    //And the current hand has not busted, then that player has won
+                    //and flip bool for dWin to false since dealer lost
+                    if(playerSum < 22)
+                    {
+                        std::cout << " Player " << m_players[i]->m_playerID;
+                        std::cout << "(" << playerSum << ")";
+                        dWin = false;//dWin used either here
+                        break;//Break out of checking this player
+                    }
+                }else if(dSum < playerSum && playerSum < 22){
+                    
+                    std::cout << " Player " << m_players[i]->m_playerID;
+                    std::cout << "(" << playerSum << ")";
+                    
+                    dWin = false;//Or dWin used here for the first
+                    break;//Break out of checking this player
+                }
+            }
+        }
+        
+        //If no player has a larger hand than dealer and the dealer hasn't bust
+        if(dWin && dSum < 22)//dWin also used here
+            std::cout << " Dealer(" << dSum << ")";
+    }else{
+        
+        //Print that the dealer has pushed
+        std::cout << "Push(" << dSum << "): Dealer";
+        
+        //And cycle through all players' hands and print they have pushed as well
+        for(int i = 1; i < m_players.size(); i++)
+        {
+            for(int j = 0; j < m_players[i]->m_handList.size(); j++)
+            {
+                playerSum = m_players[i]->m_handList[j]->SumHand();
+                
+                if(dSum == playerSum)
+                    std::cout << " Player" << m_players[i]->m_playerID;
+            }
+        }
+    }
+    
+    std::cout << "\nEnter to continue....";
 }
 
 /***********************************************************************************
-* Purpose: Ends a game
-* Out: Sets m_play to false, terminating the game loop
-***********************************************************************************/
+ * Purpose: Ends a game
+ * Out: Sets m_play to false, terminating the game loop
+ ***********************************************************************************/
 void Board::EndGame()
 {
-	std::cout << "Ending game......\n\n\n\n";
-	m_play = false;
+    std::cout << "Ending game......\n\n\n\n";
+    m_play = false;
 }
 
 /***********************************************************************************
  * Purpose: Checks for valid user input
  * Out: Will return true if the user has entered h,H,s,or S and false otherwise
  * In: A char to check against h, H, s, or S
-***********************************************************************************/
+ ***********************************************************************************/
 bool isValid(char option)
 {
-	if(tolower(option) == 'h' || tolower(option) == 's')
-		return true;
-	else
-		return false;
+    if(tolower(option) == 'h' || tolower(option) == 's')
+        return true;
+    else
+        return false;
 }
 
 /***********************************************************************************
@@ -465,58 +497,58 @@ bool isValid(char option)
  * In: Player pointer to current player
  * Out: The player who completed their turn will have their hand(s) in the state
  *		they want to end the round with
-***********************************************************************************/
+ ***********************************************************************************/
 void Board::PlayHands(Player* player)
 {
-	std::string option;
-	bool stay;
-
-	for(int i = 0; i < player->m_handList.size(); i++)
-	{
-		std::cout << std::endl;
-		stay = false;
-
-		//While player hasn't picked stay or the player has not busted
-		while(!stay)//validOption used for first time
-		{
-			//If the player has busted then exit while loop
-			if(player->PrintHand(i))
-				break;
-
-			//Ask player if they want to hit or stay
-			std::cout << "Player " << player->m_playerID << " would you like to (h)it, (s)tand for Hand " << i + 1 << "?>";
-			std::getline(std::cin, option);//option used for first time
-
-			//Verify option provided is valid
-			if(!isValid(option[0]))
-			{
-				std::cout << "Invalid choice, pleese choose again.\n";
-			}
-			else{
-				//If player wants to stay then exit while loop
-				//Else deal them a card since only other option is to hit
-				if(option[0] == 's' || option[0] == 'S')
-				{
-					stay = true;
-				}else{
-					DealCard(player->m_playerID, i);
-				}
-			}
-		}
-	}
+    std::string option;
+    bool stay;
+    
+    for(int i = 0; i < player->m_handList.size(); i++)
+    {
+        std::cout << std::endl;
+        stay = false;
+        
+        //While player hasn't picked stay or the player has not busted
+        while(!stay)//validOption used for first time
+        {
+            //If the player has busted then exit while loop
+            if(player->PrintHand(i))
+                break;
+            
+            //Ask player if they want to hit or stay
+            std::cout << "Player " << player->m_playerID << " would you like to (h)it, (s)tand for Hand " << i + 1 << "?>";
+            std::getline(std::cin, option);//option used for first time
+            
+            //Verify option provided is valid
+            if(!isValid(option[0]))
+            {
+                std::cout << "Invalid choice, pleese choose again.\n";
+            }
+            else{
+                //If player wants to stay then exit while loop
+                //Else deal them a card since only other option is to hit
+                if(option[0] == 's' || option[0] == 'S')
+                {
+                    stay = true;
+                }else{
+                    DealCard(player->m_playerID, i);
+                }
+            }
+        }
+    }
 }
 
 /***********************************************************************************
  * Purpose: If the gameDeck gets below 50% of it's size then it will delete 
  *			and create a brand new gameDeck
-***********************************************************************************/
+ ***********************************************************************************/
 void Board::CheckDeck()
 {
-	if(m_gameDeck->m_deck.size() < (m_nDecks/2)*52)
-	{
-		std::cout << "Reshuffling deck...\n";
-		delete m_gameDeck;
-		m_gameDeck = 0;
-		m_gameDeck = MakeGameDeck();
-	}
+    if(m_gameDeck->m_deck.size() < (m_nDecks/2)*52)
+    {
+        std::cout << "Reshuffling deck...\n";
+        delete m_gameDeck;
+        m_gameDeck = 0;
+        m_gameDeck = MakeGameDeck();
+    }
 }

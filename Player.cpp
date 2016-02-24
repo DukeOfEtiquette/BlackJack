@@ -8,11 +8,10 @@
  * Purpose: Player constructor. No default constructor
  * In: The id that will referance the player
  * Out: Assigns id passed to the member variable m_playerID
-***********************************************************************************/
+ ***********************************************************************************/
 Player::Player(int id)
 {
-	m_playerID = id;//Use
-	//m_pot->m_curPot = startingPot;
+    m_playerID = id;//Use
 }
 
 /***********************************************************************************
@@ -21,13 +20,13 @@ Player::Player(int id)
  ***********************************************************************************/
 Player::~Player()
 {
-	for(int i = 0; i < m_handList.size(); i++)
-	{
-		delete m_handList[i];
-	}
-
+    for(int i = 0; i < m_handList.size(); i++)
+    {
+        delete m_handList[i];
+    }
+    
     //Clears the handList by setting its size to 0
-	m_handList.clear();
+    m_handList.clear();
 }
 
 /***********************************************************************************
@@ -35,33 +34,33 @@ Player::~Player()
  * In: The index of which hand in m_handList that needs to split
  * Out: m_handList[index] will have one card and the last element of m_handList will
  *		have one card. THey are dealt a new card by the Board
-***********************************************************************************/
+ ***********************************************************************************/
 void Player::Split(int index)
 {
-	//Create a new Hand object and move a card from splitting hand into it
-	Hand* h = new Hand(m_handList.size());
-	h->m_hand.push_back(m_handList[index]->m_hand.back());
-	m_handList[index]->m_hand.pop_back();
-
-	//If splitting a double Ace then Inc first Ace back up to value of 11
-	if(dynamic_cast<Ace*>(m_handList[index]->m_hand[0]))
-	{
-		dynamic_cast<Ace*>(m_handList[index]->m_hand[0])->IncValue();;
-	}
-	
-	//Add new hand to handlist
-	AddHand(h);
-}	
+    //Create a new Hand object and move a card from splitting hand into it
+    Hand* h = new Hand(m_handList.size());
+    h->m_hand.push_back(m_handList[index]->m_hand.back());
+    m_handList[index]->m_hand.pop_back();
+    
+    //If splitting a double Ace then Inc first Ace back up to value of 11
+    if(dynamic_cast<Ace*>(m_handList[index]->m_hand[0]))
+    {
+        dynamic_cast<Ace*>(m_handList[index]->m_hand[0])->IncValue();;
+    }
+    
+    //Add new hand to handlist
+    AddHand(h);
+}
 
 /***********************************************************************************
  * Purpose: This function will add a Hand pointer to the handList
  * In: A Hand pointer that will be added to the handList
- * Out: The handList will now contain a pointer to a Hand 
+ * Out: The handList will now contain a pointer to a Hand
  ***********************************************************************************/
 void Player::AddHand(Hand* hand)
 {
     //Adds starting hands to handList
-	m_handList.push_back(hand);
+    m_handList.push_back(hand);
 }
 
 /***********************************************************************************
@@ -70,8 +69,8 @@ void Player::AddHand(Hand* hand)
  ***********************************************************************************/
 bool Player::PrintHand(int iHand)
 {
-	std::cout << "Player " << m_playerID << ": ";
-	return m_handList[iHand]->PrintHand();
+    std::cout << "Player " << m_playerID << ": ";
+    return m_handList[iHand]->PrintHand();
 }
 
 /***********************************************************************************
@@ -80,11 +79,11 @@ bool Player::PrintHand(int iHand)
 void Player::PrintHands()
 {
     //Prints all hands in a players handList
-	for(int i = 0; i < m_handList.size(); i++)
-	{
-		std::cout << "Player " << m_playerID << ": ";
-		m_handList[i]->PrintHand();
-	}
+    for(int i = 0; i < m_handList.size(); i++)
+    {
+        std::cout << "Player " << m_playerID << ": ";
+        m_handList[i]->PrintHand();
+    }
 }
 
 /***********************************************************************************
@@ -94,7 +93,7 @@ void Player::PrintHands()
  ***********************************************************************************/
 bool Player::CanSplit(int iHand)
 {
-	return m_handList[iHand]->CanSplit();
+    return m_handList[iHand]->CanSplit();
 }
 
 /***********************************************************************************
@@ -104,7 +103,7 @@ bool Player::CanSplit(int iHand)
 void Player::DumpHands()
 {
     //Clears a players handList
-	m_handList.clear();
+    m_handList.clear();
 }
 
 void Player::PlaceBet(int betAmount)
