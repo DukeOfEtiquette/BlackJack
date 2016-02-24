@@ -9,10 +9,10 @@
  * In: The id that will referance the player
  * Out: Assigns id passed to the member variable m_playerID
 ***********************************************************************************/
-Player::Player(int id)
+Player::Player(int id, int initPot)
 {
 	m_playerID = id;//Use
-	//m_pot->m_curPot = startingPot;
+	m_pot->m_curPot = startingPot;
 }
 
 /***********************************************************************************
