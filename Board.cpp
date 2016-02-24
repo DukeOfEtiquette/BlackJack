@@ -6,7 +6,6 @@
 #include "Board.h"
 #include "Player.h"
 
-
 /***********************************************************************************
  * Purpose: Constructor for Board
  * In: Takes a number of players, number of Decks, and a game name
@@ -15,7 +14,7 @@
  ***********************************************************************************/
 Board::Board(int nPlayers, int nDecks, char* gameName)
 {
-    if(nPlayers < 2 && nDecks < 1)
+    if(nPlayers < 2 || nDecks < 1)
     {
         throw "Invalid number of players or decks passed.\n";
     }
@@ -303,20 +302,20 @@ void Board::PlaceBet()
     {
         int userInput = 0;
         bool bFail = false;
-        std::cout << "Player" << i << " current chips: " << m_players[i]->m_pot->m_curPot << std::endl;
+        std::cout << "\nPlayer" << i << " ";
+		m_players[i]->PrintPot();
+		std::cout << std::endl;
         
         do {
-            std::cout << "Player" << i << " Please enter your bet" << std::endl;
+            std::cout << "Player" << i << " please enter your bet> ";
             std::cin >> userInput;
             bFail = std::cin.fail();
             std::cin.clear();
             std::cin.ignore();
         }
-        while (bFail == true);
+        while (bFail);
         
-        m_players[i]->m_pot->m_curBet = userInput;
-        
-        m_players[i]->m_pot->m_curPot = m_players[i]->m_pot->m_curPot - m_players[i]->m_pot->m_curBet;
+        m_players[i]->PlaceBet(userInput);
     }
 }
 

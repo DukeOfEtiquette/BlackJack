@@ -1,7 +1,6 @@
-
 DEFO = game.o
 DEFC = game.cpp
-OBJS = Board.o Deck.o Player.o Hand.o Card.o Ace.o ${DEFO}
+OBJS = Board.o Deck.o Player.o Hand.o Pot.o Card.o Ace.o ${DEFO}
 EXES = Blackjack
 FLAGS = -c
 CC = g++
@@ -25,6 +24,9 @@ Player.o: Player.cpp
 
 Hand.o: Hand.cpp
 		$(CC) $(FLAGS) Hand.cpp
+
+Pot.o: Pot.cpp
+		$(CC) $(FLAGS) Pot.cpp
 
 Card.o: Card.cpp
 		$(CC) $(FLAGS) Card.cpp

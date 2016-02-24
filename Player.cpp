@@ -2,7 +2,6 @@
 #include "Hand.h"
 #include "Player.h"
 #include "Card.h"
-#include "Pot.h"
 
 /***********************************************************************************
  * Purpose: Player constructor. No default constructor
@@ -12,6 +11,7 @@
 Player::Player(int id)
 {
     m_playerID = id;//Use
+	m_pot = new Pot(500);
 }
 
 /***********************************************************************************
@@ -27,6 +27,8 @@ Player::~Player()
     
     //Clears the handList by setting its size to 0
     m_handList.clear();
+
+	delete m_pot;
 }
 
 /***********************************************************************************
@@ -104,6 +106,11 @@ void Player::DumpHands()
 {
     //Clears a players handList
     m_handList.clear();
+}
+
+void Player::PrintPot()
+{
+	m_pot->PrintPot();
 }
 
 void Player::PlaceBet(int betAmount)

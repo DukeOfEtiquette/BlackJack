@@ -13,7 +13,7 @@ public:
 	~Player();
 	std::vector<Hand*> m_handList;
 	int m_playerID;
-	Pot m_pot;
+	Pot* m_pot;
 
 	void Split(int index);
 	void AddHand(Hand* hand);
@@ -22,6 +22,7 @@ public:
 	void DumpHands();
 	bool CanSplit(int);
 
+	void PrintPot();
 	void PlaceBet(int);
 	void DoubleDown();
 	void BuyInsurance(int);
