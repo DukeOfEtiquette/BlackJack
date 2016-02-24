@@ -1,4 +1,4 @@
-#include <iosteam>
+#include <iostream>
 #include <vector>
 #include <math.h>
 #include "Card.h"
@@ -15,7 +15,7 @@ Pot::~Pot()
 
 }
 
-Pot::PlaceBet(int)
+void Pot::PlaceBet(int)
 {
 	int userInput = -1;
 
@@ -24,42 +24,41 @@ Pot::PlaceBet(int)
 		std::cin.clear();
 		std::cin.ignore();
 	
-		std::cout << "Please enter a number" << endl;
+		std::cout << "Please enter a number" << std::endl;
 		std::cin >> userInput;
 	}
 	m_curBet = userInput;
 }
 
-Pot::DoubleDown() 
+void Pot::DoubleDown() 
 {
 	std::string option = "";
 	
 	if(std::getline(std::cin, option))
 	std::cout << "Would you like to double down?" << std::endl;
-
 }
 
-Pot::BuyInsurance(int)
+void Pot::BuyInsurance(int)
 {
 
 }
 
-Pot::AddWinnings(bool)
+void Pot::AddWinnings(bool)
 {
 
 }
 
-Pot::ResetBets()
+void Pot::ResetBets()
 {
 
 }
 
-Pot::PrintPot()
+void Pot::PrintPot()
 {
 	std::cout << "pot:" << m_curPot << std::endl; 
 }
 
-Pot::PrintBet()
+void Pot::PrintBet()
 {
 	std::cout << "bet:" << m_curBet << std::endl;
 }

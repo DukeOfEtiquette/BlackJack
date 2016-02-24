@@ -1,5 +1,6 @@
 #ifndef _POT_H_INCLUDED
 #define _POT_H_INCLUDED
+
 #include "Card.h"
 #include "Hand.h"
 #include "Player.h"
