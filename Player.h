@@ -21,6 +21,7 @@ public:
 	void PrintHands();
 	void DumpHands();
 	bool CanSplit(int);
+	bool HasBlackJack();
 
 	void PrintPot();
 	void PlaceBet(int);

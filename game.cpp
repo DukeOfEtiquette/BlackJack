@@ -21,12 +21,12 @@ int main()
 	std::cin.ignore();
 	std::cin.clear();
 
-	std::cout << "Enter a name for your game: ";
-	std::cin.getline(gameName, 80);
+//	std::cout << "Enter a name for your game: ";
+//	std::cin.getline(gameName, 80);
 	//fgets(gameName, 80, stdin);
 
 	try{
-		gameBoard = new Board(nPlayers, nDecks, gameName);
+		gameBoard = new Board(nPlayers, nDecks, "blarg");
 		gameBoard->StartGame();
 
 		delete gameBoard;

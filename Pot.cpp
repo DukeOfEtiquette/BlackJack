@@ -20,7 +20,7 @@ void Pot::PlaceBet(int bet)
 //		std::cin >> userInput;
 //	}
 
-	m_curBet = bet;
+	m_curBet += bet;
 	m_curPot -= bet;
 }
 
@@ -38,7 +38,6 @@ void Pot::BuyInsurance(int insurAmount)
 void Pot::AddWinnings(bool blackjack)
 {
 	m_curPot += m_curBet * (blackjack ? 2.5 : 2);
-	m_curBet = 0;
 }
 
 void Pot::ResetBets()

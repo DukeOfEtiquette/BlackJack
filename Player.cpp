@@ -108,6 +108,17 @@ void Player::DumpHands()
     m_handList.clear();
 }
 
+bool Player::HasBlackJack()
+{
+	for(int i = 0; i < m_handList.size(); i++)
+	{
+		if(m_handList[i]->SumHand() == 21)
+			return true;
+	}
+
+	return false;
+}
+
 void Player::PrintPot()
 {
 	m_pot->PrintPot();
@@ -120,7 +131,28 @@ void Player::PlaceBet(int betAmount)
 
 void Player::DoubleDown()
 {
-	m_pot->DoubleDown();
+	bool valid = false;
+
+	do{
+		std::string option;
+
+		std::cout << "Would you like to double down? (y/n): ";
+		std::getline(std::cin, option);
+		std::cout << std::endl;
+
+		if(tolower(option[0]) == 'y')
+		{
+			m_pot->DoubleDown();
+			valid = true;
+		}else if(tolower(option[0] == 'n'))
+		{
+			valid = true;
+		}else
+		{
+			std::cout << "Not a valid option, try again.\n";
+		}
+
+	}while(!valid);
 }
 
 void Player::BuyInsurance(int insurAmount)

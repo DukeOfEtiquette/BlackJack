@@ -3,6 +3,7 @@
 
 #include <map>
 #include <string>
+#include <vector>
 #include "Player.h"
 #include "Deck.h"
 
@@ -16,12 +17,15 @@ public:
     std::map<int, Player*> m_players;//Used in nearly every function
     int m_option;//Used in StartGame
     bool m_play;//Used in StartGame and EndGame
+	std::vector<Player*> m_roundWinners;
     
-    Board(int, int, char*);
+    Board(int, int, std::string);
     ~Board();
     
     Deck* MakeGameDeck();
-    void PlaceBet();
+    void GetPlayerBets();
+	void RewardPlayers();
+	void ResetPlayerBets();
     void DealStartingHands();
     Hand* MakeStartingHand();
     void DealCard(int, int);
