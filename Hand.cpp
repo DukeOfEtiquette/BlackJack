@@ -151,3 +151,39 @@ bool Hand::DecAce()
 
 	return false;
 }
+
+int Hand::AcePos()
+{
+	Ace *a1;
+
+	for(int i = 0; i < m_hand.size(); i++)
+	{
+		a1 = dynamic_cast<Ace*>(m_hand[i]);
+
+		if(a1 != 0)
+			return i;
+	}
+
+	return -1;
+
+}
+
+
+bool Hand::HasBlackjack()
+{
+	int pos = AcePos();
+
+	if(pos == 0)
+	{
+		Ace *a = dynamic_cast<Ace*>(m_hand[1]);
+		if(m_hand[1]->m_value == 11 && a == 0)
+			return true;
+	}else if(pos == 1)
+	{
+		Ace *a = dynamic_cast<Ace*>(m_hand[0]);
+		if(m_hand[0]->m_value == 11 && a == 0)
+			return true;
+	}
+
+	return false;
+}

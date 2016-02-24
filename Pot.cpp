@@ -7,7 +7,7 @@ Pot::Pot(int initialPot)
 	m_curBet = m_curInsurance = 0;
 }
 
-void Pot::PlaceBet(int bet)
+bool Pot::PlaceBet(int bet)
 {
 //	int userInput = -1;
 //
@@ -20,8 +20,21 @@ void Pot::PlaceBet(int bet)
 //		std::cin >> userInput;
 //	}
 
-	m_curBet += bet;
-	m_curPot -= bet;
+	if(bet > m_curPot)
+	{
+		std::cout << "You do not have enough chips to make that bet, try again.\n";
+		return false;
+	}else if(bet == 0)
+	{
+		std::cout << "Cannot bet 0, try again.\n";
+		return false;
+	}
+	else
+	{
+		m_curBet += bet;
+		m_curPot -= bet;
+		return true;
+	}
 }
 
 void Pot::DoubleDown()
@@ -40,12 +53,17 @@ void Pot::AddWinnings(bool blackjack)
 	m_curPot += m_curBet * (blackjack ? 2.5 : 2);
 }
 
-void Pot::ResetBets()
+bool Pot::ResetBets()
 {
     m_curBet = m_curInsurance = 0;
 
 	if(m_curPot == 0)
+	{
 		m_curPot = m_initialPot;
+		return true;
+	}
+
+	return false;
 }
 
 void Pot::PrintPot()
@@ -56,4 +74,19 @@ void Pot::PrintPot()
 void Pot::PrintBet()
 {
     std::cout << "Bet: " << m_curBet << std::endl;
+}
+
+bool Pot::CanDoubleDown()
+{
+	return m_curBet <= m_curPot ? true : false;
+}
+
+bool Pot::CanBuyInsur()
+{
+	return m_curBet/2 <= m_curPot ? true : false;
+}
+
+void Pot::PushWinnings()
+{
+	m_curPot += m_curBet;
 }

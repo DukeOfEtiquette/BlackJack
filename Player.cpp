@@ -8,10 +8,10 @@
  * In: The id that will referance the player
  * Out: Assigns id passed to the member variable m_playerID
  ***********************************************************************************/
-Player::Player(int id)
+Player::Player(int id, int potSize)
 {
     m_playerID = id;//Use
-	m_pot = new Pot(500);
+	m_pot = new Pot(potSize);
 }
 
 /***********************************************************************************
@@ -124,9 +124,9 @@ void Player::PrintPot()
 	m_pot->PrintPot();
 }
 
-void Player::PlaceBet(int betAmount)
+bool Player::PlaceBet(int betAmount)
 {
-	m_pot->PlaceBet(betAmount);
+	return m_pot->PlaceBet(betAmount);
 }
 
 void Player::DoubleDown()
@@ -136,9 +136,8 @@ void Player::DoubleDown()
 	do{
 		std::string option;
 
-		std::cout << "Would you like to double down? (y/n): ";
+		std::cout << "Player" << m_playerID << " would you like to double down? (y/n): ";
 		std::getline(std::cin, option);
-		std::cout << std::endl;
 
 		if(tolower(option[0]) == 'y')
 		{
@@ -155,9 +154,43 @@ void Player::DoubleDown()
 	}while(!valid);
 }
 
-void Player::BuyInsurance(int insurAmount)
+void Player::BuyInsurance()
 {
-	m_pot->BuyInsurance(insurAmount);
+	bool valid = false;
+	bool bFail;
+
+	do{
+		std::string option;
+
+		std::cout << "Player" << m_playerID << " would you like to buy insurance? (y/n): ";
+		std::getline(std::cin, option);
+
+		if(tolower(option[0]) == 'y')
+		{
+			int bet;
+			
+			do {
+				std::cout << "Player" << m_playerID << " please enter your insurance bet> ";
+				std::cin >> bet;
+				bFail = std::cin.fail();
+				if(bFail) 
+					std::cout << "Not a valid option, try again.\n";
+				std::cin.clear();
+				std::cin.ignore(256, '\n');
+			}while(bFail);
+
+			m_pot->BuyInsurance(bet);
+
+			valid = true;
+		}else if(tolower(option[0] == 'n'))
+		{
+			valid = true;
+		}else
+		{
+			std::cout << "Not a valid option, try again.\n";
+		}
+
+	}while(!valid);
 }
 
 void Player::AddWinnings(bool blackJack)
@@ -167,5 +200,39 @@ void Player::AddWinnings(bool blackJack)
 
 void Player::ResetBets()
 {
-	m_pot->ResetBets();
+	if(m_pot->ResetBets())
+	{
+		std::cout << "\nPlayer" << m_playerID << " you have run out of chips. Your pot has been reset to the initial amount.";
+	}
+}
+
+bool Player::CanDoubleDown()
+{
+	return m_pot->CanDoubleDown();
+}
+
+bool Player::CanBuyInsur()
+{
+	return m_pot->CanBuyInsur();
+}
+
+void Player::PushWinnings()
+{
+	m_pot->PushWinnings();
+}
+
+int Player::AcePos(int index)
+{
+	return m_handList[index]->AcePos();
+}
+
+int Player::BlackjackPos()
+{
+	for(int i = 0; i < m_handList.size(); i++)
+	{
+		if(m_handList[i]->HasBlackjack())
+			return i;
+	}
+
+	return -1;
 }

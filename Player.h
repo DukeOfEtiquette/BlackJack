@@ -9,7 +9,7 @@
 class Player
 {
 public:
-	Player(int);
+	Player(int, int);
 	~Player();
 	std::vector<Hand*> m_handList;
 	int m_playerID;
@@ -24,11 +24,16 @@ public:
 	bool HasBlackJack();
 
 	void PrintPot();
-	void PlaceBet(int);
+	bool PlaceBet(int);
 	void DoubleDown();
-	void BuyInsurance(int);
+	void BuyInsurance();
 	void AddWinnings(bool);
+	void PushWinnings();
 	void ResetBets();
+	bool CanDoubleDown();
+	bool CanBuyInsur();
+	int AcePos(int);
+	int BlackjackPos();
 };
 
 #endif
