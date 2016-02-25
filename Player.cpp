@@ -108,6 +108,10 @@ void Player::DumpHands()
     m_handList.clear();
 }
 
+/***********************************************************************************
+ * Purpose: Determine if a player has blackjack
+ * Out: Returns true if the sum of a players hand is 21
+ ***********************************************************************************/
 bool Player::HasBlackJack()
 {
 	for(int i = 0; i < m_handList.size(); i++)
@@ -119,22 +123,34 @@ bool Player::HasBlackJack()
 	return false;
 }
 
+/***********************************************************************************
+ * Purpose: See how much a players pot amount is
+ * Out: Prints a players pot
+ ***********************************************************************************/
 void Player::PrintPot()
 {
 	m_pot->PrintPot();
 }
 
+/***********************************************************************************
+ * Purpose: Places a players bet
+ * Out: Sets a players current bet to the amount specified
+ ***********************************************************************************/
 bool Player::PlaceBet(int betAmount)
 {
 	return m_pot->PlaceBet(betAmount);
 }
 
+/***********************************************************************************
+ * Purpose: Doubling Down
+ * Out: Asks a player if they want to double down on their 1st card
+ ***********************************************************************************/
 void Player::DoubleDown()
 {
 	bool valid = false;
 
 	do{
-		std::string option;
+		std::string option = "";
 
 		std::cout << "Player" << m_playerID << " would you like to double down? (y/n): ";
 		std::getline(std::cin, option);
@@ -154,10 +170,14 @@ void Player::DoubleDown()
 	}while(!valid);
 }
 
+/***********************************************************************************
+ * Purpose: Allows a player to Doubling Down
+ * Out: Asks a player if they want to buy insurance if the dealers 1st card is an Ace
+ ***********************************************************************************/
 void Player::BuyInsurance()
 {
 	bool valid = false;
-	bool bFail;
+	bool bFail = false;
 
 	do{
 		std::string option;
@@ -193,11 +213,19 @@ void Player::BuyInsurance()
 	}while(!valid);
 }
 
+/***********************************************************************************
+ * Purpose: Adds winnings to a players pot
+ * Out: Adds winnings if a player has blackjack
+ ***********************************************************************************/
 void Player::AddWinnings(bool blackJack)
 {
 	m_pot->AddWinnings(blackJack);
 }
 
+/***********************************************************************************
+ * Purpose: Handling if a player runs out of chips
+ * Out: If a player runs out of chips, reset back to their initial amount
+ ***********************************************************************************/
 void Player::ResetBets()
 {
 	if(m_pot->ResetBets())
@@ -206,21 +234,37 @@ void Player::ResetBets()
 	}
 }
 
+/***********************************************************************************
+ * Purpose: Check if a player can double down, used in Board.cpp
+ * Out: return true if they can afford doubling down
+ ***********************************************************************************/
 bool Player::CanDoubleDown()
 {
 	return m_pot->CanDoubleDown();
 }
 
+/***********************************************************************************
+ * Purpose: Check if a player can buy insurance, used in Board.cpp
+ * Out: return true if they can afford insurance
+ ***********************************************************************************/
 bool Player::CanBuyInsur()
 {
 	return m_pot->CanBuyInsur();
 }
 
+/***********************************************************************************
+ * Purpose: Push a players bet if they tie with the dealer
+ * Out: On push, pushes a players winnings
+ ***********************************************************************************/
 void Player::PushWinnings()
 {
 	m_pot->PushWinnings();
 }
 
+/***********************************************************************************
+ * Purpose: Check if a player has an Ace at a particular index
+ * Out: returns the index of the 1st Ace if it finds one and -1 otherwise
+ ***********************************************************************************/
 int Player::AcePos(int index)
 {
 	return m_handList[index]->AcePos();

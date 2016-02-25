@@ -45,7 +45,7 @@ public:
     void StartRound();
     void PlayDealer();
     void PrintWinners();
-    void CheckDeck();
+	void CheckDeck();
 	void OfferInsurance();
 	bool DealerHasBJ();
 };

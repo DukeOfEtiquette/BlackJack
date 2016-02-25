@@ -344,9 +344,7 @@ void Board::GetPlayerBets()
 ***********************************************************************************/
 void Board::RewardPlayers()
 {
-	int playerSum;
-
-	for(int i = 0; i < m_roundWinners.size(); i++)
+	for(int i = 1; i < m_roundWinners.size(); i++)
 	{
 		if(m_bPush)
 			m_roundWinners[i]->PushWinnings();
@@ -424,6 +422,7 @@ void Board::PlayDealer()
 void Board::PrintWinners()
 {
     int playerSum = 0;//In each for loop
+    bool bPush = false;//Used in first nested for loop when determining push/no push
     bool checkHands = true;//Used in while loop
     int dSum = m_players[0]->m_handList[0]->SumHand();
     
@@ -442,10 +441,10 @@ void Board::PrintWinners()
             //checking because a hand exists that is greated than the dealers but
             //has not busted
             if(dSum == playerSum)
-                m_bPush = true;
+                bPush = true;
             else if(playerSum > dSum && playerSum < 22)
             {
-                m_bPush = false;
+                bPush = false;
                 checkHands = false;
             }
         }
@@ -453,7 +452,7 @@ void Board::PrintWinners()
     }
     
     //If no push, else push
-    if(!m_bPush || dSum > 21)
+    if(!bPush || dSum > 21)
     {
         //Display winners haeder
         std::cout << "Round Winner(s):";
@@ -476,17 +475,15 @@ void Board::PrintWinners()
                     //and flip bool for dWin to false since dealer lost
                     if(playerSum < 22)
                     {
-						m_roundWinners.push_back(m_players[i]);
                         std::cout << " Player " << m_players[i]->m_playerID;
                         std::cout << "(" << playerSum << ")";
                         dWin = false;//dWin used either here
                         break;//Break out of checking this player
                     }
                 }else if(dSum < playerSum && playerSum < 22){
-					m_roundWinners.push_back(m_players[i]);
+                    
                     std::cout << " Player " << m_players[i]->m_playerID;
                     std::cout << "(" << playerSum << ")";
-                    
                     dWin = false;//Or dWin used here for the first
                     break;//Break out of checking this player
                 }
@@ -495,9 +492,7 @@ void Board::PrintWinners()
         
         //If no player has a larger hand than dealer and the dealer hasn't bust
         if(dWin && dSum < 22)//dWin also used here
-		{
             std::cout << " Dealer(" << dSum << ")";
-		}
     }else{
         
         //Print that the dealer has pushed
@@ -511,13 +506,11 @@ void Board::PrintWinners()
                 playerSum = m_players[i]->m_handList[j]->SumHand();
                 
                 if(dSum == playerSum)
-				{
-					m_roundWinners.push_back(m_players[i]);
                     std::cout << " Player" << m_players[i]->m_playerID;
-				}
             }
         }
     }
+    
 }
 
 /***********************************************************************************
@@ -551,8 +544,8 @@ bool isValid(char option)
  ***********************************************************************************/
 void Board::PlayHands(Player* player)
 {
-    std::string option;
-    bool stay;
+    std::string option = "";
+    bool stay = false;
     
 	if(player->CanDoubleDown())
 		player->DoubleDown();
