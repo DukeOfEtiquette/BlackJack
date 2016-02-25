@@ -14,7 +14,8 @@ public:
 	std::vector<Hand*> m_handList;
 	int m_playerID;
 	Pot* m_pot;
-
+	bool m_bSurrender;
+	
 	void Split(int index);
 	void AddHand(Hand* hand);
 	bool PrintHand(int);

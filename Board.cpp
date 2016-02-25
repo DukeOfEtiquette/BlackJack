@@ -195,7 +195,8 @@ bool Board::StartGame()
         std::cin >> m_option; //Use
         
         //Clear stdin before starting loop again
-        std::cin.clear();
+
+		std::cin.clear();
         std::cin.ignore();
         
         //Validate user input
@@ -557,6 +558,7 @@ void Board::PlayHands(Player* player)
 
     for(int i = 0; i < player->m_handList.size(); i++)
     {
+		
         std::cout << std::endl;
         stay = false;
 
@@ -567,7 +569,9 @@ void Board::PlayHands(Player* player)
             //If the player has busted then exit while loop
             if(player->PrintHand(i))
                 break;
-            
+            if(player->m_bSurrender == true)
+				break;
+
             //Ask player if they want to hit or stay
             std::cout << "Player " << player->m_playerID << " would you like to (h)it, (s)tand for Hand " << i + 1 << "?>";
             std::getline(std::cin, option);//option used for first time
@@ -575,7 +579,7 @@ void Board::PlayHands(Player* player)
             //Verify option provided is valid
             if(!isValid(option[0]))
             {
-                std::cout << "Invalid choice, pleese choose again.\n";
+                std::cout << "Invalid choice, please choose again.\n";
             }
             else{
                 //If player wants to stay then exit while loop
@@ -608,8 +612,6 @@ void Board::CheckDeck()
 
 void Board::AwardInsurance()
 {
-
-
 	for(int i = 1; i < m_players.size(); i++) 
 	{
 		//set original bet to 0 since they lose it 	
@@ -636,9 +638,23 @@ void Board::OfferInsurance()
 		//Players win insurance
 		AwardInsurance();
 	}else{
-		//Players lose insurance
 		for(int i = 1; i < m_players.size(); i++)
 		{
+			std::string option;//Used right below this to record input
+			std::cout << "Would you like to surrender (y/n): ";
+			std::getline(std::cin, option);
+				
+			if(tolower(option[0]) == 'y')
+			{
+				m_players[i]->m_pot->m_curBet *= 0.5; 
+				m_players[i]->m_pot->m_curPot += m_players[i]->m_pot->m_curBet;
+				m_players[i]->m_bSurrender = true;
+			}else if(tolower(option[0]) == 'n'){
+				//continue as normal
+			}else{ 
+				std::cout << "Not a valid option, try again.\n";
+				i--;
+			}
 			if(m_players[i]->m_pot->m_curInsurance != 0)
 			{
 				m_players[i]->m_pot->m_curInsurance = 0;
