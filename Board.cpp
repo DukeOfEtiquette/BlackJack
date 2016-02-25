@@ -80,7 +80,6 @@ Hand* Board::MakeStartingHand()
     {
         h->m_hand.push_back(m_gameDeck->DealCard());
     }
-    
     return h;
 }
 
@@ -117,7 +116,6 @@ void Board::DealCard(int player, int hand)
 void Board::SplitHand(Player* player, int index)
 {
     player->Split(index);
-    
     player->m_handList[index]->m_hand.push_back(m_gameDeck->DealCard());
     player->m_handList.back()->m_hand.push_back(m_gameDeck->DealCard());
 }
@@ -132,7 +130,6 @@ void Board::PrintAllPlayers()
     {
         m_players[i]->PrintHands();
     }
-    
     //Formatting
     std::cout << std::endl;
 }
@@ -175,6 +172,21 @@ void Board::ClearBoard()
     }
 }
 
+/**********************************************************************************
+ * Purpose: Acts as the Game interface and will gather an option from the user
+ * Out: Outputs the interface and will start, pause, or end a game based on user
+ *		input
+***********************************************************************************/
+void Board::GameMenu()
+{
+        std::cout << "\n#### Game Menu ###\n";
+        std::cout << "\nPlease select an option below...\n";
+        std::cout << "1) Start A Round\n";
+        std::cout << "2) Pause game\n";
+        std::cout << "3) End Game\n";
+        std::cout << ">";
+}
+
 /***********************************************************************************
  * Purpose: Creates a loop that	determines if a game is in play (boolean m_play)
  *			and takes appropriate action based on user input
@@ -186,16 +198,10 @@ bool Board::StartGame()
     while(m_bPlay)//Use
     {
         CheckDeck();
-        std::cout << "\n#### Game Menu ###\n";
-        std::cout << "\nPlease select an option below...\n";
-        std::cout << "1) Start A Round\n";
-        std::cout << "2) Pause game\n";
-        std::cout << "3) End Game\n";
-        std::cout << ">";
+		GameMenu();
         std::cin >> m_option; //Use
         
         //Clear stdin before starting loop again
-
 		std::cin.clear();
         std::cin.ignore();
         
@@ -217,11 +223,10 @@ bool Board::StartGame()
             }
         }
         
-        //Clear stdin before starting loop again
+		//Clear stdin before starting loop again
         std::cin.clear();
         std::cin.ignore();
     }
-    
     return false;
 }
 
@@ -246,7 +251,6 @@ void Board::CheckSplit(Player* player)
                 player->PrintHand(i);
                 std::cout << "Would you like to split this hand (y/n): ";
                 std::getline(std::cin, option);
-                
                 std::cout << std::endl;
                 
                 if(tolower(option[0]) == 'y')
@@ -261,7 +265,7 @@ void Board::CheckSplit(Player* player)
                     i--;
                 }
             }
-            
+
             split = false;
         }
     }
@@ -299,7 +303,6 @@ void Board::StartRound()
     PrintWinners();
 
 	RewardPlayers();
-
 	m_roundWinners.clear();
 
 	std::cout << "\nEnter to continue...";
@@ -335,6 +338,10 @@ void Board::GetPlayerBets()
     }
 }
 
+/***********************************************************************************
+ * Purpose: Payouts from bets are added to players that have blackjack
+ * Out: Each winner is paid out if there isn't a push
+***********************************************************************************/
 void Board::RewardPlayers()
 {
 	int playerSum;
@@ -351,6 +358,10 @@ void Board::RewardPlayers()
 	m_bPush = false; //Reset board push variable
 }
 
+/***********************************************************************************
+ * Purpose: Resets all players bets
+ * Out: If a player has run out we reset their current pot
+***********************************************************************************/
 void Board::ResetPlayerBets()
 {
 	for(int i = 1; i <= m_nPlayers; i++)
@@ -390,15 +401,11 @@ void Board::PlayDealer()
             }
         }
     }
-
-	printf("yo\n");
-    
     //While the dealer hasn't won or busted
     while(dBust)
     {
         //Get the dealers current sum
         int dSum = m_players[0]->m_handList[0]->SumHand();
-        
         //If less than 17 deal card
         if(dSum < 17)
         {
@@ -511,8 +518,6 @@ void Board::PrintWinners()
             }
         }
     }
-    
-//    std::cout << "\nEnter to continue....";
 }
 
 /***********************************************************************************
@@ -549,8 +554,6 @@ void Board::PlayHands(Player* player)
     std::string option;
     bool stay;
     
-	//Add Surrender check here
-	//Add Insurance check here
 	if(player->CanDoubleDown())
 		player->DoubleDown();
         
@@ -558,10 +561,8 @@ void Board::PlayHands(Player* player)
 
     for(int i = 0; i < player->m_handList.size(); i++)
     {
-		
         std::cout << std::endl;
         stay = false;
-
         
         //While player hasn't picked stay or the player has not busted
         while(!stay)//validOption used for first time
@@ -569,6 +570,7 @@ void Board::PlayHands(Player* player)
             //If the player has busted then exit while loop
             if(player->PrintHand(i))
                 break;
+			//Surrender check
             if(player->m_bSurrender == true)
 				break;
 
@@ -610,22 +612,28 @@ void Board::CheckDeck()
     }
 }
 
+/***********************************************************************************
+ * Purpose: Pays each player that bought insurance
+ * Out:		Insurance is paid 2 to 1 back to a players pot
+***********************************************************************************/
 void Board::AwardInsurance()
 {
 	for(int i = 1; i < m_players.size(); i++) 
 	{
-		//set original bet to 0 since they lose it 	
-		//m_players(i)->m_pot->m_curBet = 0;
-		//if insurance != 0, add 2 * their insurance to their pot
 		if(m_players[i]->m_pot->m_curInsurance != 0)
 		{
 			//award players their insurance
 			m_players[i]->m_pot->m_curInsurance *= 2;
 			m_players[i]->m_pot->m_curPot += m_players[i]->m_pot->m_curInsurance;
+			m_players[i]->m_pot->m_curInsurance = 0; //reset a players insurance
 		}
 	}	
 }
 
+/***********************************************************************************
+ * Purpose: Offer insurance to each player if the dealer has an Ace as its face up card
+ * Out:     Insurance is offered if it is declined a player is then offered surrender
+***********************************************************************************/
 void Board::OfferInsurance()
 {
 	for(int i = 1; i < m_players.size(); i++)
@@ -638,31 +646,44 @@ void Board::OfferInsurance()
 		//Players win insurance
 		AwardInsurance();
 	}else{
-		for(int i = 1; i < m_players.size(); i++)
-		{
-			std::string option;//Used right below this to record input
-			std::cout << "Would you like to surrender (y/n): ";
-			std::getline(std::cin, option);
+		OfferSurrender();
+	}
+}
+
+/***********************************************************************************
+ * Purpose: If a player declines insurance they are offered surrender
+ * Out: If a player accepts surrender, their get 50% of their current bet back
+***********************************************************************************/
+void Board::OfferSurrender()
+{
+	for(int i = 1; i < m_players.size(); i++)
+	{
+		std::string option;//Used right below this to record input
+		std::cout << "Would you like to surrender (y/n): ";
+		std::getline(std::cin, option);
 				
-			if(tolower(option[0]) == 'y')
-			{
-				m_players[i]->m_pot->m_curBet *= 0.5; 
-				m_players[i]->m_pot->m_curPot += m_players[i]->m_pot->m_curBet;
-				m_players[i]->m_bSurrender = true;
-			}else if(tolower(option[0]) == 'n'){
-				//continue as normal
-			}else{ 
-				std::cout << "Not a valid option, try again.\n";
-				i--;
-			}
-			if(m_players[i]->m_pot->m_curInsurance != 0)
-			{
-				m_players[i]->m_pot->m_curInsurance = 0;
-			}
+		if(tolower(option[0]) == 'y')
+		{
+			m_players[i]->m_pot->m_curBet *= 0.5; 
+			m_players[i]->m_pot->m_curPot += m_players[i]->m_pot->m_curBet;
+			m_players[i]->m_bSurrender = true;
+		}else if(tolower(option[0]) == 'n'){
+			//continue as normal
+		}else{ 
+			std::cout << "Not a valid option, try again.\n";
+			i--;
+		}
+		if(m_players[i]->m_pot->m_curInsurance != 0)
+		{
+			m_players[i]->m_pot->m_curInsurance = 0;
 		}
 	}
 }
 
+/***********************************************************************************
+ * Purpose: Determine if the dealer has blackjack
+ * Out: If the dealer has blackjack return true otherwise false
+***********************************************************************************/
 bool Board::DealerHasBJ()
 {
 	if(m_players[0]->BlackjackPos() > -1)

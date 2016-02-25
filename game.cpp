@@ -18,7 +18,7 @@ int main()
 	std::cout << "How many decks will you be playing with?: ";
 	std::cin >> nDecks;
 
-	std::cout << "What would you like all players initial pot size ot be?: ";
+	std::cout << "What would you like all players initial pot size to be?: ";
 	std::cin >> potSize;
 
 	std::cin.ignore();

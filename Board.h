@@ -25,7 +25,9 @@ public:
     ~Board();
     
     Deck* MakeGameDeck();
-    void AwardInsurance();
+    void GameMenu();
+	void OfferSurrender();
+	void AwardInsurance();
 	void GetPlayerBets();
 	void RewardPlayers();
 	void ResetPlayerBets();
