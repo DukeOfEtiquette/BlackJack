@@ -606,6 +606,24 @@ void Board::CheckDeck()
     }
 }
 
+void Board::AwardInsurance()
+{
+
+
+	for(int i = 1; i < m_players.size(); i++) 
+	{
+		//set original bet to 0 since they lose it 	
+		//m_players(i)->m_pot->m_curBet = 0;
+		//if insurance != 0, add 2 * their insurance to their pot
+		if(m_players[i]->m_pot->m_curInsurance != 0)
+		{
+			//award players their insurance
+			m_players[i]->m_pot->m_curInsurance *= 2;
+			m_players[i]->m_pot->m_curPot += m_players[i]->m_pot->m_curInsurance;
+		}
+	}	
+}
+
 void Board::OfferInsurance()
 {
 	for(int i = 1; i < m_players.size(); i++)
@@ -613,12 +631,19 @@ void Board::OfferInsurance()
 		if(m_players[i]->CanBuyInsur())
 			m_players[i]->BuyInsurance();
 	}
-
 	if(m_bDealerBJ)
 	{
 		//Players win insurance
+		AwardInsurance();
 	}else{
 		//Players lose insurance
+		for(int i = 1; i < m_players.size(); i++)
+		{
+			if(m_players[i]->m_pot->m_curInsurance != 0)
+			{
+				m_players[i]->m_pot->m_curInsurance = 0;
+			}
+		}
 	}
 }
 
