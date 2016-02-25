@@ -6,15 +6,19 @@ class Pot
 public:
     Pot(int);
     
+	int m_initialPot;
     int m_curBet;
     int m_curPot;
     int m_curInsurance;
     
-    void PlaceBet(int);
+    bool PlaceBet(int);
     void DoubleDown();
     void BuyInsurance(int);
     void AddWinnings(bool);
-    void ResetBets();
+	void PushWinnings();
+    bool ResetBets();
+	bool CanDoubleDown();
+	bool CanBuyInsur();
     
     void PrintPot();
     void PrintBet();

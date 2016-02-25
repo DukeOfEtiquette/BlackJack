@@ -18,6 +18,8 @@ public:
     int m_handID;
 	bool DecAce();
 	bool CanSplit();
+	int AcePos();
+	bool HasBlackjack();
 };
 
 #endif

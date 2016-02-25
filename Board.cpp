@@ -3,21 +3,9 @@
 #include <math.h>
 #include <map>
 #include <string>
+#include <vector>
 #include "Board.h"
 #include "Player.h"
-
-
-
-bool Board::DealerHasAce()
-{
-	
-	if( dynamic_cast<Ace*>(m_players(0)->m_hand(0)))
-		return true
-	else 
-	{
-		return false
-	}
-}
 
 /***********************************************************************************
  * Purpose: Constructor for Board
@@ -25,9 +13,9 @@ bool Board::DealerHasAce()
  * Out: Assigns each variable passed to its member, creates a game deck, and creates
  *		the players in the game
  ***********************************************************************************/
-Board::Board(int nPlayers, int nDecks, char* gameName)
+Board::Board(int nPlayers, int nDecks, int initialPot)
 {
-    if(nPlayers < 2 && nDecks < 1)
+    if(nPlayers < 2 || nDecks < 1)
     {
         throw "Invalid number of players or decks passed.\n";
     }
@@ -35,16 +23,17 @@ Board::Board(int nPlayers, int nDecks, char* gameName)
     //Sets member variables
     m_nPlayers = nPlayers;
     m_nDecks = nDecks;
-    m_gameName = gameName;
-    m_play = true;
+	m_initialPot = initialPot;
+    m_bPlay = true;
+	m_bPush = false;
     m_gameDeck = MakeGameDeck();
-    
+
     Player* player; //Used in the for loop just below to create all the players
     
     //Creates a new player with the number passed
     for(int i = 0; i <= m_nPlayers; i++)
     {
-        player = new Player(i);
+        player = new Player(i, m_initialPot);
         m_players.insert(std::pair<int, Player*>(i, player));
     }
 }
@@ -194,10 +183,10 @@ void Board::ClearBoard()
  ***********************************************************************************/
 bool Board::StartGame()
 {
-    while(m_play)//Use
+    while(m_bPlay)//Use
     {
         CheckDeck();
-        std::cout << "\n#### " << m_gameName << " Menu ###\n";
+        std::cout << "\n#### Game Menu ###\n";
         std::cout << "\nPlease select an option below...\n";
         std::cout << "1) Start A Round\n";
         std::cout << "2) Pause game\n";
@@ -288,14 +277,18 @@ void Board::StartRound()
     ClearBoard();
     DealStartingHands();
     
-    PlaceBet();
+    GetPlayerBets();
+
+	m_bDealerBJ = DealerHasBJ();
     
     PrintDealer(true);
     PrintAllPlayers();
+
+	if(m_players[0]->AcePos(0) == 0)
+		OfferInsurance();
     
     for(int i = 1; i < m_players.size(); i++)
     {
-        CheckSplit(m_players[i]);
         PlayHands(m_players[i]);
     }
     
@@ -303,33 +296,66 @@ void Board::StartRound()
     PrintDealer(false);
     PrintAllPlayers();
     PrintWinners();
+
+	RewardPlayers();
+
+	m_roundWinners.clear();
+
+	std::cout << "\nEnter to continue...";
 }
 
 /***********************************************************************************
  * Purpose: This function will set each players bet
  * Out: All player's m_curPot's will be set
  ***********************************************************************************/
-void Board::PlaceBet()
+void Board::GetPlayerBets()
 {
+	int bet = 0;
+	bool bFail = false;
+
     for(int i = 1; i < m_players.size(); i++)
     {
-        int userInput = 0;
-        bool bFail = false;
-        std::cout << "Player" << i << " current chips: " << m_players[i]->m_pot->m_curPot << std::endl;
+        std::cout << "\nPlayer" << i << " ";
+		m_players[i]->PrintPot();
+		std::cout << std::endl;
         
         do {
-            std::cout << "Player" << i << " Please enter your bet" << std::endl;
-            std::cin >> userInput;
+            std::cout << "Player" << i << " please enter your bet> ";
+            std::cin >> bet;
             bFail = std::cin.fail();
-            std::cin.clear();
-            std::cin.ignore();
-        }
-        while (bFail == true);
-        
-        m_players[i]->m_pot->m_curBet = userInput;
-        
-        m_players[i]->m_pot->m_curPot = m_players[i]->m_pot->m_curPot - m_players[i]->m_pot->m_curBet;
+			if(bFail) 
+				std::cout << "Not a valid option, try again.\n";
+			std::cin.clear();
+			std::cin.ignore(256, '\n');
+        }while(bFail);
+
+		if(!m_players[i]->PlaceBet(bet))
+			i--;
     }
+}
+
+void Board::RewardPlayers()
+{
+	int playerSum;
+
+	for(int i = 0; i < m_roundWinners.size(); i++)
+	{
+		if(m_bPush)
+			m_roundWinners[i]->PushWinnings();
+		else
+			m_roundWinners[i]->AddWinnings(m_roundWinners[i]->HasBlackJack());
+	}
+
+	ResetPlayerBets();
+	m_bPush = false; //Reset board push variable
+}
+
+void Board::ResetPlayerBets()
+{
+	for(int i = 1; i <= m_nPlayers; i++)
+	{
+		m_players[i]->ResetBets();
+	}
 }
 
 /***********************************************************************************
@@ -340,12 +366,12 @@ void Board::PlaceBet()
 void Board::PlayDealer()
 {
     
-    bool dBust = true;//Used in the while loop and potentially the for loop
+    bool dBust = false;//Used in the while loop and potentially the for loop
     int pSum = 0;//Used in for loop for storing players' hand sum
     int maxHand = 0;//Used in for loop to store highest players' hand
     
     //Cycle through all players' hands
-    for(int i = 0; i < m_players.size(); i++)
+    for(int i = 1; i < m_players.size(); i++)
     {
         //Cycle through all hands for each player
         for(int j = 0; j < m_players[i]->m_handList.size(); j++)
@@ -359,23 +385,25 @@ void Board::PlayDealer()
                 //Record current hand as the highest and flag that the dealer
                 //needs to hit until hard 17 or bust
                 maxHand = pSum;
-                dBust = false;
+                dBust = true;
             }
         }
     }
+
+	printf("yo\n");
     
     //While the dealer hasn't won or busted
-    while(!dBust)
+    while(dBust)
     {
         //Get the dealers current sum
         int dSum = m_players[0]->m_handList[0]->SumHand();
         
-        //If less than 17 and less than the max players hand deal a card
-        if(dSum < 17 || dSum < maxHand)
+        //If less than 17 deal card
+        if(dSum < 17)
         {
             DealCard(0, 0);
         }else{
-            dBust = true;//Otherwise exit because dealer won or busted
+            dBust = false;//Otherwise exit because dealer won or busted
         }
     }
 }
@@ -388,7 +416,6 @@ void Board::PlayDealer()
 void Board::PrintWinners()
 {
     int playerSum = 0;//In each for loop
-    bool bPush = false;//Used in first nested for loop when determining push/no push
     bool checkHands = true;//Used in while loop
     int dSum = m_players[0]->m_handList[0]->SumHand();
     
@@ -407,10 +434,10 @@ void Board::PrintWinners()
             //checking because a hand exists that is greated than the dealers but
             //has not busted
             if(dSum == playerSum)
-                bPush = true;
+                m_bPush = true;
             else if(playerSum > dSum && playerSum < 22)
             {
-                bPush = false;
+                m_bPush = false;
                 checkHands = false;
             }
         }
@@ -418,7 +445,7 @@ void Board::PrintWinners()
     }
     
     //If no push, else push
-    if(!bPush || dSum > 21)
+    if(!m_bPush || dSum > 21)
     {
         //Display winners haeder
         std::cout << "Round Winner(s):";
@@ -441,13 +468,14 @@ void Board::PrintWinners()
                     //and flip bool for dWin to false since dealer lost
                     if(playerSum < 22)
                     {
+						m_roundWinners.push_back(m_players[i]);
                         std::cout << " Player " << m_players[i]->m_playerID;
                         std::cout << "(" << playerSum << ")";
                         dWin = false;//dWin used either here
                         break;//Break out of checking this player
                     }
                 }else if(dSum < playerSum && playerSum < 22){
-                    
+					m_roundWinners.push_back(m_players[i]);
                     std::cout << " Player " << m_players[i]->m_playerID;
                     std::cout << "(" << playerSum << ")";
                     
@@ -459,7 +487,9 @@ void Board::PrintWinners()
         
         //If no player has a larger hand than dealer and the dealer hasn't bust
         if(dWin && dSum < 22)//dWin also used here
+		{
             std::cout << " Dealer(" << dSum << ")";
+		}
     }else{
         
         //Print that the dealer has pushed
@@ -473,12 +503,15 @@ void Board::PrintWinners()
                 playerSum = m_players[i]->m_handList[j]->SumHand();
                 
                 if(dSum == playerSum)
+				{
+					m_roundWinners.push_back(m_players[i]);
                     std::cout << " Player" << m_players[i]->m_playerID;
+				}
             }
         }
     }
     
-    std::cout << "\nEnter to continue....";
+//    std::cout << "\nEnter to continue....";
 }
 
 /***********************************************************************************
@@ -488,7 +521,7 @@ void Board::PrintWinners()
 void Board::EndGame()
 {
     std::cout << "Ending game......\n\n\n\n";
-    m_play = false;
+    m_bPlay = false;
 }
 
 /***********************************************************************************
@@ -515,10 +548,18 @@ void Board::PlayHands(Player* player)
     std::string option;
     bool stay;
     
+	//Add Surrender check here
+	//Add Insurance check here
+	if(player->CanDoubleDown())
+		player->DoubleDown();
+        
+	CheckSplit(player);
+
     for(int i = 0; i < player->m_handList.size(); i++)
     {
         std::cout << std::endl;
         stay = false;
+
         
         //While player hasn't picked stay or the player has not busted
         while(!stay)//validOption used for first time
@@ -563,4 +604,28 @@ void Board::CheckDeck()
         m_gameDeck = 0;
         m_gameDeck = MakeGameDeck();
     }
+}
+
+void Board::OfferInsurance()
+{
+	for(int i = 1; i < m_players.size(); i++)
+	{
+		if(m_players[i]->CanBuyInsur())
+			m_players[i]->BuyInsurance();
+	}
+
+	if(m_bDealerBJ)
+	{
+		//Players win insurance
+	}else{
+		//Players lose insurance
+	}
+}
+
+bool Board::DealerHasBJ()
+{
+	if(m_players[0]->BlackjackPos() > -1)
+		return true;
+	else
+		return false;
 }

@@ -1,17 +1,40 @@
 #include <iostream>
-#include <vector>
-#include <math.h>
 #include "Pot.h"
 
 Pot::Pot(int initialPot)
 {
-    m_curPot = initialPot;
+    m_curPot = m_initialPot = initialPot;
+	m_curBet = m_curInsurance = 0;
 }
 
-void Pot::PlaceBet(int betAmount)
+bool Pot::PlaceBet(int bet)
 {
-    m_curPot -= betAmount;
-    m_curBet += betAmount;
+//	int userInput = -1;
+//
+//	while(isnan(userInput))
+//	{
+//		std::cin.clear();
+//		std::cin.ignore();
+//	
+//		std::cout << "Please enter a number" << std::endl;
+//		std::cin >> userInput;
+//	}
+
+	if(bet > m_curPot)
+	{
+		std::cout << "You do not have enough chips to make that bet, try again.\n";
+		return false;
+	}else if(bet == 0)
+	{
+		std::cout << "Cannot bet 0, try again.\n";
+		return false;
+	}
+	else
+	{
+		m_curBet += bet;
+		m_curPot -= bet;
+		return true;
+	}
 }
 
 void Pot::DoubleDown()
@@ -27,24 +50,43 @@ void Pot::BuyInsurance(int insurAmount)
 
 void Pot::AddWinnings(bool blackjack)
 {
-    if(blackjack)
-    {
-        m_curPot+= m_curBet * 1.5;
-        m_curBet = 0;
-    }
+	m_curPot += m_curBet * (blackjack ? 2.5 : 2);
 }
 
-void Pot::ResetBets()
+bool Pot::ResetBets()
 {
     m_curBet = m_curInsurance = 0;
+
+	if(m_curPot == 0)
+	{
+		m_curPot = m_initialPot;
+		return true;
+	}
+
+	return false;
 }
 
 void Pot::PrintPot()
 {
-    std::cout << "pot:" << m_curPot << std::endl;
+    std::cout << "Pot: " << m_curPot << std::endl;
 }
 
 void Pot::PrintBet()
 {
-    std::cout << "bet:" << m_curBet << std::endl;
+    std::cout << "Bet: " << m_curBet << std::endl;
+}
+
+bool Pot::CanDoubleDown()
+{
+	return m_curBet <= m_curPot ? true : false;
+}
+
+bool Pot::CanBuyInsur()
+{
+	return m_curBet/2 <= m_curPot ? true : false;
+}
+
+void Pot::PushWinnings()
+{
+	m_curPot += m_curBet;
 }

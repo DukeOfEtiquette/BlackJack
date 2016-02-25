@@ -2,16 +2,16 @@
 #include "Hand.h"
 #include "Player.h"
 #include "Card.h"
-#include "Pot.h"
 
 /***********************************************************************************
  * Purpose: Player constructor. No default constructor
  * In: The id that will referance the player
  * Out: Assigns id passed to the member variable m_playerID
  ***********************************************************************************/
-Player::Player(int id)
+Player::Player(int id, int potSize)
 {
     m_playerID = id;//Use
+	m_pot = new Pot(potSize);
 }
 
 /***********************************************************************************
@@ -27,6 +27,8 @@ Player::~Player()
     
     //Clears the handList by setting its size to 0
     m_handList.clear();
+
+	delete m_pot;
 }
 
 /***********************************************************************************
@@ -104,4 +106,133 @@ void Player::DumpHands()
 {
     //Clears a players handList
     m_handList.clear();
+}
+
+bool Player::HasBlackJack()
+{
+	for(int i = 0; i < m_handList.size(); i++)
+	{
+		if(m_handList[i]->SumHand() == 21)
+			return true;
+	}
+
+	return false;
+}
+
+void Player::PrintPot()
+{
+	m_pot->PrintPot();
+}
+
+bool Player::PlaceBet(int betAmount)
+{
+	return m_pot->PlaceBet(betAmount);
+}
+
+void Player::DoubleDown()
+{
+	bool valid = false;
+
+	do{
+		std::string option;
+
+		std::cout << "Player" << m_playerID << " would you like to double down? (y/n): ";
+		std::getline(std::cin, option);
+
+		if(tolower(option[0]) == 'y')
+		{
+			m_pot->DoubleDown();
+			valid = true;
+		}else if(tolower(option[0] == 'n'))
+		{
+			valid = true;
+		}else
+		{
+			std::cout << "Not a valid option, try again.\n";
+		}
+
+	}while(!valid);
+}
+
+void Player::BuyInsurance()
+{
+	bool valid = false;
+	bool bFail;
+
+	do{
+		std::string option;
+
+		std::cout << "Player" << m_playerID << " would you like to buy insurance? (y/n): ";
+		std::getline(std::cin, option);
+
+		if(tolower(option[0]) == 'y')
+		{
+			int bet;
+			
+			do {
+				std::cout << "Player" << m_playerID << " please enter your insurance bet> ";
+				std::cin >> bet;
+				bFail = std::cin.fail();
+				if(bFail) 
+					std::cout << "Not a valid option, try again.\n";
+				std::cin.clear();
+				std::cin.ignore(256, '\n');
+			}while(bFail);
+
+			m_pot->BuyInsurance(bet);
+
+			valid = true;
+		}else if(tolower(option[0] == 'n'))
+		{
+			valid = true;
+		}else
+		{
+			std::cout << "Not a valid option, try again.\n";
+		}
+
+	}while(!valid);
+}
+
+void Player::AddWinnings(bool blackJack)
+{
+	m_pot->AddWinnings(blackJack);
+}
+
+void Player::ResetBets()
+{
+	if(m_pot->ResetBets())
+	{
+		std::cout << "\nPlayer" << m_playerID << " you have run out of chips. Your pot has been reset to the initial amount.";
+	}
+}
+
+bool Player::CanDoubleDown()
+{
+	return m_pot->CanDoubleDown();
+}
+
+bool Player::CanBuyInsur()
+{
+	return m_pot->CanBuyInsur();
+}
+
+void Player::PushWinnings()
+{
+	m_pot->PushWinnings();
+}
+
+int Player::AcePos(int index)
+{
+	return m_handList[index]->AcePos();
+}
+
+int Player::BlackjackPos()
+{
+	for(int i = 0; i < m_handList.size(); i++)
+	{
+		if(m_handList[i]->HasBlackjack())
+			return i;
+	}
+
+	return -1;
 }
