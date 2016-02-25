@@ -7,6 +7,18 @@
 #include "Player.h"
 
 
+
+bool Board::DealerHasAce()
+{
+	
+	if( dynamic_cast<Ace*>(m_players(0)->m_hand(0)))
+		return true
+	else 
+	{
+		return false
+	}
+}
+
 /***********************************************************************************
  * Purpose: Constructor for Board
  * In: Takes a number of players, number of Decks, and a game name
