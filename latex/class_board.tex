@@ -1,0 +1,85 @@
+\hypertarget{class_board}{}\section{Board Class Reference}
+\label{class_board}\index{Board@{Board}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Board} (int, int, char $\ast$)\hypertarget{class_board_ab9949f9a0330cab98490356319493b6d}{}\label{class_board_ab9949f9a0330cab98490356319493b6d}
+
+\item 
+\hyperlink{class_deck}{Deck} $\ast$ {\bfseries Make\+Game\+Deck} ()\hypertarget{class_board_a104f1b3d520ce28a2c8000979710ef1d}{}\label{class_board_a104f1b3d520ce28a2c8000979710ef1d}
+
+\item 
+void {\bfseries Deal\+Starting\+Hands} ()\hypertarget{class_board_a7a70fb73a8b8c638a3f93cf35f6a1e0a}{}\label{class_board_a7a70fb73a8b8c638a3f93cf35f6a1e0a}
+
+\item 
+\hyperlink{class_hand}{Hand} $\ast$ {\bfseries Make\+Starting\+Hand} ()\hypertarget{class_board_aaeb185da77be58edd10130b45a2852af}{}\label{class_board_aaeb185da77be58edd10130b45a2852af}
+
+\item 
+void {\bfseries Deal\+Card} (int, int)\hypertarget{class_board_ab9bf3b49f366c7b704d07688a6974078}{}\label{class_board_ab9bf3b49f366c7b704d07688a6974078}
+
+\item 
+void {\bfseries Split\+Hand} (\hyperlink{class_player}{Player} $\ast$, int)\hypertarget{class_board_af5fd0572e836460a3dbaca00928b89d7}{}\label{class_board_af5fd0572e836460a3dbaca00928b89d7}
+
+\item 
+void {\bfseries Print\+All\+Players} ()\hypertarget{class_board_aeb20716c3439b374c21bc7875e3fd92a}{}\label{class_board_aeb20716c3439b374c21bc7875e3fd92a}
+
+\item 
+void {\bfseries Print\+Dealer} (bool)\hypertarget{class_board_abb4069cf818d0f69e45a143b8200653d}{}\label{class_board_abb4069cf818d0f69e45a143b8200653d}
+
+\item 
+void {\bfseries Play\+Hands} (\hyperlink{class_player}{Player} $\ast$)\hypertarget{class_board_a97d21d0a6e7d0c298fb4188f3db01336}{}\label{class_board_a97d21d0a6e7d0c298fb4188f3db01336}
+
+\item 
+void {\bfseries Check\+Split} (\hyperlink{class_player}{Player} $\ast$)\hypertarget{class_board_a2c172c3d95827ebb463119ebf02beeaf}{}\label{class_board_a2c172c3d95827ebb463119ebf02beeaf}
+
+\item 
+void {\bfseries Clear\+Board} ()\hypertarget{class_board_aaab572b0a79a18e024aa70c9415a3c10}{}\label{class_board_aaab572b0a79a18e024aa70c9415a3c10}
+
+\item 
+bool {\bfseries Start\+Game} ()\hypertarget{class_board_adaecf6c1a1d833fd3038b91adf3ebc80}{}\label{class_board_adaecf6c1a1d833fd3038b91adf3ebc80}
+
+\item 
+void {\bfseries End\+Game} ()\hypertarget{class_board_a853016ae9afa3ffaaf7e881833f5ff2a}{}\label{class_board_a853016ae9afa3ffaaf7e881833f5ff2a}
+
+\item 
+void {\bfseries Start\+Round} ()\hypertarget{class_board_a1955daeb9befd1046a89135b8ec13a72}{}\label{class_board_a1955daeb9befd1046a89135b8ec13a72}
+
+\item 
+void {\bfseries Play\+Dealer} ()\hypertarget{class_board_ac15eb2363c6f318651511279b3470b55}{}\label{class_board_ac15eb2363c6f318651511279b3470b55}
+
+\item 
+void {\bfseries Print\+Winners} ()\hypertarget{class_board_a7c157ee7f34fc9d926b3dcf6e3f622ae}{}\label{class_board_a7c157ee7f34fc9d926b3dcf6e3f622ae}
+
+\item 
+void {\bfseries Check\+Deck} ()\hypertarget{class_board_ab4dd449a0bd9b44ba3cb05aee3d2671f}{}\label{class_board_ab4dd449a0bd9b44ba3cb05aee3d2671f}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_deck}{Deck} $\ast$ {\bfseries m\+\_\+game\+Deck}\hypertarget{class_board_ada80a0972dfb2b375ad2eb511fd279a8}{}\label{class_board_ada80a0972dfb2b375ad2eb511fd279a8}
+
+\item 
+std\+::string {\bfseries m\+\_\+game\+Name}\hypertarget{class_board_aa121c9783dc8594d62d7029d952f13aa}{}\label{class_board_aa121c9783dc8594d62d7029d952f13aa}
+
+\item 
+int {\bfseries m\+\_\+n\+Players}\hypertarget{class_board_a97a72d923bd0e2700f4b14a7310f9654}{}\label{class_board_a97a72d923bd0e2700f4b14a7310f9654}
+
+\item 
+int {\bfseries m\+\_\+n\+Decks}\hypertarget{class_board_a5e1be4593464a9cce5686f1e270336b3}{}\label{class_board_a5e1be4593464a9cce5686f1e270336b3}
+
+\item 
+std\+::map$<$ int, \hyperlink{class_player}{Player} $\ast$ $>$ {\bfseries m\+\_\+players}\hypertarget{class_board_a1f6a9b7c28344b393ec4e262a7869259}{}\label{class_board_a1f6a9b7c28344b393ec4e262a7869259}
+
+\item 
+int {\bfseries m\+\_\+option}\hypertarget{class_board_a49016c4ad23c494dcae6147aa9d6f975}{}\label{class_board_a49016c4ad23c494dcae6147aa9d6f975}
+
+\item 
+bool {\bfseries m\+\_\+play}\hypertarget{class_board_ada2cc1a54947326ba7560ab113295c06}{}\label{class_board_ada2cc1a54947326ba7560ab113295c06}
+
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Board.\+h\end{DoxyCompactItemize}
