@@ -308,8 +308,10 @@ void Board::StartRound()
 
 	if(m_players[0]->AcePos(0) == 0)
 		OfferInsurance();
+	if(DealerHasBJ())
+		OfferSurrender();
     
-    for(int i = 1; i < m_players.size(); i++)
+	for(int i = 1; i < m_players.size(); i++)
     {
 		if(!(m_players[i]->m_bSurrender))
 		{
@@ -364,7 +366,8 @@ void Board::GetPlayerBets()
 ***********************************************************************************/
 void Board::RewardPlayers()
 {
-	for(int i = 1; i < m_roundWinners.size(); i++)
+	std::cout << "sizeof " << m_roundWinners.size() << std::endl;
+	for(int i = 0; i < m_roundWinners.size(); i++)
 	{
 		if(m_bPush)
 			m_roundWinners[i]->PushWinnings();
@@ -495,13 +498,14 @@ void Board::PrintWinners()
                     //and flip bool for dWin to false since dealer lost
                     if(playerSum < 22)
                     {
+						m_roundWinners.push_back(m_players[i]);
                         std::cout << " Player " << m_players[i]->m_playerID;
                         std::cout << "(" << playerSum << ")";
                         dWin = false;//dWin used either here
                         break;//Break out of checking this player
                     }
                 }else if(dSum < playerSum && playerSum < 22){
-                    
+					m_roundWinners.push_back(m_players[i]);
                     std::cout << " Player " << m_players[i]->m_playerID;
                     std::cout << "(" << playerSum << ")";
                     dWin = false;//Or dWin used here for the first
@@ -525,8 +529,10 @@ void Board::PrintWinners()
             {
                 playerSum = m_players[i]->m_handList[j]->SumHand();
                 
-                if(dSum == playerSum)
-                    std::cout << " Player" << m_players[i]->m_playerID;
+                if(dSum == playerSum) {
+					m_roundWinners.push_back(m_players[i]);
+				   	std::cout << " Player" << m_players[i]->m_playerID;
+				}
             }
         }
     }
@@ -639,6 +645,7 @@ void Board::AwardInsurance()
 			m_players[i]->m_pot->m_curInsurance *= 2;
 			m_players[i]->m_pot->m_curPot += m_players[i]->m_pot->m_curInsurance;
 			m_players[i]->m_pot->m_curInsurance = 0; //reset a players insurance
+			m_players[i]->m_bSurrender = true;
 		}
 	}	
 }
@@ -658,9 +665,8 @@ void Board::OfferInsurance()
 	{
 		//Players win insurance
 		AwardInsurance();
-	}else{
-		OfferSurrender();
 	}
+	
 }
 
 /***********************************************************************************
