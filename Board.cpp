@@ -198,6 +198,23 @@ bool Board::StartGame()
     while(m_bPlay)//Use
     {
         CheckDeck();
+		
+		/*
+		for(int i = 1; i < m_players.size(); i++)
+		{
+			
+			if(m_players[i]->m_playerChips <= 100)										
+			{
+				std::cout << "Help Menu" << std::endl;											
+				std::cout << "Looks like a player has less than 100 chips left, here is some advice for winning";
+				std::cout << std::endl;
+
+				std::cout << "The dealers upcard threat shows the following" << std::endl;
+
+				std::cout << "Ace is very dangerous, a loss is likely." << std::endl << "10 to king Big trouble. You'll be lucky to push." << std::endl << "9 You're a little uptight and maybe in trouble." << std::endl << "7 to 8 Breath a little easier. The dealer is beatable" << std::endl << "4 to 6 Looking good. You are in the driver's seat." << std::endl << "2 to 3 Wait and see. Be cautious" << std::endl;					  std::cout << ">";
+			}
+		}*/
+		
 		GameMenu();
         std::cin >> m_option; //Use
         
@@ -294,7 +311,10 @@ void Board::StartRound()
     
     for(int i = 1; i < m_players.size(); i++)
     {
-        PlayHands(m_players[i]);
+		if(!(m_players[i]->m_bSurrender))
+		{
+			PlayHands(m_players[i]);
+		}
     }
     
     PlayDealer();
