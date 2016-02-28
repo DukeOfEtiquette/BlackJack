@@ -50,6 +50,7 @@ void Pot::BuyInsurance(int insurAmount)
 
 void Pot::AddWinnings(bool blackjack)
 {
+	std::cout << "i got here " << std::endl;
 	m_curPot += m_curBet * (blackjack ? 2.5 : 2);
 }
 
