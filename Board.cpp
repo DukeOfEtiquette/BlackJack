@@ -183,7 +183,8 @@ void Board::GameMenu()
         std::cout << "\nPlease select an option below...\n";
         std::cout << "1) Start A Round\n";
         std::cout << "2) Pause game\n";
-        std::cout << "3) End Game\n";
+        std::cout << "3) Help menu\n";
+        std::cout << "4) End Game\n";
         std::cout << ">";
 }
 
@@ -199,28 +200,12 @@ bool Board::StartGame()
     {
         CheckDeck();
 		
-		/*
-		for(int i = 1; i < m_players.size(); i++)
-		{
-			
-			if(m_players[i]->m_playerChips <= 100)										
-			{
-				std::cout << "Help Menu" << std::endl;											
-				std::cout << "Looks like a player has less than 100 chips left, here is some advice for winning";
-				std::cout << std::endl;
-
-				std::cout << "The dealers upcard threat shows the following" << std::endl;
-
-				std::cout << "Ace is very dangerous, a loss is likely." << std::endl << "10 to king Big trouble. You'll be lucky to push." << std::endl << "9 You're a little uptight and maybe in trouble." << std::endl << "7 to 8 Breath a little easier. The dealer is beatable" << std::endl << "4 to 6 Looking good. You are in the driver's seat." << std::endl << "2 to 3 Wait and see. Be cautious" << std::endl;					  std::cout << ">";
-			}
-		}*/
-		
 		GameMenu();
         std::cin >> m_option; //Use
         
         //Clear stdin before starting loop again
 		std::cin.clear();
-        std::cin.ignore();
+        std::cin.ignore(256, '\n');
         
         //Validate user input
         if(!isnan(m_option))
@@ -233,6 +218,9 @@ bool Board::StartGame()
                 case 2://Return out of StartGame to main
                     return false;
                 case 3:
+                    HelpButton();
+                    break;
+                case 4:
                     return true;
                 default:
                     std::cout << "That option is not valid, try again...\n\n";
@@ -241,8 +229,10 @@ bool Board::StartGame()
         }
         
 		//Clear stdin before starting loop again
+       
         std::cin.clear();
         std::cin.ignore();
+        
     }
     return false;
 }
@@ -366,7 +356,6 @@ void Board::GetPlayerBets()
 ***********************************************************************************/
 void Board::RewardPlayers()
 {
-	std::cout << "sizeof " << m_roundWinners.size() << std::endl;
 	for(int i = 0; i < m_roundWinners.size(); i++)
 	{
 		if(m_bPush)
@@ -639,15 +628,9 @@ void Board::AwardInsurance()
 {
 	for(int i = 1; i < m_players.size(); i++) 
 	{
-		if(m_players[i]->m_pot->m_curInsurance != 0)
-		{
-			//award players their insurance
-			m_players[i]->m_pot->m_curInsurance *= 2;
-			m_players[i]->m_pot->m_curPot += m_players[i]->m_pot->m_curInsurance;
-			m_players[i]->m_pot->m_curInsurance = 0; //reset a players insurance
-			m_players[i]->m_bSurrender = true;
-		}
-	}	
+        //award players their insurance
+        m_players[i]->AwardInsurance();
+    }
 }
 
 /***********************************************************************************
@@ -682,19 +665,12 @@ void Board::OfferSurrender()
 		std::getline(std::cin, option);
 				
 		if(tolower(option[0]) == 'y')
-		{
-			m_players[i]->m_pot->m_curBet *= 0.5; 
-			m_players[i]->m_pot->m_curPot += m_players[i]->m_pot->m_curBet;
-			m_players[i]->m_bSurrender = true;
-		}else if(tolower(option[0]) == 'n'){
+            m_players[i]->Surrender();
+		else if(tolower(option[0]) == 'n'){
 			//continue as normal
 		}else{ 
 			std::cout << "Not a valid option, try again.\n";
 			i--;
-		}
-		if(m_players[i]->m_pot->m_curInsurance != 0)
-		{
-			m_players[i]->m_pot->m_curInsurance = 0;
 		}
 	}
 }
@@ -710,3 +686,19 @@ bool Board::DealerHasBJ()
 	else
 		return false;
 }
+
+void Board::HelpButton()
+{
+    std::cout << "Help Menu" << std::endl;
+    std::cout << "Here is some advice for winning" << std::endl;
+    std::cout << "The dealers upcard threat shows the following" << std::endl;
+    std::cout << "Ace is very dangerous, a loss is likely." << std::endl << "10 to king Big trouble. You'll be lucky to push."
+    << std::endl << "9 You're a little uptight and maybe in trouble." << std::endl << "7 to 8 Breath a little easier. The dealer is beatable"
+    << std::endl << "4 to 6 Looking good. You are in the driver's seat." << std::endl << "2 to 3 Wait and see. Be cautious" << std::endl;
+    std::cout << "press enter to continue" << std::endl;
+}
+
+
+
+
+

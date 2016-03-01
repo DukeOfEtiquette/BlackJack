@@ -280,3 +280,24 @@ int Player::BlackjackPos()
 
 	return -1;
 }
+
+
+void Player::AwardInsurance()
+{
+    if(m_pot->m_curInsurance != 0)
+    {
+        m_pot->AwardInsurance();
+        m_bSurrender = true;
+    }
+    
+}
+
+void Player::Surrender()
+{
+    m_pot->Surrender();
+    m_bSurrender = true;
+}
+
+
+
+

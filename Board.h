@@ -25,6 +25,7 @@ public:
     ~Board();
     
     Deck* MakeGameDeck();
+    void HelpButton();
     void GameMenu();
 	void OfferSurrender();
 	void AwardInsurance();

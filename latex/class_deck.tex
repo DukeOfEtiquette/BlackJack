@@ -3,28 +3,74 @@
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-void {\bfseries Initialize\+Set} ()\hypertarget{class_deck_a0fea69180a61a2bb810ca18698ebc119}{}\label{class_deck_a0fea69180a61a2bb810ca18698ebc119}
-
+void \hyperlink{class_deck_a0fea69180a61a2bb810ca18698ebc119}{Initialize\+Set} ()
 \item 
-void {\bfseries Shuffle} ()\hypertarget{class_deck_a1ed471063f40cb91c7e6786aa21737ef}{}\label{class_deck_a1ed471063f40cb91c7e6786aa21737ef}
-
+void \hyperlink{class_deck_a1ed471063f40cb91c7e6786aa21737ef}{Shuffle} ()
 \item 
-\hyperlink{class_card}{Card} $\ast$ {\bfseries Deal\+Card} ()\hypertarget{class_deck_af4e4938969948cb4a471655cc4da3c90}{}\label{class_deck_af4e4938969948cb4a471655cc4da3c90}
-
+\hyperlink{class_card}{Card} $\ast$ \hyperlink{class_deck_af4e4938969948cb4a471655cc4da3c90}{Deal\+Card} ()
 \item 
-{\bfseries Deck} (int)\hypertarget{class_deck_a5487610d44f13d27ef54c930e2bdadf9}{}\label{class_deck_a5487610d44f13d27ef54c930e2bdadf9}
-
+\hyperlink{class_deck_a5487610d44f13d27ef54c930e2bdadf9}{Deck} (int)
+\item 
+\hyperlink{class_deck_a7d1331cc558c302fdf44e5ae8aae1a95}{$\sim$\+Deck} ()
 \end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-std\+::vector$<$ \hyperlink{class_card}{Card} $\ast$ $>$ {\bfseries m\+\_\+deck}\hypertarget{class_deck_ac27728877c50e97028566f9cb774408b}{}\label{class_deck_ac27728877c50e97028566f9cb774408b}
-
+std\+::vector$<$ \hyperlink{class_card}{Card} $\ast$ $>$ \hyperlink{class_deck_ac27728877c50e97028566f9cb774408b}{m\+\_\+deck}
 \item 
-int {\bfseries m\+\_\+n\+Sets}\hypertarget{class_deck_af52c03d790a3182c7325d528839cd640}{}\label{class_deck_af52c03d790a3182c7325d528839cd640}
-
+int \hyperlink{class_deck_af52c03d790a3182c7325d528839cd640}{m\+\_\+n\+Sets}
 \end{DoxyCompactItemize}
 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Deck@{Deck}!Deck@{Deck}}
+\index{Deck@{Deck}!Deck@{Deck}}
+\subsubsection[{\texorpdfstring{Deck(int)}{Deck(int)}}]{\setlength{\rightskip}{0pt plus 5cm}Deck\+::\+Deck (
+\begin{DoxyParamCaption}
+\item[{int}]{sets}
+\end{DoxyParamCaption}
+)}\hypertarget{class_deck_a5487610d44f13d27ef54c930e2bdadf9}{}\label{class_deck_a5487610d44f13d27ef54c930e2bdadf9}
+Constructor for deck, derived from \hyperlink{class_card}{Card} \index{Deck@{Deck}!````~Deck@{$\sim$\+Deck}}
+\index{````~Deck@{$\sim$\+Deck}!Deck@{Deck}}
+\subsubsection[{\texorpdfstring{$\sim$\+Deck()}{~Deck()}}]{\setlength{\rightskip}{0pt plus 5cm}Deck\+::$\sim$\+Deck (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_deck_a7d1331cc558c302fdf44e5ae8aae1a95}{}\label{class_deck_a7d1331cc558c302fdf44e5ae8aae1a95}
+Destructor for deck 
+
+\subsection{Member Function Documentation}
+\index{Deck@{Deck}!Deal\+Card@{Deal\+Card}}
+\index{Deal\+Card@{Deal\+Card}!Deck@{Deck}}
+\subsubsection[{\texorpdfstring{Deal\+Card()}{DealCard()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Card} $\ast$ Deck\+::\+Deal\+Card (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_deck_af4e4938969948cb4a471655cc4da3c90}{}\label{class_deck_af4e4938969948cb4a471655cc4da3c90}
+A \hyperlink{class_card}{Card} will be popped off of the \hyperlink{class_deck}{Deck} and the method will return a pointer to that card \index{Deck@{Deck}!Initialize\+Set@{Initialize\+Set}}
+\index{Initialize\+Set@{Initialize\+Set}!Deck@{Deck}}
+\subsubsection[{\texorpdfstring{Initialize\+Set()}{InitializeSet()}}]{\setlength{\rightskip}{0pt plus 5cm}void Deck\+::\+Initialize\+Set (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_deck_a0fea69180a61a2bb810ca18698ebc119}{}\label{class_deck_a0fea69180a61a2bb810ca18698ebc119}
+A \hyperlink{class_deck}{Deck} of cards is created with 52 cards. \index{Deck@{Deck}!Shuffle@{Shuffle}}
+\index{Shuffle@{Shuffle}!Deck@{Deck}}
+\subsubsection[{\texorpdfstring{Shuffle()}{Shuffle()}}]{\setlength{\rightskip}{0pt plus 5cm}void Deck\+::\+Shuffle (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_deck_a1ed471063f40cb91c7e6786aa21737ef}{}\label{class_deck_a1ed471063f40cb91c7e6786aa21737ef}
+Shuffles a \hyperlink{class_deck}{Deck} seeded off of a random time 
+
+\subsection{Member Data Documentation}
+\index{Deck@{Deck}!m\+\_\+deck@{m\+\_\+deck}}
+\index{m\+\_\+deck@{m\+\_\+deck}!Deck@{Deck}}
+\subsubsection[{\texorpdfstring{m\+\_\+deck}{m_deck}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<${\bf Card}$\ast$$>$ Deck\+::m\+\_\+deck}\hypertarget{class_deck_ac27728877c50e97028566f9cb774408b}{}\label{class_deck_ac27728877c50e97028566f9cb774408b}
+A \hyperlink{class_deck}{Deck} is represented as a vector of cards \index{Deck@{Deck}!m\+\_\+n\+Sets@{m\+\_\+n\+Sets}}
+\index{m\+\_\+n\+Sets@{m\+\_\+n\+Sets}!Deck@{Deck}}
+\subsubsection[{\texorpdfstring{m\+\_\+n\+Sets}{m_nSets}}]{\setlength{\rightskip}{0pt plus 5cm}int Deck\+::m\+\_\+n\+Sets}\hypertarget{class_deck_af52c03d790a3182c7325d528839cd640}{}\label{class_deck_af52c03d790a3182c7325d528839cd640}
+integer variable to keep track of the number of decks 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

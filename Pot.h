@@ -11,6 +11,8 @@ public:
     int m_curPot;
     int m_curInsurance;
     
+    void Surrender();
+    void AwardInsurance();
     bool PlaceBet(int);
     void DoubleDown();
     void BuyInsurance(int);
