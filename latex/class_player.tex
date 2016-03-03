@@ -1,0 +1,89 @@
+\hypertarget{class_player}{}\section{Player Class Reference}
+\label{class_player}\index{Player@{Player}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Player} (int, int)\hypertarget{class_player_a6f57cdacb88f4c3c800c1fbf591ed28d}{}\label{class_player_a6f57cdacb88f4c3c800c1fbf591ed28d}
+
+\item 
+void {\bfseries Surrender} ()\hypertarget{class_player_af8c9588488fcfdbd0735506300576722}{}\label{class_player_af8c9588488fcfdbd0735506300576722}
+
+\item 
+void {\bfseries Split} (int index)\hypertarget{class_player_a3a627672714563333c44d83faf8a2696}{}\label{class_player_a3a627672714563333c44d83faf8a2696}
+
+\item 
+void {\bfseries Add\+Hand} (\hyperlink{class_hand}{Hand} $\ast$hand)\hypertarget{class_player_add15dd07cc4772d4509a49e31b04556b}{}\label{class_player_add15dd07cc4772d4509a49e31b04556b}
+
+\item 
+bool {\bfseries Print\+Hand} (int)\hypertarget{class_player_a2142881dd58bd5ac7a7ec75b958069e1}{}\label{class_player_a2142881dd58bd5ac7a7ec75b958069e1}
+
+\item 
+void {\bfseries Print\+Hands} ()\hypertarget{class_player_a31326f0143919f9d2412bf094f571a95}{}\label{class_player_a31326f0143919f9d2412bf094f571a95}
+
+\item 
+void {\bfseries Dump\+Hands} ()\hypertarget{class_player_a2b8128800c27146c8ecebbbf2d1f4ffa}{}\label{class_player_a2b8128800c27146c8ecebbbf2d1f4ffa}
+
+\item 
+bool {\bfseries Can\+Split} (int)\hypertarget{class_player_a228554349109ae4e44ee40209796bb16}{}\label{class_player_a228554349109ae4e44ee40209796bb16}
+
+\item 
+bool {\bfseries Has\+Black\+Jack} ()\hypertarget{class_player_ae7d44ce9ba3598f2e42ff3b8dbfa78a2}{}\label{class_player_ae7d44ce9ba3598f2e42ff3b8dbfa78a2}
+
+\item 
+void {\bfseries Award\+Insurance} ()\hypertarget{class_player_ab179fcfd238511fd52dd98a911483b7d}{}\label{class_player_ab179fcfd238511fd52dd98a911483b7d}
+
+\item 
+void {\bfseries Print\+Pot} ()\hypertarget{class_player_a1129e1688f9243b849a4707809d44d10}{}\label{class_player_a1129e1688f9243b849a4707809d44d10}
+
+\item 
+bool {\bfseries Place\+Bet} (int)\hypertarget{class_player_ac40c56a426208d1fd1a93d75830e8a88}{}\label{class_player_ac40c56a426208d1fd1a93d75830e8a88}
+
+\item 
+void {\bfseries Double\+Down} ()\hypertarget{class_player_aa9e61858c03da97d7f840935c69f2515}{}\label{class_player_aa9e61858c03da97d7f840935c69f2515}
+
+\item 
+void {\bfseries Buy\+Insurance} ()\hypertarget{class_player_ae1551ff1ab9b7421d9e1a2887c3bfc70}{}\label{class_player_ae1551ff1ab9b7421d9e1a2887c3bfc70}
+
+\item 
+void {\bfseries Add\+Winnings} (bool)\hypertarget{class_player_add0b1bdc9b4b8d0be111dc2ed42b23f3}{}\label{class_player_add0b1bdc9b4b8d0be111dc2ed42b23f3}
+
+\item 
+void {\bfseries Push\+Winnings} ()\hypertarget{class_player_a0b6e7be395b4974db2fe3875522d3966}{}\label{class_player_a0b6e7be395b4974db2fe3875522d3966}
+
+\item 
+void {\bfseries Reset\+Bets} ()\hypertarget{class_player_a250f1aa39f0bd26dd499a5708d400b56}{}\label{class_player_a250f1aa39f0bd26dd499a5708d400b56}
+
+\item 
+bool {\bfseries Can\+Double\+Down} ()\hypertarget{class_player_a38e44a9263556227594f509b3bbb6ed1}{}\label{class_player_a38e44a9263556227594f509b3bbb6ed1}
+
+\item 
+bool {\bfseries Can\+Buy\+Insur} ()\hypertarget{class_player_a5b2a2c6d52ef4d68043b649b94c1e260}{}\label{class_player_a5b2a2c6d52ef4d68043b649b94c1e260}
+
+\item 
+int {\bfseries Ace\+Pos} (int)\hypertarget{class_player_abfd18db1c47281948161454cf06eabc1}{}\label{class_player_abfd18db1c47281948161454cf06eabc1}
+
+\item 
+int {\bfseries Blackjack\+Pos} ()\hypertarget{class_player_a97c9f070e70e47691b0bdda9993040f2}{}\label{class_player_a97c9f070e70e47691b0bdda9993040f2}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \hyperlink{class_hand}{Hand} $\ast$ $>$ {\bfseries m\+\_\+hand\+List}\hypertarget{class_player_ac4ef2a880d80f353a4a96391516d5629}{}\label{class_player_ac4ef2a880d80f353a4a96391516d5629}
+
+\item 
+int {\bfseries m\+\_\+player\+ID}\hypertarget{class_player_a82caa9879f5233e641dda10a41d9186f}{}\label{class_player_a82caa9879f5233e641dda10a41d9186f}
+
+\item 
+\hyperlink{class_pot}{Pot} $\ast$ {\bfseries m\+\_\+pot}\hypertarget{class_player_a16264ed3055966735e372567d594d538}{}\label{class_player_a16264ed3055966735e372567d594d538}
+
+\item 
+bool {\bfseries m\+\_\+b\+Surrender}\hypertarget{class_player_ae7736ed56c6057fbaf60330a110dd818}{}\label{class_player_ae7736ed56c6057fbaf60330a110dd818}
+
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Player.\+h\item 
+Player.\+cpp\end{DoxyCompactItemize}

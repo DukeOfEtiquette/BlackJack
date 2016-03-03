@@ -8,6 +8,7 @@
 class Deck
 {
 public:
+<<<<<<< HEAD
 
 /*! \var std::vector<Card*> m_deck
  *  \brief Contains all the cards in the game deck
@@ -53,14 +54,37 @@ public:
  *  The int passed to the constructor is stored in a member variable for later use
  *  in InitializeSet() once m_deck is reduced below 50% of it's starting size
  */
+=======
+    /*!
+     * A Deck is represented as a vector of cards
+     */
+>>>>>>> pot
 	std::vector<Card*> m_deck;
-	void InitializeSet();
-	void Shuffle();
+    /*!
+     * A Deck of cards is created with 52 cards.
+     */
+    void InitializeSet();
+    /*!
+     * Shuffles a Deck seeded off of a random time
+     */
+    void Shuffle();
+    /*!
+     * A Card will be popped off of the Deck and the method will return a pointer
+     *		to that card
+     */
 	Card* DealCard();
-	Deck(int);
+    /*!
+     * Constructor for deck, derived from Card
+     */
+    Deck(int);
+    /*!
+     * Destructor for deck
+     */
 	~Deck();
+    /*!
+     * integer variable to keep track of the number of decks
+     */
 	int m_nSets;
-
 };
 
 

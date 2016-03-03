@@ -16,6 +16,7 @@ public:
 	Pot* m_pot;
 	bool m_bSurrender;
 	
+    void Surrender();
 	void Split(int index);
 	void AddHand(Hand* hand);
 	bool PrintHand(int);
@@ -23,6 +24,7 @@ public:
 	void DumpHands();
 	bool CanSplit(int);
 	bool HasBlackJack();
+    void AwardInsurance();
 
 	void PrintPot();
 	bool PlaceBet(int);

@@ -50,7 +50,6 @@ void Pot::BuyInsurance(int insurAmount)
 
 void Pot::AddWinnings(bool blackjack)
 {
-	std::cout << "i got here " << std::endl;
 	m_curPot += m_curBet * (blackjack ? 2.5 : 2);
 }
 
@@ -91,3 +90,18 @@ void Pot::PushWinnings()
 {
 	m_curPot += m_curBet;
 }
+
+void Pot::AwardInsurance()
+{
+    m_curInsurance *= 2;
+    m_curPot += m_curInsurance;
+    m_curInsurance = 0; //reset a players insurance
+}
+
+void Pot::Surrender()
+{
+    m_curBet *= 0.5;
+    m_curPot += m_curBet;
+}
+
+
