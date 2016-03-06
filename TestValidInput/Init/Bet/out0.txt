@@ -1,0 +1,9 @@
+Test0: Init Pot
+
+100:successfully initialized
+4:successfully initialized
+1:successfully initialized
+80:successfully initialized
+-19:Invalid pot number passed
+0:Invalid pot number passed
+3:successfully initialized

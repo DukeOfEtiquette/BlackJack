@@ -1,0 +1,16 @@
+Test1: Player Split
+
+Would you like to split this hand (y/n): 
+yes:split successful
+Would you like to split this hand (y/n): 
+y:split successful
+Would you like to split this hand (y/n): 
+YESIDO:split successful
+Would you like to split this hand (y/n): 
+no way:chose not to split
+Would you like to split this hand (y/n): 
+411:Not a valid option, try again
+Would you like to split this hand (y/n): 
+n:chose not to split
+Would you like to split this hand (y/n): 
+NOOOOAOSDF:chose not to split

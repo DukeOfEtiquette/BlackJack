@@ -1,0 +1,9 @@
+Test0: Init Players
+
+100:successfully initialized
+4:successfully initialized
+1:Invalid number of players or decks passed
+80:successfully initialized
+-19:Invalid number of players or decks passed
+0:Invalid number of players or decks passed
+3:successfully initialized

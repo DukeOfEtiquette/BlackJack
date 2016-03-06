@@ -1,0 +1,10 @@
+Test1: Player Hit or Stand
+
+Player  would you like to (h)it, (s)tand for Hand ?>hit:You were dealt a card
+Player  would you like to (h)it, (s)tand for Hand ?>h:You were dealt a card
+Player  would you like to (h)it, (s)tand for Hand ?>lacoocoo:Not valid input
+Player  would you like to (h)it, (s)tand for Hand ?>Hitme:You were dealt a card
+Player  would you like to (h)it, (s)tand for Hand ?>stand all day:You stood
+Player  would you like to (h)it, (s)tand for Hand ?>s:You stood
+Player  would you like to (h)it, (s)tand for Hand ?>Standing:You stood
+Player  would you like to (h)it, (s)tand for Hand ?>11d6:Not valid input

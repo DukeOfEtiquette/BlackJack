@@ -1,0 +1,11 @@
+Test1: Player Insurance
+
+Player would you like to insurance? (y/n): yes:You bought insurance
+Player would you like to insurance? (y/n): y:You bought insurance
+Player would you like to insurance? (y/n): YESSSSSS:You bought insurance
+Player would you like to insurance? (y/n): lacoocoo bird:Not a valid option, try again
+Player would you like to insurance? (y/n): everyday:Not a valid option, try again
+Player would you like to insurance? (y/n): n:You did not buy insurance
+Player would you like to insurance? (y/n): no:You did not buy insurance
+Player would you like to insurance? (y/n): NOOOOOOOO:You did not buy insurance
+Player would you like to insurance? (y/n): 11d6:Not a valid option, try again

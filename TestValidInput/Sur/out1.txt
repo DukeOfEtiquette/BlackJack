@@ -1,0 +1,11 @@
+Test1: Player Surrender
+
+Player would you like to surrender? (y/n): yes:You surrendered
+Player would you like to surrender? (y/n): y:You surrendered
+Player would you like to surrender? (y/n): YESSSSS:You surrendered
+Player would you like to surrender? (y/n): lacoocoo bird:Not a valid option, try again
+Player would you like to surrender? (y/n): everyday:Not a valid option, try again
+Player would you like to surrender? (y/n): n:You did not surrender
+Player would you like to surrender? (y/n): no:You did not surrender
+Player would you like to surrender? (y/n): NOOOOOO:You did not surrender
+Player would you like to surrender? (y/n): 11d6:Not a valid option, try again

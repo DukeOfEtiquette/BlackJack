@@ -1,0 +1,17 @@
+Test1: Player Double Down
+
+Player would you like to double down? (y/n): yes:You doubled down
+Player would you like to double down? (y/n): y:You doubled down
+Player would you like to double down? (y/n): lacoocoo bird:Not a valid option, try again
+Player would you like to double down? (y/n): everyday:Not a valid option, try again
+Player would you like to double down? (y/n): n:You did not doubled down
+Player would you like to double down? (y/n): Y:You doubled down
+Player would you like to double down? (y/n): Yes:You doubled down
+Player would you like to double down? (y/n): N:You did not doubled down
+Player would you like to double down? (y/n): NO:You did not doubled down
+Player would you like to double down? (y/n): YEYSHJKLAJ:You doubled down
+Player would you like to double down? (y/n): NOOYOYO:You did not doubled down
+Player would you like to double down? (y/n): noasdyf:You did not doubled down
+Player would you like to double down? (y/n): ndksfudyiuyds:You did not doubled down
+Player would you like to double down? (y/n): no:You did not doubled down
+Player would you like to double down? (y/n): 11d6:Not a valid option, try again

@@ -1,0 +1,14 @@
+Test1: Player Bet
+
+Player please enter your bet
+50:Player has bet
+Player please enter your bet
+600:Not a valid option, try again
+Player please enter your bet
+20:Player has bet
+Player please enter your bet
+-200:Not a valid option, try again
+Player please enter your bet
+0:Not a valid option, try again
+Player please enter your bet
+2:Player has bet
